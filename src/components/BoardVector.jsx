@@ -1,16 +1,22 @@
 import React from 'react';
+import { LAYOUT_CONSTANTS } from '../utils/boardCoordinates';
 
 export const BoardVector = ({ holeCoords, switches, toggleSwitch, powerOn, togglePower, leds }) => {
+  const slabHeight = LAYOUT_CONSTANTS.slabHeight || 980;
+  const trayHeight = slabHeight + 110;
+  const trayStartY = LAYOUT_CONSTANTS.trayStartY || 680;
+  const slabStartY = trayStartY + 60;
+
   return (
     <g id="pure-svg-board-layer">
-      {/* SVG Defs: Diagonal Hatch Pattern for Inactive Sections */}
+      {/* Hatch Pattern */}
       <defs>
         <pattern id="diagonal-hatch" width="20" height="20" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="0" x2="0" y2="20" stroke="#27272a" strokeWidth="4" />
+          <line x1="0" y1="0" x2="0" y2="20" stroke="#3f3f46" strokeWidth="5" />
         </pattern>
       </defs>
 
-      {/* 1. Main Outer Box & Wooden Accents */}
+      {/* Main Outer Box & Wood Accents */}
       <rect x="0" y="0" width="2423" height="2160" rx="12" fill="#121214" stroke="#27272a" strokeWidth="8" />
       <rect x="0" y="0" width="50" height="2160" fill="#78350f" rx="4" />
       <rect x="2373" y="0" width="50" height="2160" fill="#78350f" rx="4" />
@@ -18,7 +24,7 @@ export const BoardVector = ({ holeCoords, switches, toggleSwitch, powerOn, toggl
       {/* --- HEADER BAR --- */}
       <rect x="80" y="40" width="2263" height="170" rx="8" fill="#09090b" stroke="#fbbf24" strokeWidth="2" />
       
-      {/* Power Toggle Switch (Top-Left) */}
+      {/* Power Toggle Switch */}
       <g className="cursor-pointer" onClick={togglePower}>
         <rect x="100" y="55" width="200" height="140" rx="6" fill="#18181b" stroke="#3f3f46" strokeWidth="2" />
         <text x="135" y="85" fill="#a1a1aa" fontSize="16" fontWeight="bold">POWER</text>
@@ -31,24 +37,41 @@ export const BoardVector = ({ holeCoords, switches, toggleSwitch, powerOn, toggl
       <text x="340" y="115" fill="#fbbf24" fontSize="52" fontWeight="bold">SB-700</text>
       <text x="340" y="160" fill="#e4e4e7" fontSize="26" letterSpacing="4">PORTABLE ANALOG/DIGITAL LABORATORY</text>
 
-      {/* --- CENTRAL BREADBOARD CHASSIS --- */}
-      <rect x="650" y="240" width="1120" height="1430" rx="10" fill="#1e1e22" stroke="#fbbf24" strokeWidth="2" />
-      
-      {/* White Plastic Breadboard Body */}
-      <rect x="680" y="660" width="1060" height="560" rx="6" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="3" />
-      
-      {/* IC Center Division Channel */}
-      <rect x="680" y="930" width="1060" height="20" fill="#cbd5e1" />
+      {/* --- CENTRAL UNIFIED BREADBOARD ARRAY (trayStartY = 680) --- */}
+      {/* Mounting Tray */}
+      <rect x="640" y={trayStartY} width="1140" height={trayHeight} rx="24" fill="#1e1e22" stroke="#64748b" strokeWidth="6" />
 
-      {/* Rail Accent Lines */}
-      <line x1="700" y1={700} x2="1720" y2={700} stroke="#ef4444" strokeWidth="3" />
-      <line x1="700" y1={725} x2="1720" y2={725} stroke="#3b82f6" strokeWidth="3" />
-      <line x1="700" y1={1140} x2="1720" y2={1140} stroke="#ef4444" strokeWidth="3" />
-      <line x1="700" y1={1165} x2="1720" y2={1165} stroke="#3b82f6" strokeWidth="3" />
+      {/* Tray Corner Screws */}
+      {[
+        { x: 680, y: trayStartY + 30 },
+        { x: 1740, y: trayStartY + 30 },
+        { x: 680, y: trayStartY + trayHeight - 30 },
+        { x: 1740, y: trayStartY + trayHeight - 30 }
+      ].map((screw, i) => (
+        <g key={`screw-${i}`}>
+          <circle cx={screw.x} cy={screw.y} r="14" fill="#64748b" stroke="#334155" strokeWidth="2" />
+          <line x1={screw.x - 8} y1={screw.y - 8} x2={screw.x + 8} y2={screw.y + 8} stroke="#1e293b" strokeWidth="3" />
+          <line x1={screw.x + 8} y1={screw.y - 8} x2={screw.x - 8} y2={screw.y + 8} stroke="#1e293b" strokeWidth="3" />
+        </g>
+      ))}
 
-      {/* --- INACTIVE / DISABLED MODULES (YELLOW BORDER + GRAY HATCH) --- */}
-      
-      {/* 1. Logic Probe (Inactive) */}
+      {/* SINGLE UNIFIED WHITE PLASTIC SLAB */}
+      <rect x="665" y={slabStartY} width="1090" height={slabHeight} rx="10" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="4" />
+
+      {/* Dynamic DIP Center Channels */}
+      {LAYOUT_CONSTANTS.dipChannels.map((chanY, idx) => (
+        <rect key={`dip-chan-${idx}`} x="665" y={chanY - 7} width="1090" height="14" fill="#cbd5e1" />
+      ))}
+
+      {/* Dynamic Red & Blue Power Rail Accent Lines */}
+      {LAYOUT_CONSTANTS.powerRails.map((rail, idx) => (
+        <g key={`rail-pair-${idx}`}>
+          <line x1="680" y1={rail.vccY} x2="1740" y2={rail.vccY} stroke="#ef4444" strokeWidth="3" />
+          <line x1="680" y1={rail.gndY} x2="1740" y2={rail.gndY} stroke="#3b82f6" strokeWidth="3" />
+        </g>
+      ))}
+
+      {/* --- INACTIVE MODULES --- */}
       <g>
         <rect x="80" y="690" width="540" height="420" rx="8" fill="#18181b" stroke="#fbbf24" strokeWidth="2" />
         <rect x="80" y="690" width="540" height="420" rx="8" fill="url(#diagonal-hatch)" opacity="0.6" />
@@ -56,7 +79,6 @@ export const BoardVector = ({ holeCoords, switches, toggleSwitch, powerOn, toggl
         <text x="110" y="727" fill="#fbbf24" fontSize="18" fontWeight="bold">3 STATE LOGIC PROBE</text>
       </g>
 
-      {/* 2. Function Generator (Inactive) */}
       <g>
         <rect x="80" y="1130" width="540" height="540" rx="8" fill="#18181b" stroke="#fbbf24" strokeWidth="2" />
         <rect x="80" y="1130" width="540" height="540" rx="8" fill="url(#diagonal-hatch)" opacity="0.6" />
@@ -64,7 +86,6 @@ export const BoardVector = ({ holeCoords, switches, toggleSwitch, powerOn, toggl
         <text x="110" y="1167" fill="#fbbf24" fontSize="18" fontWeight="bold">FUNCTION GENERATOR</text>
       </g>
 
-      {/* 3. Current Meter & DVM (Inactive) */}
       <g>
         <rect x="1790" y="690" width="550" height="980" rx="8" fill="#18181b" stroke="#fbbf24" strokeWidth="2" />
         <rect x="1790" y="690" width="550" height="980" rx="8" fill="url(#diagonal-hatch)" opacity="0.6" />
@@ -90,7 +111,6 @@ export const BoardVector = ({ holeCoords, switches, toggleSwitch, powerOn, toggl
 
         return (
           <g key={`led-active-${i}`}>
-            {/* LED Bulb */}
             <circle cx={ledX} cy="330" r="18" fill={isLit ? "#ef4444" : "#27272a"} stroke={isLit ? "#fca5a5" : "#52525b"} strokeWidth="3" />
             {isLit && <circle cx={ledX} cy="330" r="28" fill="#ef4444" opacity="0.4" className="animate-pulse" />}
             <text x={ledX - 6} y={300} fill="#a1a1aa" fontSize="16" fontWeight="bold">{i}</text>
@@ -109,10 +129,7 @@ export const BoardVector = ({ holeCoords, switches, toggleSwitch, powerOn, toggl
 
         return (
           <g key={`sw-active-${i}`} className="cursor-pointer" onClick={() => toggleSwitch(i)}>
-            {/* Switch Track Slot */}
             <rect x={switchX - 22} y={switchY - 50} width="44" height="100" rx="6" fill="#18181b" stroke="#3f3f46" strokeWidth="2" />
-            
-            {/* Switch Handle Lever */}
             <rect
               x={switchX - 18}
               y={isOn ? switchY - 42 : switchY + 2}
@@ -128,7 +145,7 @@ export const BoardVector = ({ holeCoords, switches, toggleSwitch, powerOn, toggl
         );
       })}
 
-      {/* --- RENDER PERFECTLY ALIGNED PIN SOCKET HOLES --- */}
+      {/* --- RENDER ALL SOCKET HOLES --- */}
       {Object.entries(holeCoords).map(([holeId, coord]) => {
         const isRail = coord.type === 'rail';
         const isPower = coord.type === 'power';
