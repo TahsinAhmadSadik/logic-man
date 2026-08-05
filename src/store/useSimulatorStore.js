@@ -78,8 +78,19 @@ export const useSimulatorStore = create((set, get) => ({
   handleHoleClick: (holeId) => {
     const { wireStartHole, selectedColor, wires, saveHistory, draggingEndpoint } = get();
 
-    // 1. If currently dragging an existing wire's endpoint:
+    // Helper: Check if a hole already has a wire endpoint connected
+    const isHoleOccupied = (hId, ignoreWireId = null) => {
+      return wires.some(w => 
+        w.id !== ignoreWireId && (w.startHole === hId || w.endHole === hId)
+      );
+    };
+
+    // Handling Endpoint Dragging
     if (draggingEndpoint) {
+      if (isHoleOccupied(holeId, draggingEndpoint.wireId)) {
+        alert("This hole already has a wire connected!");
+        return;
+      }
       saveHistory();
       const updatedWires = wires.map(w => {
         if (w.id === draggingEndpoint.wireId) {
@@ -90,18 +101,25 @@ export const useSimulatorStore = create((set, get) => ({
         }
         return w;
       });
-      set({ wires: updatedWires, draggingEndpoint: null, selectedWireId: draggingEndpoint.wireId });
+      set({ wires: updatedWires, draggingEndpoint: null });
       return;
     }
 
-    // 2. Select first hole to start drawing a wire:
+    // First Hole Clicked
     if (!wireStartHole) {
-      set({ wireStartHole: holeId, selectedWireId: null });
+      if (isHoleOccupied(holeId)) {
+        alert("This hole already has a wire connected!");
+        return;
+      }
+      set({ wireStartHole: holeId });
       return;
     }
 
-    // 3. Select second hole to complete wire:
+    // Second Hole Clicked (Complete Wire)
     if (wireStartHole !== holeId) {
+      if (isHoleOccupied(holeId)) {
+        return;
+      }
       saveHistory();
       const newWire = {
         id: `wire-${Date.now()}`,
@@ -109,9 +127,9 @@ export const useSimulatorStore = create((set, get) => ({
         endHole: holeId,
         color: selectedColor
       };
-      set({ wires: [...wires, newWire], wireStartHole: null, selectedWireId: newWire.id });
+      set({ wires: [...wires, newWire], wireStartHole: null });
     } else {
-      set({ wireStartHole: null }); // Cancel selection if double clicked
+      set({ wireStartHole: null }); // Cancel selection if clicked same hole twice
     }
   },
 
