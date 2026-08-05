@@ -8,6 +8,7 @@ import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 export const HoleCanvas = () => {
   const holeCoords = useMemo(() => generateBoardCoordinates(), []);
   const containerRef = useRef(null);
+  const boardRef = useRef(null);
 
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -50,7 +51,11 @@ export const HoleCanvas = () => {
   };
 
   const handleMouseDown = (e) => {
-    if (e.button === 1 || e.button === 2 || e.altKey) {
+    // Enable panning on Left-Click (button 0), Middle-Click (button 1), Right-Click (button 2), or Alt-Key
+    if (e.button === 0 || e.button === 1 || e.button === 2 || e.altKey) {
+      // Don't interrupt if clicking direct UI controls or interactive holes
+      if (e.target.closest('.cursor-pointer')) return;
+
       e.preventDefault();
       setIsPanning(true);
       setStartPan({ x: e.clientX - position.x, y: e.clientY - position.y });
@@ -59,13 +64,24 @@ export const HoleCanvas = () => {
 
   const handleMouseMove = (e) => {
     if (!isPanning) return;
-    setPosition({
-      x: e.clientX - startPan.x,
-      y: e.clientY - startPan.y
-    });
+    const dx = e.clientX - startPan.x;
+    const dy = e.clientY - startPan.y;
+
+    // Direct DOM manipulation for butter-smooth panning
+    if (boardRef.current) {
+      boardRef.current.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
+    }
   };
 
-  const handleMouseUp = () => setIsPanning(false);
+  const handleMouseUp = (e) => {
+    if (isPanning) {
+      setIsPanning(false);
+      setPosition({
+        x: e.clientX - startPan.x,
+        y: e.clientY - startPan.y
+      });
+    }
+  };
 
   const resetZoom = () => {
     setScale(1);
@@ -75,14 +91,16 @@ export const HoleCanvas = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing select-none bg-zinc-950 p-2"
+      className={`relative w-full h-full flex items-center justify-center overflow-hidden select-none bg-zinc-950 p-2 ${
+        isPanning ? 'cursor-grabbing' : 'cursor-grab'
+      }`}
       onWheel={handleWheel}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onContextMenu={(e) => e.preventDefault()}
     >
-      {/* Zoom Control Panel */}
+      {/* Zoom Controls */}
       <div className="absolute bottom-6 right-6 z-40 flex items-center gap-1 bg-zinc-900/90 border border-zinc-800 p-1.5 rounded-lg shadow-xl text-zinc-300 backdrop-blur">
         <button onClick={() => setScale((s) => Math.min(s * 1.25, 8.0))} className="p-2 hover:bg-zinc-800 rounded-md">
           <ZoomIn size={18} />
@@ -98,8 +116,9 @@ export const HoleCanvas = () => {
         </span>
       </div>
 
-      {/* Pure Vector Canvas Viewport */}
+      {/* Transform Board Container */}
       <div
+        ref={boardRef}
         className="relative transition-transform duration-75 ease-out shadow-2xl rounded-lg overflow-hidden border border-zinc-800 h-[92vh]"
         style={{
           aspectRatio: `${BOARD_WIDTH} / ${BOARD_HEIGHT}`,
@@ -108,7 +127,7 @@ export const HoleCanvas = () => {
         }}
       >
         <svg viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`} className="w-full h-full">
-          {/* A) Native SVG Board */}
+          {/* A) Static & Memoized Vector Faceplate */}
           <BoardVector
             holeCoords={holeCoords}
             switches={switches}
@@ -121,7 +140,7 @@ export const HoleCanvas = () => {
           {/* B) Wires Layer */}
           <WireOverlay holeCoords={holeCoords} />
 
-          {/* C) Interactive Socket Overlays */}
+          {/* C) Interactive Sockets Overlays */}
           {Object.entries(holeCoords).map(([holeId, coord]) => {
             const isSelectedStart = wireStartHole === holeId;
             const isHovered = hoveredHole === holeId;

@@ -88,7 +88,6 @@ export const useSimulatorStore = create((set, get) => ({
     // Handling Endpoint Dragging
     if (draggingEndpoint) {
       if (isHoleOccupied(holeId, draggingEndpoint.wireId)) {
-        alert("This hole already has a wire connected!");
         return;
       }
       saveHistory();
@@ -108,7 +107,6 @@ export const useSimulatorStore = create((set, get) => ({
     // First Hole Clicked
     if (!wireStartHole) {
       if (isHoleOccupied(holeId)) {
-        alert("This hole already has a wire connected!");
         return;
       }
       set({ wireStartHole: holeId });
