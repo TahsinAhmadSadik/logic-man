@@ -1,0 +1,42 @@
+{
+  "id": "prob_2",
+  "numId": 2,
+  "title": "Dual Input Coincidence (AND)",
+  "description": "Implement a 2-input AND logic circuit where LED 0 lights up ONLY when both Data Switch 0 (A) and Data Switch 1 (B) are set to Logic 1.",
+  "difficulty": "Easy",
+  "tags": ["Basic Gates", "7408", "Design"],
+  "author": "LogicMan Team",
+  "ioMapping": {
+    "inputs": [
+      { "name": "A", "switchIndex": 0 },
+      { "name": "B", "switchIndex": 1 }
+    ],
+    "outputs": [
+      { "name": "Y", "ledIndex": 0 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "A": 0, "B": 0 }, "outputs": { "Y": 0 } },
+    { "inputs": { "A": 0, "B": 1 }, "outputs": { "Y": 0 } },
+    { "inputs": { "A": 1, "B": 0 }, "outputs": { "Y": 0 } },
+    { "inputs": { "A": 1, "B": 1 }, "outputs": { "Y": 1 } }
+  ],
+  "allowedICLimits": {
+    "7408": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [
+      {
+        "id": "ic_init_7408",
+        "icTypeId": "7408",
+        "blockId": "M1",
+        "startCol": 15
+      }
+    ],
+    "wires": []
+  },
+  "hints": [
+    "Pin 14 is VCC (+5V) and Pin 7 is GND for the 7408 IC.",
+    "Gate 1 uses Pin 1 and Pin 2 as inputs, and Pin 3 as the output."
+  ]
+}

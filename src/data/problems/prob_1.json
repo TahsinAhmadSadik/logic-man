@@ -1,0 +1,39 @@
+{
+  "id": "prob_1",
+  "numId": 1,
+  "title": "Basic Signal Inversion",
+  "description": "Design a circuit that takes an input signal A from Data Switch 0 and outputs its complement A' to LED 0 using a 7404 Hex Inverter IC.",
+  "difficulty": "Easy",
+  "tags": ["Basic Gates", "7404", "Design"],
+  "author": "LogicMan Team",
+  "ioMapping": {
+    "inputs": [
+      { "name": "A", "switchIndex": 0 }
+    ],
+    "outputs": [
+      { "name": "Y", "ledIndex": 0 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "A": 0 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 1 }, "outputs": { "Y": 0 } }
+  ],
+  "allowedICLimits": {
+    "7404": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [
+      {
+        "id": "ic_init_7404",
+        "icTypeId": "7404",
+        "blockId": "M1",
+        "startCol": 10
+      }
+    ],
+    "wires": []
+  },
+  "hints": [
+    "Don't forget to power the 7404 IC: Pin 14 to +5V (VCC) and Pin 7 to GND!",
+    "Pin 1 is the input to the first inverter, and Pin 2 is its output."
+  ]
+}
