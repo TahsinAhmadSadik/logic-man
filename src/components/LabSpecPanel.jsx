@@ -32,7 +32,7 @@ export const LabSpecPanel = () => {
   // --- RUN ANIMATED AUTO-GRADER TESTER ---
   const handleRunTester = async () => {
     setIsRunningTests(true);
-    setActiveTab('truthtable'); // Automatically focus truth table tab during test
+    setActiveTab('truthtable');
     setTestResults([]);
     let allPassed = true;
     const accumulatedResults = [];
@@ -92,7 +92,6 @@ export const LabSpecPanel = () => {
         actualOutputs
       });
 
-      // Update test results incrementally for live table animation
       setTestResults([...accumulatedResults]);
 
       // Delay between test cases to animate switch flipping and LED toggling
@@ -176,7 +175,7 @@ export const LabSpecPanel = () => {
                   <span className="text-zinc-500">INPUTS:</span>
                   {currentProblem.ioMapping.inputs.map((inp) => (
                     <div key={inp.name} className="text-zinc-300">
-                      • {inp.name} $\rightarrow$ <strong className="text-sky-400">Switch {inp.switchIndex}</strong>
+                      • {inp.name} → <strong className="text-sky-400">Switch {inp.switchIndex}</strong>
                     </div>
                   ))}
                 </div>
@@ -184,7 +183,7 @@ export const LabSpecPanel = () => {
                   <span className="text-zinc-500">OUTPUTS:</span>
                   {currentProblem.ioMapping.outputs.map((out) => (
                     <div key={out.name} className="text-zinc-300">
-                      • {out.name} $\rightarrow$ <strong className="text-amber-400">LED {out.ledIndex}</strong>
+                      • {out.name} → <strong className="text-amber-400">LED {out.ledIndex}</strong>
                     </div>
                   ))}
                 </div>
