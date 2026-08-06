@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSimulatorStore } from '../store/useSimulatorStore';
 import { IC_CATALOG } from '../data/icCatalog';
+import { LAYOUT_CONSTANTS } from '../utils/boardCoordinates';
 
 export const PlacedICOverlay = ({ holeCoords }) => {
   const {
@@ -15,6 +16,12 @@ export const PlacedICOverlay = ({ holeCoords }) => {
   const spawningIc = IC_CATALOG.find((cat) => cat.id === spawningIcTypeId);
   const hoveredCoord = hoveredHole ? holeCoords[hoveredHole] : null;
 
+  // Block index helper to get grey DIP channel Y position
+  const getDipChannelY = (blockId) => {
+    const idx = blockId === 'M1' ? 0 : blockId === 'M2' ? 1 : 2;
+    return LAYOUT_CONSTANTS.dipChannels[idx] || 0;
+  };
+
   return (
     <g id="pure-svg-ic-layer">
       {/* Installed IC Chips */}
@@ -25,18 +32,17 @@ export const PlacedICOverlay = ({ holeCoords }) => {
         const pinCount = icType.pins || 14;
         const pinsPerSide = pinCount / 2;
 
-        const pin1Id = `BB_${ic.blockId === 'M1' ? 'E' : ic.blockId === 'M2' ? 'O' : 'AD'}${ic.startCol}`;
-        const pin1Coord = holeCoords[pin1Id];
-
-        if (!pin1Coord) return null;
-
+        // X position from column 1
+        const bbStartX = 680;
         const colSpacing = 16.8;
-        const width = pinsPerSide * colSpacing + 12;
+        const x = bbStartX + (ic.startCol - 1) * colSpacing - 6;
+
+        // Y position centered directly over the grey DIP channel
+        const dipY = getDipChannelY(ic.blockId);
         const height = 48;
+        const y = dipY - height / 2;
 
-        const x = pin1Coord.x - 6;
-        const y = pin1Coord.y - 4;
-
+        const width = pinsPerSide * colSpacing + 12;
         const isSelected = selectedIcId === ic.id;
 
         return (
@@ -45,7 +51,7 @@ export const PlacedICOverlay = ({ holeCoords }) => {
             className="cursor-pointer group"
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedIcId(ic.id); // 2. Click to select IC
+              setSelectedIcId(ic.id);
             }}
             onContextMenu={(e) => {
               e.preventDefault();
@@ -106,7 +112,7 @@ export const PlacedICOverlay = ({ holeCoords }) => {
         );
       })}
 
-      {/* 1. Ghost Preview IC Shape following cursor */}
+      {/* Ghost Preview IC Shape following cursor */}
       {spawningIc && hoveredCoord && (
         <g className="pointer-events-none opacity-70">
           {(() => {
@@ -114,8 +120,19 @@ export const PlacedICOverlay = ({ holeCoords }) => {
             const colSpacing = 16.8;
             const width = pinsPerSide * colSpacing + 12;
             const height = 48;
+
+            // Align ghost preview directly to DIP channel
+            const match = hoveredHole ? hoveredHole.match(/^BB_([A-Z]+)(\d+)$/) : null;
+            let blockId = 'M1';
+            if (match) {
+              const row = match[1];
+              if (['K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'].includes(row)) blockId = 'M2';
+              else if (['U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD'].includes(row)) blockId = 'M3';
+            }
+
+            const dipY = getDipChannelY(blockId);
             const gx = hoveredCoord.x - 6;
-            const gy = hoveredCoord.y - 4;
+            const gy = dipY - height / 2;
 
             return (
               <>
@@ -140,7 +157,7 @@ export const PlacedICOverlay = ({ holeCoords }) => {
                   fontFamily="monospace"
                   textAnchor="middle"
                 >
-                  {spawningIc.name} (Pin 1)
+                  {spawningIc.name}
                 </text>
               </>
             );

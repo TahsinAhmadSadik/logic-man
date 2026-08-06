@@ -38,7 +38,7 @@ export const HoleCanvas = () => {
     placedIcs
   } = useSimulatorStore();
 
-  // 3. Build set of occupied hole IDs under installed ICs
+  // Disable socket holes used by IC body and its metal pin legs
   const hiddenHoles = useMemo(() => {
     const hidden = new Set();
 
@@ -47,13 +47,18 @@ export const HoleCanvas = () => {
       if (!icType) return;
 
       const pinsPerSide = (icType.pins || 14) / 2;
-      const topRow = ic.blockId === 'M1' ? 'E' : ic.blockId === 'M2' ? 'O' : 'AD';
-      const botRow = ic.blockId === 'M1' ? 'F' : ic.blockId === 'M2' ? 'P' : 'Z';
+
+      // IC Pins plug directly into the bottom row of top group & top row of bottom group:
+      // Block M1: Row E (top pins) & Row F (bottom pins)
+      // Block M2: Row O (top pins) & Row P (bottom pins)
+      // Block M3: Row Y (top pins) & Row Z (bottom pins)
+      const topPinRow = ic.blockId === 'M1' ? 'E' : ic.blockId === 'M2' ? 'O' : 'Y';
+      const botPinRow = ic.blockId === 'M1' ? 'F' : ic.blockId === 'M2' ? 'P' : 'Z';
 
       for (let i = 0; i < pinsPerSide; i++) {
         const col = ic.startCol + i;
-        hidden.add(`BB_${topRow}${col}`);
-        hidden.add(`BB_${botRow}${col}`);
+        hidden.add(`BB_${topPinRow}${col}`);
+        hidden.add(`BB_${botPinRow}${col}`);
       }
     });
 
@@ -181,9 +186,9 @@ export const HoleCanvas = () => {
 
           <WireOverlay holeCoords={holeCoords} />
 
-          {/* Interactive Sockets (Hides sockets directly under installed ICs) */}
+          {/* Interactive Sockets (Hides sockets directly under IC body AND pin legs) */}
           {Object.entries(holeCoords).map(([holeId, coord]) => {
-            if (hiddenHoles.has(holeId)) return null; // 3. Hide socket under IC!
+            if (hiddenHoles.has(holeId)) return null;
 
             const isSelectedStart = wireStartHole === holeId;
             const isHovered = hoveredHole === holeId;
