@@ -12,43 +12,44 @@ import {
 } from 'lucide-react';
 
 export const ContributorsPage = () => {
+  const GITHUB_REPO = 'https://github.com/TahsinAhmadSadik/logic-man';
+
   // Highlighted Lead
   const projectLead = {
     name: 'Tahsin Ahmad',
-    role: 'Project Lead & Core Developer',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-    bio: 'Architected the core breadboard engine, combinational logic evaluation runtime, and auto-grader system.',
-    github: 'https://github.com',
+    role: 'Project Lead & Core Architect',
+    github: 'https://github.com/TahsinAhmadSadik',
+    bio: 'Architected the core breadboard engine, combinational logic evaluation runtime, auto-grader, and UI system.',
     tags: ['Lead', 'Engine Architecture', 'UI/UX']
   };
 
-  // Sample Contributors
-  const contributors = [
-    {
-      name: 'Ahmad Rafid',
-      role: 'Contributor',
-      github: 'https://github.com',
-      contribution: 'Designed 7400-series problem specs and truth table validation sets.'
-    },
-    {
-      name: 'Samiul Islam',
-      role: 'Contributor',
-      github: 'https://github.com',
-      contribution: 'Built IC library catalog definitions and pin mapping utilities.'
-    },
-    {
-      name: 'Nusrat Jahan',
-      role: 'Contributor',
-      github: 'https://github.com',
-      contribution: 'Authored combinational logic design challenges and lab hints.'
-    },
-    {
-      name: 'Tanvir Hossain',
-      role: 'Contributor',
-      github: 'https://github.com',
-      contribution: 'Tested breadboard SVG hole alignment and edge-case wire routing.'
-    }
+  // Official Contributors List
+  const contributorNames = [
+    'Abdur Rahman Rounak',
+    'Ali Tahmid Chowdhury',
+    'Al Nahian Alif',
+    'Imran Bin Hafiz',
+    'Jarin Subah',
+    'Jeneya Islam',
+    'Nazmul Hasan Rafi',
+    'Rahat Mohashin Zarif',
+    'Raiyan Kazi',
+    'Sadia Jahan Ritaz',
+    'Sifat Al Islam',
+    'Siratul Mustakim Arman',
+    'Tabassum Binte Kamal',
+    'Tamim Chowdhury',
+    'Tanzimul Hasan Tahsin',
+    'Tarif Mahir',
+    'Tasnia Mehzabin Mysha'
   ];
+
+  const contributors = contributorNames.map((name) => ({
+    name,
+    role: 'Contributor',
+    github: 'https://github.com',
+    contribution: 'Contributed to problem set authoring, logic testing, and platform development.'
+  }));
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-amber-500 selection:text-zinc-950">
@@ -71,7 +72,7 @@ export const ContributorsPage = () => {
 
         <div className="flex items-center gap-3">
           <a
-            href="https://github.com"
+            href={GITHUB_REPO}
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 text-xs font-semibold text-zinc-200 transition-colors border border-zinc-700/50"

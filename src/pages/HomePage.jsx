@@ -12,7 +12,8 @@ import {
   GitBranch,
   Users,
   Code2,
-  Bug
+  Bug,
+  Play
 } from 'lucide-react';
 
 export const HomePage = () => {
@@ -23,17 +24,13 @@ export const HomePage = () => {
 
   const { completedProblemIds } = useSimulatorStore();
 
-  // Extract all unique IC tags across problems
   const allIcTags = Array.from(
     new Set(PROBLEMS_INDEX.flatMap((p) => p.tags.filter((t) => t.startsWith('74'))))
   );
 
-  // Filter problems based on active tab, search query, difficulty, and IC tag
   const filteredProblems = PROBLEMS_INDEX.filter((prob) => {
-    // 1. Mode Filter (Design vs Debug)
     if (prob.category !== activeCategory) return false;
 
-    // 2. Search Query Filter
     const matchesSearch =
       prob.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       prob.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -41,10 +38,8 @@ export const HomePage = () => {
 
     if (!matchesSearch) return false;
 
-    // 3. Difficulty Filter
     if (selectedDifficulty !== 'All' && prob.difficulty !== selectedDifficulty) return false;
 
-    // 4. IC Tag Filter
     if (selectedIcTag !== 'All' && !prob.tags.includes(selectedIcTag)) return false;
 
     return true;
@@ -62,6 +57,15 @@ export const HomePage = () => {
         </div>
 
         <div className="flex items-center gap-4 text-xs font-medium">
+          {/* Free Sandbox Quick Access */}
+          <Link
+            to="/problem/free"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold shadow-lg shadow-amber-500/20 transition-all"
+          >
+            <Play size={14} className="fill-zinc-950" />
+            <span>Free Simulation</span>
+          </Link>
+
           <Link
             to="/author"
             className="flex items-center gap-1.5 text-zinc-400 hover:text-amber-400 transition-colors"
@@ -77,19 +81,18 @@ export const HomePage = () => {
             <span>Contributors</span>
           </Link>
           <a
-            href="https://github.com"
+            href="https://github.com/TahsinAhmadSadik/logic-man"
             target="_blank"
             rel="noreferrer"
             className="p-2 text-zinc-400 hover:text-white rounded-lg bg-zinc-800/60 hover:bg-zinc-800 transition-colors"
-            >
-                <GitBranch size={16} />
-            </a>            
+          >
+            <GitBranch size={16} />
+          </a>
         </div>
       </nav>
 
-      {/* Hero Section with Dynamic Header & Big Mode Toggle */}
+      {/* Hero Section */}
       <header className="px-6 py-12 max-w-5xl mx-auto w-full text-center space-y-6">
-        {/* Dynamic Mode Heading */}
         {activeCategory === 'design' ? (
           <div className="space-y-3 animate-fade-in">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-widest">
@@ -116,30 +119,40 @@ export const HomePage = () => {
           </div>
         )}
 
-        {/* Big Toggle Button Bar */}
-        <div className="inline-flex p-1.5 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl">
-          <button
-            onClick={() => setActiveCategory('design')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold transition-all duration-200 ${
-              activeCategory === 'design'
-                ? 'bg-amber-500 text-zinc-950 shadow-lg shadow-amber-500/20'
-                : 'text-zinc-400 hover:text-zinc-200'
-            }`}
+        {/* Big Toggle Button Bar + Free Sandbox Banner */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="inline-flex p-1.5 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl">
+            <button
+              onClick={() => setActiveCategory('design')}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold transition-all duration-200 ${
+                activeCategory === 'design'
+                  ? 'bg-amber-500 text-zinc-950 shadow-lg shadow-amber-500/20'
+                  : 'text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              <Cpu size={18} />
+              <span>Design Challenges</span>
+            </button>
+            <button
+              onClick={() => setActiveCategory('debug')}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold transition-all duration-200 ${
+                activeCategory === 'debug'
+                  ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/20'
+                  : 'text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              <Wrench size={18} />
+              <span>Debugging Labs</span>
+            </button>
+          </div>
+
+          <Link
+            to="/problem/free"
+            className="flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-bold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700/80 hover:border-amber-500/50 transition-all shadow-xl"
           >
-            <Cpu size={18} />
-            <span>Design Challenges</span>
-          </button>
-          <button
-            onClick={() => setActiveCategory('debug')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold transition-all duration-200 ${
-              activeCategory === 'debug'
-                ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/20'
-                : 'text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <Wrench size={18} />
-            <span>Debugging Labs</span>
-          </button>
+            <Play size={16} className="text-amber-400 fill-amber-400" />
+            <span>Open Sandbox Canvas</span>
+          </Link>
         </div>
       </header>
 
@@ -147,7 +160,6 @@ export const HomePage = () => {
       <main className="max-w-5xl mx-auto w-full px-6 pb-20 flex-1 space-y-6">
         {/* Search & Filter Controls */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-3 p-3 bg-zinc-900/60 border border-zinc-800/80 rounded-2xl backdrop-blur">
-          {/* Search Bar */}
           <div className="relative w-full md:w-80">
             <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
             <input
@@ -159,9 +171,7 @@ export const HomePage = () => {
             />
           </div>
 
-          {/* Filters */}
           <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto">
-            {/* Difficulty Filter */}
             <select
               value={selectedDifficulty}
               onChange={(e) => setSelectedDifficulty(e.target.value)}
@@ -173,7 +183,6 @@ export const HomePage = () => {
               <option value="Hard">Hard</option>
             </select>
 
-            {/* IC Tag Filter */}
             <select
               value={selectedIcTag}
               onChange={(e) => setSelectedIcTag(e.target.value)}
@@ -219,7 +228,6 @@ export const HomePage = () => {
                         </h3>
                       </div>
 
-                      {/* Solved Tick Mark */}
                       {isSolved && (
                         <span className="flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30 font-bold">
                           <CheckCircle2 size={13} /> Solved
@@ -232,7 +240,6 @@ export const HomePage = () => {
                     </p>
                   </div>
 
-                  {/* Metadata & Launch Link */}
                   <div className="flex items-center justify-between pt-3 border-t border-zinc-800/60 text-[11px]">
                     <div className="flex items-center gap-1.5">
                       <span
@@ -247,7 +254,6 @@ export const HomePage = () => {
                         {prob.difficulty}
                       </span>
 
-                      {/* IC Tags */}
                       {prob.tags.map((tag) => (
                         <span key={tag} className="font-mono bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">
                           {tag}

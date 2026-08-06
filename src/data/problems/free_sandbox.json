@@ -1,0 +1,64 @@
+{
+  "id": "free",
+  "numId": 0,
+  "title": "Free Simulation Sandbox",
+  "description": "Open sandbox mode with access to all combinational ICs in the catalog. Build and test custom logic circuits freely without automated grading rules.",
+  "difficulty": "Sandbox",
+  "category": "design",
+  "tags": ["Sandbox", "Combinational"],
+  "author": "LogicMan Team",
+  "ioMapping": {
+    "inputs": [
+      { "name": "SW0", "switchIndex": 0 },
+      { "name": "SW1", "switchIndex": 1 },
+      { "name": "SW2", "switchIndex": 2 },
+      { "name": "SW3", "switchIndex": 3 },
+      { "name": "SW4", "switchIndex": 4 },
+      { "name": "SW5", "switchIndex": 5 },
+      { "name": "SW6", "switchIndex": 6 },
+      { "name": "SW7", "switchIndex": 7 }
+    ],
+    "outputs": [
+      { "name": "LED0", "ledIndex": 0 },
+      { "name": "LED1", "ledIndex": 1 },
+      { "name": "LED2", "ledIndex": 2 },
+      { "name": "LED3", "ledIndex": 3 },
+      { "name": "LED4", "ledIndex": 4 },
+      { "name": "LED5", "ledIndex": 5 },
+      { "name": "LED6", "ledIndex": 6 },
+      { "name": "LED7", "ledIndex": 7 }
+    ]
+  },
+  "truthTable": [],
+  "allowedICLimits": {
+    "7400": 10,
+    "7404": 10,
+    "7408": 10,
+    "7410": 10,
+    "7411": 10,
+    "7420": 10,
+    "7421": 10,
+    "7425": 10,
+    "7427": 10,
+    "7430": 10,
+    "7432": 10,
+    "7486": 10,
+    "7483": 10,
+    "74138": 10,
+    "74145": 10,
+    "74148": 10,
+    "74154": 10,
+    "74151": 10,
+    "74153": 10,
+    "74157": 10
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "You have full access to all combinational IC chips (Gates, Adders, MUXes, Decoders, Encoders)!",
+    "Sequential ICs (Flip-Flops & Counters) are disabled in this preliminary release.",
+    "Export your circuit to JSON anytime using the top bar to share it with classmates."
+  ]
+}
