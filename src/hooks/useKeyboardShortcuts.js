@@ -6,28 +6,47 @@ export const useKeyboardShortcuts = () => {
     selectedWireId,
     deleteWire,
     setSelectedWireId,
+    selectedIcId,
+    deleteIc,
+    setSelectedIcId,
     wireStartHole,
+    spawningIcTypeId,
     cancelWireCreation
   } = useSimulatorStore();
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // 1. Escape key cancels wire drawing if active, otherwise clears wire selection
+      // Escape key cancels active placement or clears selection
       if (e.key === 'Escape') {
-        if (wireStartHole) {
+        if (wireStartHole || spawningIcTypeId) {
           cancelWireCreation();
-        } else if (selectedWireId) {
+        } else {
           setSelectedWireId(null);
+          setSelectedIcId(null);
         }
       }
 
-      // 2. Delete / Backspace key deletes selected wire
-      if ((e.key === 'Delete' || e.key === 'Backspace') && selectedWireId) {
-        deleteWire(selectedWireId);
+      // Delete / Backspace key deletes selected wire or selected IC
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        if (selectedWireId) {
+          deleteWire(selectedWireId);
+        } else if (selectedIcId) {
+          deleteIc(selectedIcId); // 2. Delete selected IC
+        }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedWireId, deleteWire, setSelectedWireId, wireStartHole, cancelWireCreation]);
+  }, [
+    selectedWireId,
+    deleteWire,
+    setSelectedWireId,
+    selectedIcId,
+    deleteIc,
+    setSelectedIcId,
+    wireStartHole,
+    spawningIcTypeId,
+    cancelWireCreation
+  ]);
 };

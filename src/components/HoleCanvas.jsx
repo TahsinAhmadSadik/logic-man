@@ -3,7 +3,12 @@ import { useSimulatorStore } from '../store/useSimulatorStore';
 import { generateBoardCoordinates, BOARD_WIDTH, BOARD_HEIGHT } from '../utils/boardCoordinates';
 import { BoardVector } from './BoardVector';
 import { WireOverlay } from './WireOverlay';
+import { PlacedICOverlay } from './PlacedICOverlay';
+import { ICLibraryPanel } from './ICLibraryPanel';
+import { ColorPickerToolbar } from './ColorPickerToolbar';
+import { BottomFloatingBar } from './BottomFloatingBar';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
+import { IC_CATALOG } from '../data/icCatalog';
 import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 
 export const HoleCanvas = () => {
@@ -29,8 +34,31 @@ export const HoleCanvas = () => {
     powerOn,
     togglePower,
     leds,
-    setSelectedWireId
+    setSelectedWireId,
+    placedIcs
   } = useSimulatorStore();
+
+  // 3. Build set of occupied hole IDs under installed ICs
+  const hiddenHoles = useMemo(() => {
+    const hidden = new Set();
+
+    placedIcs.forEach((ic) => {
+      const icType = IC_CATALOG.find((cat) => cat.id === ic.icTypeId);
+      if (!icType) return;
+
+      const pinsPerSide = (icType.pins || 14) / 2;
+      const topRow = ic.blockId === 'M1' ? 'E' : ic.blockId === 'M2' ? 'O' : 'AD';
+      const botRow = ic.blockId === 'M1' ? 'F' : ic.blockId === 'M2' ? 'P' : 'Z';
+
+      for (let i = 0; i < pinsPerSide; i++) {
+        const col = ic.startCol + i;
+        hidden.add(`BB_${topRow}${col}`);
+        hidden.add(`BB_${botRow}${col}`);
+      }
+    });
+
+    return hidden;
+  }, [placedIcs]);
 
   const hoveredNodeGroup = hoveredHole ? holeCoords[hoveredHole]?.nodeGroup : null;
 
@@ -58,7 +86,6 @@ export const HoleCanvas = () => {
   };
 
   const handleMouseDown = (e) => {
-    // If drawing a wire, Right-Click cancels wire creation
     if (e.button === 2 && wireStartHole) {
       e.preventDefault();
       cancelWireCreation();
@@ -95,11 +122,6 @@ export const HoleCanvas = () => {
     }
   };
 
-  const resetZoom = () => {
-    setScale(1);
-    setPosition({ x: 0, y: 0 });
-  };
-
   return (
     <div
       ref={containerRef}
@@ -117,7 +139,10 @@ export const HoleCanvas = () => {
         }
       }}
     >
-      {/* Zoom Controls */}
+      <ICLibraryPanel />
+      <ColorPickerToolbar />
+      <BottomFloatingBar />
+
       <div className="absolute bottom-6 right-6 z-40 flex items-center gap-1 bg-zinc-900/90 border border-zinc-800 p-1.5 rounded-lg shadow-xl text-zinc-300 backdrop-blur">
         <button onClick={() => setScale((s) => Math.min(s * 1.25, 8.0))} className="p-2 hover:bg-zinc-800 rounded-md">
           <ZoomIn size={18} />
@@ -125,7 +150,7 @@ export const HoleCanvas = () => {
         <button onClick={() => setScale((s) => Math.max(s / 1.25, 1))} className="p-2 hover:bg-zinc-800 rounded-md">
           <ZoomOut size={18} />
         </button>
-        <button onClick={resetZoom} className="p-2 hover:bg-zinc-800 rounded-md">
+        <button onClick={() => { setScale(1); setPosition({ x: 0, y: 0 }); }} className="p-2 hover:bg-zinc-800 rounded-md">
           <RotateCcw size={18} />
         </button>
         <span className="text-xs px-2 text-zinc-400 font-mono border-l border-zinc-800">
@@ -133,7 +158,6 @@ export const HoleCanvas = () => {
         </span>
       </div>
 
-      {/* Transform Board Container */}
       <div
         ref={boardRef}
         className="relative transition-transform duration-75 ease-out shadow-2xl rounded-lg overflow-hidden border border-zinc-800 h-[92vh]"
@@ -144,7 +168,6 @@ export const HoleCanvas = () => {
         }}
       >
         <svg viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`} className="w-full h-full">
-          {/* A) Static Vector Faceplate */}
           <BoardVector
             holeCoords={holeCoords}
             switches={switches}
@@ -154,11 +177,14 @@ export const HoleCanvas = () => {
             leds={leds}
           />
 
-          {/* B) Dynamic Wires Layer */}
+          <PlacedICOverlay holeCoords={holeCoords} />
+
           <WireOverlay holeCoords={holeCoords} />
 
-          {/* C) Interactive Sockets with Node Group Highlighting */}
+          {/* Interactive Sockets (Hides sockets directly under installed ICs) */}
           {Object.entries(holeCoords).map(([holeId, coord]) => {
+            if (hiddenHoles.has(holeId)) return null; // 3. Hide socket under IC!
+
             const isSelectedStart = wireStartHole === holeId;
             const isHovered = hoveredHole === holeId;
             const isInSameNodeGroup = hoveredNodeGroup && coord.nodeGroup === hoveredNodeGroup;
