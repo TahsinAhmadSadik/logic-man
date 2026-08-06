@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSimulatorStore } from '../store/useSimulatorStore';
 import {
@@ -9,16 +9,22 @@ import {
   Cpu,
   Timer,
   FileText,
-  Terminal
+  Terminal,
+  Download,
+  Upload
 } from 'lucide-react';
 
 export const SimulatorNavbar = () => {
+  const fileInputRef = useRef(null);
+
   const {
     currentProblem,
     completedProblemIds,
     activePanel,
     togglePanel,
-    isShortCircuit
+    isShortCircuit,
+    exportCircuit,
+    importCircuit
   } = useSimulatorStore();
 
   const isCompleted =
@@ -33,8 +39,32 @@ export const SimulatorNavbar = () => {
     { id: 'console', label: 'Diagnostics', icon: Terminal, alert: isShortCircuit }
   ];
 
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const content = event.target?.result;
+      if (typeof content === 'string') {
+        importCircuit(content);
+      }
+      e.target.value = ''; // reset input
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <header className="fixed top-4 left-6 right-6 z-40 flex items-center justify-between gap-3 px-4 py-2 bg-zinc-900/90 border border-zinc-800 rounded-2xl shadow-2xl backdrop-blur-md text-zinc-100 overflow-x-auto">
+      {/* Hidden File Input for Import */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileUpload}
+        accept=".json"
+        className="hidden"
+      />
+
       {/* Left Section: Brand Logo & Problem Metadata */}
       <div className="flex items-center gap-3 shrink-0">
         <Link
@@ -68,7 +98,7 @@ export const SimulatorNavbar = () => {
         )}
       </div>
 
-      {/* Center Section: Panel Toggles (Merged from Bottom Floating Bar) */}
+      {/* Center Section: Panel Toggles */}
       <div className="flex items-center gap-1.5 bg-zinc-950/60 border border-zinc-800/80 p-1 rounded-xl">
         {panels.map((p) => {
           const Icon = p.icon;
@@ -87,7 +117,6 @@ export const SimulatorNavbar = () => {
               <Icon size={15} />
               <span className="hidden md:inline">{p.label}</span>
 
-              {/* Alert indicator for Diagnostics */}
               {p.alert && (
                 <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-500 rounded-full animate-ping" />
               )}
@@ -96,8 +125,30 @@ export const SimulatorNavbar = () => {
         })}
       </div>
 
-      {/* Right Section: Quick Links */}
-      <div className="flex items-center gap-3 text-xs font-medium shrink-0">
+      {/* Right Section: Export/Import + Quick Links */}
+      <div className="flex items-center gap-2.5 text-xs font-medium shrink-0">
+        {/* Export Circuit JSON */}
+        <button
+          onClick={exportCircuit}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-zinc-800/70 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/50 transition-colors"
+          title="Export Circuit JSON"
+        >
+          <Download size={14} className="text-amber-400" />
+          <span className="hidden lg:inline">Export</span>
+        </button>
+
+        {/* Import Circuit JSON */}
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-zinc-800/70 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/50 transition-colors"
+          title="Import Circuit JSON"
+        >
+          <Upload size={14} className="text-amber-400" />
+          <span className="hidden lg:inline">Import</span>
+        </button>
+
+        <div className="h-4 w-px bg-zinc-800" />
+
         <Link
           to="/author"
           className="flex items-center gap-1 text-zinc-400 hover:text-amber-400 transition-colors"

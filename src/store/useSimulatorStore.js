@@ -381,4 +381,71 @@ export const useSimulatorStore = create((set, get) => ({
       return { completedProblemIds: updated };
     });
   },
+
+  // --- EXPORT & IMPORT CIRCUIT ---
+  exportCircuit: () => {
+    const { wires, placedIcs, currentProblem } = get();
+    const circuitData = {
+      version: '1.0',
+      problemId: currentProblem?.id || 'custom',
+      exportedAt: new Date().toISOString(),
+      wires,
+      placedIcs
+    };
+
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(circuitData, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute('href', dataStr);
+    downloadAnchor.setAttribute('download', `circuit_${currentProblem?.id || 'custom'}_${Date.now()}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  },
+
+  importCircuit: (jsonString) => {
+    if (get().powerOn) {
+      alert('Please turn OFF power before importing a circuit!');
+      return false;
+    }
+
+    try {
+      const parsed = JSON.parse(jsonString);
+
+      // Validate schema format
+      if (!Array.isArray(parsed.wires) || !Array.isArray(parsed.placedIcs)) {
+        alert('Invalid circuit file format! Missing "wires" or "placedIcs" arrays.');
+        return false;
+      }
+
+      // Check IC limits if problem limits are active
+      const limits = get().allowedICLimits;
+      if (limits) {
+        const counts = {};
+        for (const ic of parsed.placedIcs) {
+          counts[ic.icTypeId] = (counts[ic.icTypeId] || 0) + 1;
+          if (limits[ic.icTypeId] !== undefined && counts[ic.icTypeId] > limits[ic.icTypeId]) {
+            alert(`Import failed: Circuit exceeds allowed limit for IC ${ic.icTypeId}.`);
+            return false;
+          }
+        }
+      }
+
+      get().saveSnapshot(); // Save current layout to history before replacing
+
+      set({
+        wires: parsed.wires,
+        placedIcs: parsed.placedIcs,
+        selectedWireId: null,
+        selectedIcId: null,
+        wireStartHole: null,
+        spawningIcTypeId: null
+      });
+
+      alert('Circuit imported successfully!');
+      return true;
+    } catch (err) {
+      alert('Failed to parse circuit JSON file: ' + err.message);
+      return false;
+    }
+  }
 }));
