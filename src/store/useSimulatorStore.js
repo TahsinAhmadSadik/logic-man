@@ -17,6 +17,15 @@ export const useSimulatorStore = create((set, get) => ({
   activePanel: null, // 'library' | 'timer' | 'problem' | 'truthtable'
   allowedICLimits: null,
 
+  // --- TIMER & STOPWATCH STATE ---
+  stopwatchTime: 0, // in seconds
+  isStopwatchRunning: false,
+
+  timerInitialTime: 300, // default 5 mins (in seconds)
+  timerRemainingTime: 300,
+  isTimerRunning: false,
+  isTimerAlarmActive: false,
+
   togglePower: () => set((state) => ({ powerOn: !state.powerOn })),
   setSelectedColor: (color) => set({ selectedColor: color }),
   setHoveredHole: (holeId) => set({ hoveredHole: holeId }),
@@ -157,5 +166,49 @@ export const useSimulatorStore = create((set, get) => ({
       placedIcs: state.placedIcs.filter((ic) => ic.id !== icId),
       selectedIcId: state.selectedIcId === icId ? null : state.selectedIcId
     }));
-  }
+  },
+
+  // --- STOPWATCH ACTIONS ---
+  setStopwatchTime: (time) => set({ stopwatchTime: time }),
+  setIsStopwatchRunning: (running) => set({ isStopwatchRunning: running }),
+  resetStopwatch: () => set({ stopwatchTime: 0, isStopwatchRunning: false }),
+
+  // --- TIMER ACTIONS ---
+  setTimerInitialTime: (seconds) =>
+    set({
+      timerInitialTime: seconds,
+      timerRemainingTime: seconds,
+      isTimerRunning: false,
+      isTimerAlarmActive: false
+    }),
+
+  setIsTimerRunning: (running) => set({ isTimerRunning: running }),
+
+  tickTimer: () =>
+    set((state) => {
+      if (!state.isTimerRunning) return state;
+      if (state.timerRemainingTime <= 1) {
+        return {
+          timerRemainingTime: 0,
+          isTimerRunning: false,
+          isTimerAlarmActive: true
+        };
+      }
+      return { timerRemainingTime: state.timerRemainingTime - 1 };
+    }),
+
+  tickStopwatch: () =>
+    set((state) => {
+      if (!state.isStopwatchRunning) return state;
+      return { stopwatchTime: state.stopwatchTime + 1 };
+    }),
+
+  resetTimer: () =>
+    set((state) => ({
+      timerRemainingTime: state.timerInitialTime,
+      isTimerRunning: false,
+      isTimerAlarmActive: false
+    })),
+
+  dismissTimerAlarm: () => set({ isTimerAlarmActive: false })
 }));

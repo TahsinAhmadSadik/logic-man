@@ -10,9 +10,12 @@ import { BottomFloatingBar } from './BottomFloatingBar';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { IC_CATALOG } from '../data/icCatalog';
 import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { TimerPanel } from './TimerPanel';
+import { useTimerEngine } from '../hooks/useTimerEngine';
 
 export const HoleCanvas = () => {
   useKeyboardShortcuts();
+  useTimerEngine(); // 👈 Enables background ticks and alarm sound!
 
   const holeCoords = useMemo(() => generateBoardCoordinates(), []);
   const containerRef = useRef(null);
@@ -91,7 +94,8 @@ export const HoleCanvas = () => {
   };
 
   const handleMouseDown = (e) => {
-    if (e.button === 2 && wireStartHole) {
+    // If placing an IC or drawing a wire, Right-Click cancels the action
+    if (e.button === 2 && (wireStartHole || spawningIcTypeId)) {
       e.preventDefault();
       cancelWireCreation();
       return;
@@ -139,12 +143,13 @@ export const HoleCanvas = () => {
       onMouseUp={handleMouseUp}
       onContextMenu={(e) => {
         e.preventDefault();
-        if (wireStartHole) {
+        if (wireStartHole || spawningIcTypeId) {
           cancelWireCreation();
         }
       }}
     >
       <ICLibraryPanel />
+      <TimerPanel />
       <ColorPickerToolbar />
       <BottomFloatingBar />
 
