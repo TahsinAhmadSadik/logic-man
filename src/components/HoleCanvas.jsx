@@ -14,6 +14,7 @@ import { TimerPanel } from './TimerPanel';
 import { ConsoleLogsPanel } from './ConsoleLogsPanel';
 import { LabSpecPanel } from './LabSpecPanel';
 import { useTimerEngine } from '../hooks/useTimerEngine';
+import { ConfirmModal } from './ConfirmModal';
 
 export const HoleCanvas = () => {
   useKeyboardShortcuts();
@@ -150,6 +151,7 @@ export const HoleCanvas = () => {
       <TimerPanel />
       <LabSpecPanel />
       <ConsoleLogsPanel />
+      <ConfirmModal />
       
       <ColorPickerToolbar />
       <BottomFloatingBar />

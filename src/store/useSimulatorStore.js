@@ -17,6 +17,88 @@ export const useSimulatorStore = create((set, get) => ({
   switches: [0, 0, 0, 0, 0, 0, 0, 0],
   leds: [0, 0, 0, 0, 0, 0, 0, 0],
 
+  // --- CONFIRMATION MODAL STATE ---
+  pendingConfirmAction: null, // { type: 'clearAll' | 'clearWires', title: string, message: string }
+  setPendingConfirmAction: (action) => set({ pendingConfirmAction: action }),
+
+  // --- CUSTOM UNDO / REDO HISTORY STACKS ---
+  past: [],
+  future: [],
+
+  saveSnapshot: () => {
+    const { wires, placedIcs, past } = get();
+    set({
+      past: [...past, { wires: [...wires], placedIcs: [...placedIcs] }],
+      future: []
+    });
+  },
+
+  undo: () => {
+    const { past, future, wires, placedIcs, powerOn } = get();
+    if (past.length === 0 || powerOn) return;
+
+    const previous = past[past.length - 1];
+    const newPast = past.slice(0, past.length - 1);
+
+    set({
+      wires: previous.wires,
+      placedIcs: previous.placedIcs,
+      past: newPast,
+      future: [{ wires: [...wires], placedIcs: [...placedIcs] }, ...future],
+      selectedWireId: null,
+      selectedIcId: null
+    });
+  },
+
+  redo: () => {
+    const { past, future, wires, placedIcs, powerOn } = get();
+    if (future.length === 0 || powerOn) return;
+
+    const next = future[0];
+    const newFuture = future.slice(1);
+
+    set({
+      wires: next.wires,
+      placedIcs: next.placedIcs,
+      past: [...past, { wires: [...wires], placedIcs: [...placedIcs] }],
+      future: newFuture,
+      selectedWireId: null,
+      selectedIcId: null
+    });
+  },
+
+  // --- CLEAR ACTIONS (PRESERVES HISTORY) ---
+  clearCircuit: () => {
+    if (get().powerOn) return;
+    const { wires, placedIcs, saveSnapshot } = get();
+    if (wires.length === 0 && placedIcs.length === 0) return;
+
+    saveSnapshot();
+    set({
+      wires: [],
+      placedIcs: [],
+      selectedWireId: null,
+      selectedIcId: null,
+      wireStartHole: null,
+      spawningIcTypeId: null,
+      pendingConfirmAction: null
+    });
+  },
+
+  clearWires: () => {
+    if (get().powerOn) return;
+    const { wires, saveSnapshot } = get();
+    if (wires.length === 0) return;
+
+    saveSnapshot();
+    set({
+      wires: [],
+      selectedWireId: null,
+      wireStartHole: null,
+      pendingConfirmAction: null
+    });
+  },
+
   // --- ENGINE LOGS & STATUS ---
   circuitLogs: [],
   isShortCircuit: false,
@@ -34,7 +116,6 @@ export const useSimulatorStore = create((set, get) => ({
   isTimerRunning: false,
   isTimerAlarmActive: false,
 
-  // --- LOGIC RE-EVALUATION TRIGGER ---
   reevaluate: () => {
     const { powerOn, wires, placedIcs, switches } = get();
     const result = evaluateCircuit({
@@ -52,7 +133,6 @@ export const useSimulatorStore = create((set, get) => ({
     });
   },
 
-  // Toggle Power (Enables/Disables Simulate Mode)
   togglePower: () => {
     set((state) => ({
       powerOn: !state.powerOn,
@@ -68,7 +148,7 @@ export const useSimulatorStore = create((set, get) => ({
       nextSwitches[index] = nextSwitches[index] === 1 ? 0 : 1;
       return { switches: nextSwitches };
     });
-    get().reevaluate(); // Re-evaluate logic instantly on switch toggle
+    get().reevaluate();
   },
 
   setSelectedColor: (color) => set({ selectedColor: color }),
@@ -76,7 +156,6 @@ export const useSimulatorStore = create((set, get) => ({
   setSelectedWireId: (wireId) => set({ selectedWireId: wireId, selectedIcId: null }),
   setSelectedIcId: (icId) => set({ selectedIcId: icId, selectedWireId: null }),
   setSpawningIcTypeId: (icTypeId) => {
-    // Only allow selecting ICs to spawn when Power is OFF (Edit Mode)
     if (get().powerOn) return;
     set({ spawningIcTypeId: icTypeId, wireStartHole: null });
   },
@@ -91,15 +170,13 @@ export const useSimulatorStore = create((set, get) => ({
   cancelWireCreation: () => set({ wireStartHole: null, spawningIcTypeId: null }),
 
   handleHoleClick: (holeId) => {
-    const { powerOn, wireStartHole, spawningIcTypeId, selectedColor, wires, placeIc } = get();
+    const { powerOn, wireStartHole, spawningIcTypeId, selectedColor, wires, placeIc, saveSnapshot } = get();
 
-    // Prevent wire placement or IC spawning while Power is ON (Simulate Mode)
     if (powerOn) return;
 
-    // 1. If spawning an IC, clicking a hole attempts to place Pin 1 there
     if (spawningIcTypeId) {
       const match = holeId.match(/^BB_([A-Z]+)(\d+)$/);
-      if (!match) return; // Prevent placing on power rails or switches/LEDs
+      if (!match) return;
 
       const row = match[1];
       const col = parseInt(match[2], 10);
@@ -117,27 +194,23 @@ export const useSimulatorStore = create((set, get) => ({
     }
 
     if (!wireStartHole) {
-      // Prevent starting a wire from a hole that is already occupied by an existing wire
       const isStartOccupied = wires.some(
         (w) => w.startHole === holeId || w.endHole === holeId
       );
 
-      if (isStartOccupied) {
-        return; // Hole already occupied by a wire!
-      }
+      if (isStartOccupied) return;
 
       set({ wireStartHole: holeId, selectedWireId: null, selectedIcId: null });
     } else if (wireStartHole === holeId) {
       set({ wireStartHole: null });
     } else {
-      // Prevent ending a wire on a hole that is already occupied by an existing wire
       const isTargetOccupied = wires.some(
         (w) => w.startHole === holeId || w.endHole === holeId
       );
 
       if (isTargetOccupied) {
         set({ wireStartHole: null });
-        return; // Target hole occupied!
+        return;
       }
 
       const duplicateExists = wires.some(
@@ -147,6 +220,7 @@ export const useSimulatorStore = create((set, get) => ({
       );
 
       if (!duplicateExists) {
+        saveSnapshot();
         const newWire = {
           id: `wire_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
           startHole: wireStartHole,
@@ -165,7 +239,8 @@ export const useSimulatorStore = create((set, get) => ({
   },
 
   deleteWire: (wireId) => {
-    if (get().powerOn) return; // Locked during simulation
+    if (get().powerOn) return;
+    get().saveSnapshot();
     set((state) => ({
       wires: state.wires.filter((w) => w.id !== wireId),
       selectedWireId: state.selectedWireId === wireId ? null : state.selectedWireId
@@ -173,8 +248,8 @@ export const useSimulatorStore = create((set, get) => ({
   },
 
   placeIc: (icTypeId, blockId, startCol) => {
-    if (get().powerOn) return false; // Locked during simulation
-    const { placedIcs, allowedICLimits } = get();
+    if (get().powerOn) return false;
+    const { placedIcs, allowedICLimits, saveSnapshot } = get();
 
     if (allowedICLimits && allowedICLimits[icTypeId] !== undefined) {
       const currentCount = placedIcs.filter((ic) => ic.icTypeId === icTypeId).length;
@@ -206,6 +281,7 @@ export const useSimulatorStore = create((set, get) => ({
       return false;
     }
 
+    saveSnapshot();
     const newIc = {
       id: `ic_placed_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
       icTypeId,
@@ -220,7 +296,8 @@ export const useSimulatorStore = create((set, get) => ({
   },
 
   deleteIc: (icId) => {
-    if (get().powerOn) return; // Locked during simulation
+    if (get().powerOn) return;
+    get().saveSnapshot();
     set((state) => ({
       placedIcs: state.placedIcs.filter((ic) => ic.id !== icId),
       selectedIcId: state.selectedIcId === icId ? null : state.selectedIcId
