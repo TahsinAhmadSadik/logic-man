@@ -117,10 +117,29 @@ export const useSimulatorStore = create((set, get) => ({
     }
 
     if (!wireStartHole) {
+      // Prevent starting a wire from a hole that is already occupied by an existing wire
+      const isStartOccupied = wires.some(
+        (w) => w.startHole === holeId || w.endHole === holeId
+      );
+
+      if (isStartOccupied) {
+        return; // Hole already occupied by a wire!
+      }
+
       set({ wireStartHole: holeId, selectedWireId: null, selectedIcId: null });
     } else if (wireStartHole === holeId) {
       set({ wireStartHole: null });
     } else {
+      // Prevent ending a wire on a hole that is already occupied by an existing wire
+      const isTargetOccupied = wires.some(
+        (w) => w.startHole === holeId || w.endHole === holeId
+      );
+
+      if (isTargetOccupied) {
+        set({ wireStartHole: null });
+        return; // Target hole occupied!
+      }
+
       const duplicateExists = wires.some(
         (w) =>
           (w.startHole === wireStartHole && w.endHole === holeId) ||
