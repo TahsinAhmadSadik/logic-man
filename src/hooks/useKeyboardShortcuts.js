@@ -2,27 +2,32 @@ import { useEffect } from 'react';
 import { useSimulatorStore } from '../store/useSimulatorStore';
 
 export const useKeyboardShortcuts = () => {
-  const { undo, redo, deleteSelectedWire } = useSimulatorStore();
+  const {
+    selectedWireId,
+    deleteWire,
+    setSelectedWireId,
+    wireStartHole,
+    cancelWireCreation
+  } = useSimulatorStore();
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && !e.shiftKey) {
-        e.preventDefault();
-        undo();
+      // 1. Escape key cancels wire drawing if active, otherwise clears wire selection
+      if (e.key === 'Escape') {
+        if (wireStartHole) {
+          cancelWireCreation();
+        } else if (selectedWireId) {
+          setSelectedWireId(null);
+        }
       }
-      if (
-        ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') ||
-        ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'z')
-      ) {
-        e.preventDefault();
-        redo();
-      }
-      if (e.key === 'Delete' || e.key === 'Backspace') {
-        deleteSelectedWire();
+
+      // 2. Delete / Backspace key deletes selected wire
+      if ((e.key === 'Delete' || e.key === 'Backspace') && selectedWireId) {
+        deleteWire(selectedWireId);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo, deleteSelectedWire]);
+  }, [selectedWireId, deleteWire, setSelectedWireId, wireStartHole, cancelWireCreation]);
 };

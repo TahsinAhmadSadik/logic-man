@@ -3,9 +3,12 @@ import { useSimulatorStore } from '../store/useSimulatorStore';
 import { generateBoardCoordinates, BOARD_WIDTH, BOARD_HEIGHT } from '../utils/boardCoordinates';
 import { BoardVector } from './BoardVector';
 import { WireOverlay } from './WireOverlay';
+import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 
 export const HoleCanvas = () => {
+  useKeyboardShortcuts();
+
   const holeCoords = useMemo(() => generateBoardCoordinates(), []);
   const containerRef = useRef(null);
   const boardRef = useRef(null);
@@ -17,6 +20,7 @@ export const HoleCanvas = () => {
 
   const {
     wireStartHole,
+    cancelWireCreation,
     hoveredHole,
     setHoveredHole,
     handleHoleClick,
@@ -24,8 +28,11 @@ export const HoleCanvas = () => {
     toggleSwitch,
     powerOn,
     togglePower,
-    leds
+    leds,
+    setSelectedWireId
   } = useSimulatorStore();
+
+  const hoveredNodeGroup = hoveredHole ? holeCoords[hoveredHole]?.nodeGroup : null;
 
   const handleWheel = (e) => {
     e.preventDefault();
@@ -51,14 +58,20 @@ export const HoleCanvas = () => {
   };
 
   const handleMouseDown = (e) => {
-    // Enable panning on Left-Click (button 0), Middle-Click (button 1), Right-Click (button 2), or Alt-Key
+    // If drawing a wire, Right-Click cancels wire creation
+    if (e.button === 2 && wireStartHole) {
+      e.preventDefault();
+      cancelWireCreation();
+      return;
+    }
+
     if (e.button === 0 || e.button === 1 || e.button === 2 || e.altKey) {
-      // Don't interrupt if clicking direct UI controls or interactive holes
       if (e.target.closest('.cursor-pointer')) return;
 
       e.preventDefault();
       setIsPanning(true);
       setStartPan({ x: e.clientX - position.x, y: e.clientY - position.y });
+      setSelectedWireId(null);
     }
   };
 
@@ -67,7 +80,6 @@ export const HoleCanvas = () => {
     const dx = e.clientX - startPan.x;
     const dy = e.clientY - startPan.y;
 
-    // Direct DOM manipulation for butter-smooth panning
     if (boardRef.current) {
       boardRef.current.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
     }
@@ -98,7 +110,12 @@ export const HoleCanvas = () => {
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onContextMenu={(e) => e.preventDefault()}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        if (wireStartHole) {
+          cancelWireCreation();
+        }
+      }}
     >
       {/* Zoom Controls */}
       <div className="absolute bottom-6 right-6 z-40 flex items-center gap-1 bg-zinc-900/90 border border-zinc-800 p-1.5 rounded-lg shadow-xl text-zinc-300 backdrop-blur">
@@ -127,7 +144,7 @@ export const HoleCanvas = () => {
         }}
       >
         <svg viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`} className="w-full h-full">
-          {/* A) Static & Memoized Vector Faceplate */}
+          {/* A) Static Vector Faceplate */}
           <BoardVector
             holeCoords={holeCoords}
             switches={switches}
@@ -137,28 +154,32 @@ export const HoleCanvas = () => {
             leds={leds}
           />
 
-          {/* B) Wires Layer */}
+          {/* B) Dynamic Wires Layer */}
           <WireOverlay holeCoords={holeCoords} />
 
-          {/* C) Interactive Sockets Overlays */}
+          {/* C) Interactive Sockets with Node Group Highlighting */}
           {Object.entries(holeCoords).map(([holeId, coord]) => {
             const isSelectedStart = wireStartHole === holeId;
             const isHovered = hoveredHole === holeId;
+            const isInSameNodeGroup = hoveredNodeGroup && coord.nodeGroup === hoveredNodeGroup;
 
             return (
               <circle
                 key={holeId}
                 cx={coord.x}
                 cy={coord.y}
-                r={isHovered || isSelectedStart ? "14" : "8"}
+                r={isHovered || isSelectedStart ? '14' : isInSameNodeGroup ? '9' : '8'}
                 fill={
                   isSelectedStart
-                    ? "#22c55e"
+                    ? '#22c55e'
                     : isHovered
-                    ? "#facc15"
-                    : "transparent"
+                    ? '#facc15'
+                    : isInSameNodeGroup
+                    ? '#eab308'
+                    : 'transparent'
                 }
-                stroke={isHovered ? "#ffffff" : "transparent"}
+                fillOpacity={isInSameNodeGroup && !isHovered ? 0.45 : 1}
+                stroke={isHovered ? '#ffffff' : isInSameNodeGroup ? '#fef08a' : 'transparent'}
                 strokeWidth="2"
                 className="cursor-pointer transition-all duration-75"
                 onMouseEnter={() => setHoveredHole(holeId)}
@@ -168,7 +189,7 @@ export const HoleCanvas = () => {
                   handleHoleClick(holeId);
                 }}
               >
-                <title>{holeId}</title>
+                <title>{`${holeId} (${coord.nodeGroup})`}</title>
               </circle>
             );
           })}
