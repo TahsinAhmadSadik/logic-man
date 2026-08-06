@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSimulatorStore } from '../store/useSimulatorStore';
 import { evaluateCircuit } from '../utils/circuitEngine';
 import { generateBoardCoordinates } from '../utils/boardCoordinates';
-import { FileText, Table, Play, CheckCircle2, XCircle, X, HelpCircle, Award } from 'lucide-react';
+import { FileText, Table, Play, CheckCircle2, XCircle, X, HelpCircle, Award, Loader2 } from 'lucide-react';
 
 const holeCoords = generateBoardCoordinates();
 
@@ -14,27 +14,37 @@ export const LabSpecPanel = () => {
     wires,
     placedIcs,
     completedProblemIds,
-    markProblemCompleted
+    markProblemCompleted,
+    reevaluate
   } = useSimulatorStore();
 
   const [activeTab, setActiveTab] = useState('problem'); // 'problem' | 'truthtable'
-  const [testResults, setTestResults] = useState(null); // Array of { passed, row, actualOutputs }
+  const [testResults, setTestResults] = useState(null);
   const [isRunningTests, setIsRunningTests] = useState(false);
+  const [activeRowIndex, setActiveRowIndex] = useState(null);
 
   if (activePanel !== 'spec' || !currentProblem) return null;
 
-  const isCompleted = completedProblemIds.includes(currentProblem.id) || completedProblemIds.includes(String(currentProblem.numId));
+  const isCompleted =
+    completedProblemIds.includes(currentProblem.id) ||
+    completedProblemIds.includes(String(currentProblem.numId));
 
-  // --- RUN AUTO-GRADER TESTER ---
+  // --- RUN ANIMATED AUTO-GRADER TESTER ---
   const handleRunTester = async () => {
     setIsRunningTests(true);
-    const results = [];
+    setActiveTab('truthtable'); // Automatically focus truth table tab during test
+    setTestResults([]);
     let allPassed = true;
+    const accumulatedResults = [];
+
+    // Temporarily turn ON power for live evaluation feedback
+    useSimulatorStore.setState({ powerOn: true });
 
     for (let rowIndex = 0; rowIndex < currentProblem.truthTable.length; rowIndex++) {
       const row = currentProblem.truthTable[rowIndex];
-      
-      // 1. Map problem inputs to Data Switches array (8 switches)
+      setActiveRowIndex(rowIndex);
+
+      // 1. Update switches in store live so switches & LEDs animate on breadboard
       const currentSwitches = [0, 0, 0, 0, 0, 0, 0, 0];
       currentProblem.ioMapping.inputs.forEach((inputDef) => {
         const val = row.inputs[inputDef.name];
@@ -43,7 +53,11 @@ export const LabSpecPanel = () => {
         }
       });
 
-      // 2. Evaluate circuit state synchronously
+      // Synchronize live switches in Zustand store & reevaluate circuit outputs
+      useSimulatorStore.setState({ switches: currentSwitches });
+      reevaluate();
+
+      // 2. Evaluate circuit state
       const evalResult = evaluateCircuit({
         powerOn: true,
         wires,
@@ -52,7 +66,7 @@ export const LabSpecPanel = () => {
         holeCoords
       });
 
-      // 3. Verify actual LED outputs against truth table expected outputs
+      // 3. Verify output signals
       const actualOutputs = {};
       let rowPassed = !evalResult.isShortCircuit;
 
@@ -70,7 +84,7 @@ export const LabSpecPanel = () => {
 
       if (!rowPassed) allPassed = false;
 
-      results.push({
+      accumulatedResults.push({
         rowIndex,
         passed: rowPassed,
         expectedInputs: row.inputs,
@@ -78,11 +92,14 @@ export const LabSpecPanel = () => {
         actualOutputs
       });
 
-      // Small visual delay for animated feedback
-      await new Promise((res) => setTimeout(res, 80));
+      // Update test results incrementally for live table animation
+      setTestResults([...accumulatedResults]);
+
+      // Delay between test cases to animate switch flipping and LED toggling
+      await new Promise((res) => setTimeout(res, 180));
     }
 
-    setTestResults(results);
+    setActiveRowIndex(null);
     setIsRunningTests(false);
 
     if (allPassed) {
@@ -200,19 +217,22 @@ export const LabSpecPanel = () => {
                     {currentProblem.ioMapping.outputs.map((out) => (
                       <th key={out.name} className="p-2 text-amber-400">{out.name}</th>
                     ))}
-                    {testResults && <th className="p-2 text-zinc-400">Status</th>}
+                    <th className="p-2 text-zinc-400">Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800/50">
                   {currentProblem.truthTable.map((row, idx) => {
                     const result = testResults?.[idx];
                     const isPassed = result?.passed;
+                    const isActive = activeRowIndex === idx;
 
                     return (
                       <tr
                         key={idx}
-                        className={`transition-colors ${
-                          result
+                        className={`transition-all duration-150 ${
+                          isActive
+                            ? 'bg-amber-500/20 text-white font-bold animate-pulse'
+                            : result
                             ? isPassed
                               ? 'bg-emerald-500/10 text-emerald-300'
                               : 'bg-rose-500/10 text-rose-300'
@@ -234,15 +254,19 @@ export const LabSpecPanel = () => {
                             )}
                           </td>
                         ))}
-                        {testResults && (
-                          <td className="p-2 flex items-center justify-center">
-                            {isPassed ? (
+                        <td className="p-2 flex items-center justify-center">
+                          {isActive ? (
+                            <Loader2 size={14} className="animate-spin text-amber-400" />
+                          ) : result ? (
+                            isPassed ? (
                               <CheckCircle2 size={16} className="text-emerald-400" />
                             ) : (
                               <XCircle size={16} className="text-rose-400" />
-                            )}
-                          </td>
-                        )}
+                            )
+                          ) : (
+                            <span className="text-zinc-600">-</span>
+                          )}
+                        </td>
                       </tr>
                     );
                   })}
@@ -261,7 +285,10 @@ export const LabSpecPanel = () => {
           className="w-full py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 shadow-lg shadow-amber-500/20 transition-all disabled:opacity-50"
         >
           {isRunningTests ? (
-            <span className="animate-pulse">Evaluating Circuit...</span>
+            <div className="flex items-center gap-2">
+              <Loader2 size={15} className="animate-spin text-zinc-950" />
+              <span>Testing Truth Table...</span>
+            </div>
           ) : (
             <>
               <Play size={15} className="fill-zinc-950" />
