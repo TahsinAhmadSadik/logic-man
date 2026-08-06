@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Code2,
@@ -9,44 +9,103 @@ import {
   ArrowLeft,
   Sparkles,
   HelpCircle,
-  Cpu
+  Cpu,
+  Upload,
+  FileCode,
+  Wrench
 } from 'lucide-react';
 
 export const ProblemStudioPage = () => {
   const [copied, setCopied] = useState(false);
+  const initialFileInputRef = useRef(null);
 
   // --- FORM STATE ---
   const [id, setId] = useState('prob_4');
   const [numId, setNumId] = useState(4);
-  const [title, setTitle] = useState('Quad 2-Input NAND Verification');
+  const [title, setTitle] = useState('Debug Faulty Inverter Connection');
   const [description, setDescription] = useState(
-    'Implement a 2-input NAND logic circuit using a 7400 IC. Map Data Switch 0 to Input A, Data Switch 1 to Input B, and LED 0 to Output Y.'
+    'The pre-wired circuit below has a missing ground rail and improper inverter output wiring. Inspect the circuit and fix it so SW0 complements to LED0.'
   );
-  const [difficulty, setDifficulty] = useState('Easy');
-  const [category, setCategory] = useState('design'); // 'design' | 'debug'
-  const [tags, setTags] = useState('Basic Gates, 7400, Design');
+  const [difficulty, setDifficulty] = useState('Medium');
+  const [category, setCategory] = useState('debug'); // 'design' | 'debug'
+  const [tags, setTags] = useState('Debugging, 7404, Basic Gates');
   const [author, setAuthor] = useState('LogicMan Team');
 
+  // Initial Pre-wired Circuit State (for Debug Mode)
+  const [initialCircuit, setInitialCircuit] = useState({
+    placedIcs: [],
+    wires: []
+  });
+  const [importedFileName, setImportedFileName] = useState('');
+
   // I/O Mapping State
-  const [inputs, setInputs] = useState([{ name: 'A', switchIndex: 0 }, { name: 'B', switchIndex: 1 }]);
+  const [inputs, setInputs] = useState([{ name: 'A', switchIndex: 0 }]);
   const [outputs, setOutputs] = useState([{ name: 'Y', ledIndex: 0 }]);
 
   // Truth Table State
   const [truthTable, setTruthTable] = useState([
-    { inputs: { A: 0, B: 0 }, outputs: { Y: 1 } },
-    { inputs: { A: 0, B: 1 }, outputs: { Y: 1 } },
-    { inputs: { A: 1, B: 0 }, outputs: { Y: 1 } },
-    { inputs: { A: 1, B: 1 }, outputs: { Y: 0 } }
+    { inputs: { A: 0 }, outputs: { Y: 1 } },
+    { inputs: { A: 1 }, outputs: { Y: 0 } }
   ]);
 
   // Allowed IC Limits State
-  const [icLimits, setIcLimits] = useState([{ icTypeId: '7400', limit: 1 }]);
+  const [icLimits, setIcLimits] = useState([{ icTypeId: '7404', limit: 1 }]);
 
   // Hints State
   const [hints, setHints] = useState([
-    'Remember to connect Pin 14 of the 7400 to VCC (+5V) and Pin 7 to GND.',
-    'Pins 1 and 2 are the inputs for Gate 1, and Pin 3 is the output.'
+    'Check if Pin 7 of the 7404 is connected to GND.',
+    'Ensure Pin 2 is wired directly to LED 0.'
   ]);
+
+  // --- HANDLER: UPLOAD EXPORTED CIRCUIT JSON ---
+  const handleInitialCircuitUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const content = event.target?.result;
+        if (typeof content === 'string') {
+          const parsed = JSON.parse(content);
+          if (!Array.isArray(parsed.wires) || !Array.isArray(parsed.placedIcs)) {
+            alert('Invalid circuit file! File must contain "wires" and "placedIcs" arrays.');
+            return;
+          }
+
+          setInitialCircuit({
+            placedIcs: parsed.placedIcs,
+            wires: parsed.wires
+          });
+          setImportedFileName(file.name);
+
+          // Auto-populate IC Limits based on uploaded ICs if limits are empty
+          const icCounts = {};
+          parsed.placedIcs.forEach((ic) => {
+            icCounts[ic.icTypeId] = (icCounts[ic.icTypeId] || 0) + 1;
+          });
+
+          const autoLimits = Object.entries(icCounts).map(([icTypeId, limit]) => ({
+            icTypeId,
+            limit
+          }));
+
+          if (autoLimits.length > 0) {
+            setIcLimits(autoLimits);
+          }
+        }
+      } catch (err) {
+        alert('Failed to parse circuit file: ' + err.message);
+      }
+      e.target.value = '';
+    };
+    reader.readAsText(file);
+  };
+
+  const handleClearInitialCircuit = () => {
+    setInitialCircuit({ placedIcs: [], wires: [] });
+    setImportedFileName('');
+  };
 
   // --- GENERATED JSON OBJECT ---
   const generatedJson = {
@@ -69,10 +128,7 @@ export const ProblemStudioPage = () => {
       }
       return acc;
     }, {}),
-    initialCircuit: {
-      placedIcs: [],
-      wires: []
-    },
+    initialCircuit,
     hints: hints.filter((h) => h.trim() !== '')
   };
 
@@ -86,7 +142,7 @@ export const ProblemStudioPage = () => {
 
   // Handlers for Input/Output Pin add/remove
   const addInputPin = () => {
-    const nextChar = String.fromCharCode(65 + inputs.length); // A, B, C...
+    const nextChar = String.fromCharCode(65 + inputs.length);
     setInputs([...inputs, { name: nextChar, switchIndex: inputs.length }]);
   };
 
@@ -120,6 +176,15 @@ export const ProblemStudioPage = () => {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-amber-500 selection:text-zinc-950">
+      {/* Hidden File Input for Circuit Upload */}
+      <input
+        type="file"
+        ref={initialFileInputRef}
+        onChange={handleInitialCircuitUpload}
+        accept=".json"
+        className="hidden"
+      />
+
       {/* Navbar */}
       <nav className="border-b border-zinc-800/80 bg-zinc-900/60 backdrop-blur-md sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -258,7 +323,52 @@ export const ProblemStudioPage = () => {
             </div>
           </div>
 
-          {/* Section 2: I/O Pin Assignments */}
+          {/* Section 2: Debug Mode Initial Circuit Uploader */}
+          <div className="p-5 bg-zinc-900/60 border border-zinc-800 rounded-2xl space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                <Wrench size={16} /> Initial Pre-wired Circuit (For Debugging)
+              </h3>
+              {initialCircuit.placedIcs.length > 0 && (
+                <button
+                  onClick={handleClearInitialCircuit}
+                  className="text-xs text-rose-400 hover:underline flex items-center gap-1"
+                >
+                  <Trash2 size={12} /> Clear Circuit
+                </button>
+              )}
+            </div>
+
+            <p className="text-[11px] text-zinc-400 leading-relaxed">
+              Export a faulty or partially wired circuit from the simulator as a <code className="text-amber-300">.json</code> file and upload it here to serve as the starting state for this problem.
+            </p>
+
+            <button
+              onClick={() => initialFileInputRef.current?.click()}
+              className="w-full py-3 px-4 rounded-xl border border-dashed border-zinc-700 hover:border-amber-500/50 bg-zinc-950 hover:bg-zinc-900 text-xs font-semibold text-zinc-300 flex items-center justify-center gap-2 transition-all"
+            >
+              <Upload size={16} className="text-amber-400" />
+              <span>
+                {importedFileName
+                  ? `Uploaded: ${importedFileName}`
+                  : 'Upload Exported Circuit (.json)'}
+              </span>
+            </button>
+
+            {/* Uploaded Circuit Stats Badge */}
+            {(initialCircuit.placedIcs.length > 0 || initialCircuit.wires.length > 0) && (
+              <div className="p-2.5 bg-zinc-950 border border-zinc-800 rounded-xl flex items-center justify-between text-[11px] font-mono text-zinc-300">
+                <div className="flex items-center gap-2">
+                  <FileCode size={14} className="text-emerald-400" />
+                  <span>
+                    Initial State Loaded: <strong className="text-amber-400">{initialCircuit.placedIcs.length} ICs</strong>, <strong className="text-sky-400">{initialCircuit.wires.length} Wires</strong>
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Section 3: I/O Pin Assignments */}
           <div className="p-5 bg-zinc-900/60 border border-zinc-800 rounded-2xl space-y-4">
             <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider">
               I/O Pin Assignments
@@ -365,7 +475,7 @@ export const ProblemStudioPage = () => {
             </div>
           </div>
 
-          {/* Section 3: Allowed IC Limits */}
+          {/* Section 4: Allowed IC Limits */}
           <div className="p-5 bg-zinc-900/60 border border-zinc-800 rounded-2xl space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">

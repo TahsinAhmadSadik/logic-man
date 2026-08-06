@@ -1,6 +1,7 @@
 import prob1 from './prob_1.json';
 import prob2 from './prob_2.json';
 import prob3 from './prob_3.json';
+import prob4 from './prob_4.json';
 import freeSandbox from './free_sandbox.json';
 
 export const PROBLEMS_INDEX = [
@@ -30,6 +31,15 @@ export const PROBLEMS_INDEX = [
     category: prob3.category || 'debug',
     tags: prob3.tags || ['7486', '7408'],
     description: prob3.description
+  },
+  {
+    id: prob4.id,
+    numId: prob4.numId,
+    title: prob4.title,
+    difficulty: prob4.difficulty,
+    category: prob4.category || 'debug',
+    tags: prob4.tags || ['7404'],
+    description: prob4.description
   }
 ];
 
@@ -37,12 +47,20 @@ export const PROBLEMS_MAP = {
   prob_1: prob1,
   prob_2: prob2,
   prob_3: prob3,
+  prob_4: prob4,
   '1': prob1,
   '2': prob2,
   '3': prob3,
+  '4': prob4,
   free: freeSandbox,
   sandbox: freeSandbox,
   '0': freeSandbox
 };
 
 export const getProblemById = (id) => PROBLEMS_MAP[id] || null;
+
+
+
+// add import
+// add into Problem Index
+// add into Problem map twice
