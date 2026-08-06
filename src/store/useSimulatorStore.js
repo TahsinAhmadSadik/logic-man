@@ -1,4 +1,8 @@
 import { create } from 'zustand';
+import { evaluateCircuit } from '../utils/circuitEngine';
+import { generateBoardCoordinates } from '../utils/boardCoordinates';
+
+const holeCoords = generateBoardCoordinates();
 
 export const useSimulatorStore = create((set, get) => ({
   powerOn: false,
@@ -7,31 +11,75 @@ export const useSimulatorStore = create((set, get) => ({
   hoveredHole: null,
   selectedWireId: null,
   selectedIcId: null,
-  spawningIcTypeId: null, // 1. IC type currently following the cursor
+  spawningIcTypeId: null,
   wires: [],
-  placedIcs: [], // Array of { id, icTypeId, blockId, startCol }
+  placedIcs: [],
   switches: [0, 0, 0, 0, 0, 0, 0, 0],
   leds: [0, 0, 0, 0, 0, 0, 0, 0],
 
+  // --- ENGINE LOGS & STATUS ---
+  circuitLogs: [],
+  isShortCircuit: false,
+
   // Panel View States
-  activePanel: null, // 'library' | 'timer' | 'problem' | 'truthtable'
+  activePanel: null,
   allowedICLimits: null,
 
   // --- TIMER & STOPWATCH STATE ---
-  stopwatchTime: 0, // in seconds
+  stopwatchTime: 0,
   isStopwatchRunning: false,
 
-  timerInitialTime: 300, // default 5 mins (in seconds)
+  timerInitialTime: 300,
   timerRemainingTime: 300,
   isTimerRunning: false,
   isTimerAlarmActive: false,
 
-  togglePower: () => set((state) => ({ powerOn: !state.powerOn })),
+  // --- LOGIC RE-EVALUATION TRIGGER ---
+  reevaluate: () => {
+    const { powerOn, wires, placedIcs, switches } = get();
+    const result = evaluateCircuit({
+      powerOn,
+      wires,
+      placedIcs,
+      switches,
+      holeCoords
+    });
+
+    set({
+      leds: result.leds,
+      isShortCircuit: result.isShortCircuit,
+      circuitLogs: result.logs
+    });
+  },
+
+  // Toggle Power (Enables/Disables Simulate Mode)
+  togglePower: () => {
+    set((state) => ({
+      powerOn: !state.powerOn,
+      wireStartHole: null,
+      spawningIcTypeId: null
+    }));
+    get().reevaluate();
+  },
+
+  toggleSwitch: (index) => {
+    set((state) => {
+      const nextSwitches = [...state.switches];
+      nextSwitches[index] = nextSwitches[index] === 1 ? 0 : 1;
+      return { switches: nextSwitches };
+    });
+    get().reevaluate(); // Re-evaluate logic instantly on switch toggle
+  },
+
   setSelectedColor: (color) => set({ selectedColor: color }),
   setHoveredHole: (holeId) => set({ hoveredHole: holeId }),
   setSelectedWireId: (wireId) => set({ selectedWireId: wireId, selectedIcId: null }),
   setSelectedIcId: (icId) => set({ selectedIcId: icId, selectedWireId: null }),
-  setSpawningIcTypeId: (icTypeId) => set({ spawningIcTypeId: icTypeId, wireStartHole: null }),
+  setSpawningIcTypeId: (icTypeId) => {
+    // Only allow selecting ICs to spawn when Power is OFF (Edit Mode)
+    if (get().powerOn) return;
+    set({ spawningIcTypeId: icTypeId, wireStartHole: null });
+  },
 
   setAllowedICLimits: (limits) => set({ allowedICLimits: limits }),
 
@@ -42,15 +90,11 @@ export const useSimulatorStore = create((set, get) => ({
 
   cancelWireCreation: () => set({ wireStartHole: null, spawningIcTypeId: null }),
 
-  toggleSwitch: (index) =>
-    set((state) => {
-      const nextSwitches = [...state.switches];
-      nextSwitches[index] = nextSwitches[index] === 1 ? 0 : 1;
-      return { switches: nextSwitches };
-    }),
-
   handleHoleClick: (holeId) => {
-    const { wireStartHole, spawningIcTypeId, selectedColor, wires, placeIc, cancelWireCreation } = get();
+    const { powerOn, wireStartHole, spawningIcTypeId, selectedColor, wires, placeIc } = get();
+
+    // Prevent wire placement or IC spawning while Power is ON (Simulate Mode)
+    if (powerOn) return;
 
     // 1. If spawning an IC, clicking a hole attempts to place Pin 1 there
     if (spawningIcTypeId) {
@@ -60,7 +104,6 @@ export const useSimulatorStore = create((set, get) => ({
       const row = match[1];
       const col = parseInt(match[2], 10);
 
-      // Identify block
       let blockId = 'M1';
       if (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].includes(row)) blockId = 'M1';
       else if (['K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'].includes(row)) blockId = 'M2';
@@ -103,17 +146,17 @@ export const useSimulatorStore = create((set, get) => ({
   },
 
   deleteWire: (wireId) => {
+    if (get().powerOn) return; // Locked during simulation
     set((state) => ({
       wires: state.wires.filter((w) => w.id !== wireId),
       selectedWireId: state.selectedWireId === wireId ? null : state.selectedWireId
     }));
   },
 
-  // 1 & 2. Place IC & Collision Validation
   placeIc: (icTypeId, blockId, startCol) => {
+    if (get().powerOn) return false; // Locked during simulation
     const { placedIcs, allowedICLimits } = get();
 
-    // Limit check
     if (allowedICLimits && allowedICLimits[icTypeId] !== undefined) {
       const currentCount = placedIcs.filter((ic) => ic.icTypeId === icTypeId).length;
       if (currentCount >= allowedICLimits[icTypeId]) {
@@ -122,17 +165,14 @@ export const useSimulatorStore = create((set, get) => ({
       }
     }
 
-    // Determine pins per side
-    const pinCount = icTypeId === '74154' ? 24 : 16; // Standard 14/16/24 pins
+    const pinCount = icTypeId === '74154' ? 24 : 16;
     const pinsPerSide = pinCount / 2;
 
-    // Boundary check (Column 1 to 64)
     if (startCol + pinsPerSide - 1 > 64) {
       alert("IC extends past the right edge of the breadboard!");
       return false;
     }
 
-    // Collision check against existing ICs in the same block
     const isOccupied = placedIcs.some((existingIc) => {
       if (existingIc.blockId !== blockId) return false;
       const existingPins = (existingIc.icTypeId === '74154' ? 24 : 16) / 2;
@@ -160,8 +200,8 @@ export const useSimulatorStore = create((set, get) => ({
     return true;
   },
 
-  // 2. Delete Selected IC
   deleteIc: (icId) => {
+    if (get().powerOn) return; // Locked during simulation
     set((state) => ({
       placedIcs: state.placedIcs.filter((ic) => ic.id !== icId),
       selectedIcId: state.selectedIcId === icId ? null : state.selectedIcId
