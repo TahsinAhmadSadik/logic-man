@@ -1,19 +1,20 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HomePage } from './pages/HomePage';
 import { ProblemSimulatorWrapper } from './pages/ProblemSimulatorWrapper';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Default route redirects to Problem 1 */}
-        <Route path="/" element={<Navigate to="/problem/prob_1" replace />} />
+        {/* Homepage with problem list & search */}
+        <Route path="/" element={<HomePage />} />
         
-        {/* Dynamic route for problem simulator */}
+        {/* Dynamic simulator route */}
         <Route path="/problem/:id" element={<ProblemSimulatorWrapper />} />
         
-        {/* Fallback for unknown URLs */}
-        <Route path="*" element={<Navigate to="/problem/prob_1" replace />} />
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
