@@ -1,15 +1,16 @@
 import React from 'react';
 import { useSimulatorStore } from '../store/useSimulatorStore';
-import { Cpu, Timer, FileText, Table } from 'lucide-react';
+import { Cpu, Timer, FileText, Table, Terminal } from 'lucide-react';
 
 export const BottomFloatingBar = () => {
-  const { activePanel, togglePanel } = useSimulatorStore();
+  const { activePanel, togglePanel, isShortCircuit } = useSimulatorStore();
 
   const panels = [
     { id: 'library', label: 'IC Library', icon: Cpu },
     { id: 'timer', label: 'Stopwatch', icon: Timer },
     { id: 'problem', label: 'Problem', icon: FileText },
-    { id: 'truthtable', label: 'Truth Table', icon: Table }
+    { id: 'truthtable', label: 'Truth Table', icon: Table },
+    { id: 'console', label: 'Diagnostics', icon: Terminal, alert: isShortCircuit }
   ];
 
   return (
@@ -22,7 +23,7 @@ export const BottomFloatingBar = () => {
           <button
             key={p.id}
             onClick={() => togglePanel(p.id)}
-            className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 ${
+            className={`relative flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-150 ${
               isActive
                 ? 'bg-amber-500 text-zinc-950 font-bold shadow-lg shadow-amber-500/20'
                 : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
@@ -30,6 +31,11 @@ export const BottomFloatingBar = () => {
           >
             <Icon size={16} />
             <span>{p.label}</span>
+
+            {/* Red blinking dot when a short circuit occurs */}
+            {p.alert && (
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-rose-500 rounded-full animate-ping" />
+            )}
           </button>
         );
       })}
