@@ -346,5 +346,33 @@ export const useSimulatorStore = create((set, get) => ({
       isTimerAlarmActive: false
     })),
 
-  dismissTimerAlarm: () => set({ isTimerAlarmActive: false })
+  dismissTimerAlarm: () => set({ isTimerAlarmActive: false }),
+
+  // --- PROBLEM & AUTO-GRADER STATE ---
+  currentProblem: null,
+  completedProblemIds: JSON.parse(localStorage.getItem('logicman_completed_probs') || '[]'),
+
+  loadProblem: (problemData) => {
+    if (!problemData) return;
+
+    set({
+      currentProblem: problemData,
+      allowedICLimits: problemData.allowedICLimits || null,
+      wires: problemData.initialCircuit?.wires || [],
+      placedIcs: problemData.initialCircuit?.placedIcs || [],
+      past: [],
+      future: [],
+      powerOn: false,
+      activePanel: 'spec'
+    });
+  },
+
+  markProblemCompleted: (problemId) => {
+    set((state) => {
+      if (state.completedProblemIds.includes(problemId)) return state;
+      const updated = [...state.completedProblemIds, problemId];
+      localStorage.setItem('logicman_completed_probs', JSON.stringify(updated));
+      return { completedProblemIds: updated };
+    });
+  },
 }));
