@@ -6,7 +6,7 @@ import { WireOverlay } from './WireOverlay';
 import { PlacedICOverlay } from './PlacedICOverlay';
 import { ICLibraryPanel } from './ICLibraryPanel';
 import { ColorPickerToolbar } from './ColorPickerToolbar';
-import { BottomFloatingBar } from './BottomFloatingBar';
+import { SimulatorNavbar } from './SimulatorNavbar';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { IC_CATALOG } from '../data/icCatalog';
 import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
@@ -132,7 +132,7 @@ export const HoleCanvas = () => {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full flex items-center justify-center overflow-hidden select-none bg-zinc-950 p-2 ${
+      className={`relative w-screen h-screen flex items-center justify-center overflow-hidden select-none bg-zinc-950 p-2 ${
         isPanning ? 'cursor-grabbing' : 'cursor-grab'
       }`}
       onWheel={handleWheel}
@@ -154,7 +154,7 @@ export const HoleCanvas = () => {
       <ConfirmModal />
       
       <ColorPickerToolbar />
-      <BottomFloatingBar />
+      <SimulatorNavbar />
 
       <div className="absolute bottom-6 right-6 z-40 flex items-center gap-1 bg-zinc-900/90 border border-zinc-800 p-1.5 rounded-lg shadow-xl text-zinc-300 backdrop-blur">
         <button onClick={() => setScale((s) => Math.min(s * 1.25, 8.0))} className="p-2 hover:bg-zinc-800 rounded-md">
