@@ -11,11 +11,13 @@ import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { IC_CATALOG } from '../data/icCatalog';
 import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { TimerPanel } from './TimerPanel';
+import { ConsoleLogsPanel } from './ConsoleLogsPanel';
+import { LabSpecPanel } from './LabSpecPanel';
 import { useTimerEngine } from '../hooks/useTimerEngine';
 
 export const HoleCanvas = () => {
   useKeyboardShortcuts();
-  useTimerEngine(); // 👈 Enables background ticks and alarm sound!
+  useTimerEngine();
 
   const holeCoords = useMemo(() => generateBoardCoordinates(), []);
   const containerRef = useRef(null);
@@ -38,10 +40,10 @@ export const HoleCanvas = () => {
     togglePower,
     leds,
     setSelectedWireId,
-    placedIcs
+    placedIcs,
+    spawningIcTypeId
   } = useSimulatorStore();
 
-  // Disable socket holes used by IC body and its metal pin legs
   const hiddenHoles = useMemo(() => {
     const hidden = new Set();
 
@@ -51,10 +53,6 @@ export const HoleCanvas = () => {
 
       const pinsPerSide = (icType.pins || 14) / 2;
 
-      // IC Pins plug directly into the bottom row of top group & top row of bottom group:
-      // Block M1: Row E (top pins) & Row F (bottom pins)
-      // Block M2: Row O (top pins) & Row P (bottom pins)
-      // Block M3: Row Y (top pins) & Row Z (bottom pins)
       const topPinRow = ic.blockId === 'M1' ? 'E' : ic.blockId === 'M2' ? 'O' : 'Y';
       const botPinRow = ic.blockId === 'M1' ? 'F' : ic.blockId === 'M2' ? 'P' : 'Z';
 
@@ -94,7 +92,6 @@ export const HoleCanvas = () => {
   };
 
   const handleMouseDown = (e) => {
-    // If placing an IC or drawing a wire, Right-Click cancels the action
     if (e.button === 2 && (wireStartHole || spawningIcTypeId)) {
       e.preventDefault();
       cancelWireCreation();
@@ -148,8 +145,12 @@ export const HoleCanvas = () => {
         }
       }}
     >
+      {/* Mounted Panels */}
       <ICLibraryPanel />
       <TimerPanel />
+      <LabSpecPanel />
+      <ConsoleLogsPanel />
+      
       <ColorPickerToolbar />
       <BottomFloatingBar />
 
@@ -191,7 +192,6 @@ export const HoleCanvas = () => {
 
           <WireOverlay holeCoords={holeCoords} />
 
-          {/* Interactive Sockets (Hides sockets directly under IC body AND pin legs) */}
           {Object.entries(holeCoords).map(([holeId, coord]) => {
             if (hiddenHoles.has(holeId)) return null;
 

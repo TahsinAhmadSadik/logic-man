@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSimulatorStore } from '../store/useSimulatorStore';
-import { Cpu, Timer, FileText, Table, Terminal } from 'lucide-react';
+import { Cpu, Timer, FileText, Terminal } from 'lucide-react';
 
 export const BottomFloatingBar = () => {
   const { activePanel, togglePanel, isShortCircuit } = useSimulatorStore();
@@ -8,8 +8,7 @@ export const BottomFloatingBar = () => {
   const panels = [
     { id: 'library', label: 'IC Library', icon: Cpu },
     { id: 'timer', label: 'Stopwatch', icon: Timer },
-    { id: 'problem', label: 'Problem', icon: FileText },
-    { id: 'truthtable', label: 'Truth Table', icon: Table },
+    { id: 'spec', label: 'Lab Spec', icon: FileText },
     { id: 'console', label: 'Diagnostics', icon: Terminal, alert: isShortCircuit }
   ];
 
