@@ -251,10 +251,16 @@ export const useSimulatorStore = create((set, get) => ({
     if (get().powerOn) return false;
     const { placedIcs, allowedICLimits, saveSnapshot } = get();
 
-    if (allowedICLimits && allowedICLimits[icTypeId] !== undefined) {
+    // STRICT CHECK: If limits are active, block ICs that aren't defined in allowedICLimits
+    if (allowedICLimits !== null && allowedICLimits !== undefined) {
+      if (allowedICLimits[icTypeId] === undefined) {
+        alert(`IC ${icTypeId} is not allowed in this experiment!`);
+        return false;
+      }
+
       const currentCount = placedIcs.filter((ic) => ic.icTypeId === icTypeId).length;
       if (currentCount >= allowedICLimits[icTypeId]) {
-        alert(`Limit reached for IC ${icTypeId}!`);
+        alert(`Limit reached for IC ${icTypeId}! (${allowedICLimits[icTypeId]} max allowed)`);
         return false;
       }
     }
