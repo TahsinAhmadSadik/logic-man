@@ -68,7 +68,7 @@ Most existing tools present abstract logic gate nodes rather than real hardware.
 | **Right-Click** | Cancel active wire routing or IC placement |
 | **DEL / Backspace** | Delete currently selected wire or IC chip |
 | **Ctrl + Q** | Reset all wire connections |
-| **Ctrl + R** | Reset the while circuit |
+| **Ctrl + R** | Reset the whole circuit |
 | **Ctrl + Z** | Undo last wire or IC placement |
 | **Ctrl + Y** | Redo last action |
 | **Mouse Wheel** | Zoom canvas in / out |
