@@ -4,12 +4,14 @@
   "title": "Construct 16x1 MUX Using Two 8x1 and One 2x1 MUX",
   "description": "Construct a 16×1 multiplexer using two 8×1 MUXs and one 2×1 MUX. Connect the first 8×1 MUX to inputs D0 through D7 and the second 8×1 MUX to inputs D8 through D15. Use three select lines as common select inputs for both 8×1 MUXs and use the remaining select line to control the 2×1 MUX.",
   "difficulty": "Medium",
-  "category": "mux(design)",
+  "category": "design",
   "tags": [
     "16x1 MUX",
     "8x1 MUX",
     "2x1 MUX",
-    "MUX Construction"
+    "MUX Construction",
+    "74151",
+    "74157"
   ],
   "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
   "ioMapping": {

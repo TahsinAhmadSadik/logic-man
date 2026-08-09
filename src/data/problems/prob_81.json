@@ -4,12 +4,15 @@
   "title": "Design Boolean Function Using 4x1 MUX",
   "description": "Design and implement the Boolean function f(P,Q,R,S) = Σ(0,2,7,10,14,15) using a 4×1 MUX and necessary logic gates.",
   "difficulty": "Easy",
-  "category": "mux(design)",
+  "category": "design",
   "tags": [
     "4x1 MUX",
     "Boolean Function",
     "SOP",
-    "Logic Gates"
+    "Logic Gates",
+    "74153",
+    "7404",
+    "7408"
   ],
   "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
   "ioMapping": {

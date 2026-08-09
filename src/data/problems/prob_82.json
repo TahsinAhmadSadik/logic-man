@@ -4,13 +4,16 @@
   "title": "Design Product-of-Maxterms Function Using 4x1 MUX",
   "description": "Design and implement the Boolean function f(P,Q,R,S) = Π(1,2,3,4,8,9,12) using a 4×1 MUX and necessary logic gates.",
   "difficulty": "Easy",
-  "category": "mux(design)",
+  "category": "design",
   "tags": [
     "4x1 MUX",
     "Boolean Function",
     "POS",
     "Product of Maxterms",
-    "Logic Gates"
+    "Logic Gates",
+    "74153",
+    "7404",
+    "7432"
   ],
   "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
   "ioMapping": {

@@ -26,7 +26,7 @@ export const HomePage = () => {
 
   const allIcTags = Array.from(
     new Set(PROBLEMS_INDEX.flatMap((p) => p.tags.filter((t) => t.startsWith('74'))))
-  );
+  ).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
   const filteredProblems = PROBLEMS_INDEX.filter((prob) => {
     if (prob.category !== activeCategory) return false;
@@ -211,6 +211,11 @@ export const HomePage = () => {
                 completedProblemIds.includes(prob.id) ||
                 completedProblemIds.includes(String(prob.numId));
 
+              // Max tags to show before grouping extra tags into +N
+              const maxVisibleTags = 2;
+              const visibleTags = prob.tags.slice(0, maxVisibleTags);
+              const hiddenTagCount = prob.tags.length - maxVisibleTags;
+
               return (
                 <Link
                   key={prob.id}
@@ -229,7 +234,7 @@ export const HomePage = () => {
                       </div>
 
                       {isSolved && (
-                        <span className="flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30 font-bold">
+                        <span className="flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30 font-bold shrink-0">
                           <CheckCircle2 size={13} /> Solved
                         </span>
                       )}
@@ -240,10 +245,12 @@ export const HomePage = () => {
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-zinc-800/60 text-[11px]">
-                    <div className="flex items-center gap-1.5">
+                  {/* Clean Single-Line Tag Footer with +N Badge */}
+                  <div className="flex items-center justify-between pt-3 border-t border-zinc-800/60 text-[11px] gap-2">
+                    <div className="flex items-center gap-1.5 overflow-hidden whitespace-nowrap">
+                      {/* Difficulty Badge */}
                       <span
-                        className={`font-semibold px-2 py-0.5 rounded ${
+                        className={`font-semibold px-2 py-0.5 rounded shrink-0 ${
                           prob.difficulty === 'Easy'
                             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                             : prob.difficulty === 'Medium'
@@ -254,14 +261,28 @@ export const HomePage = () => {
                         {prob.difficulty}
                       </span>
 
-                      {prob.tags.map((tag) => (
-                        <span key={tag} className="font-mono bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">
+                      {/* First N Visible Tags */}
+                      {visibleTags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="font-mono bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded shrink-0"
+                        >
                           {tag}
                         </span>
                       ))}
+
+                      {/* +N Overflow Badge */}
+                      {hiddenTagCount > 0 && (
+                        <span
+                          className="font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold shrink-0"
+                          title={`Additional Tags: ${prob.tags.slice(maxVisibleTags).join(', ')}`}
+                        >
+                          +{hiddenTagCount}
+                        </span>
+                      )}
                     </div>
 
-                    <span className="flex items-center gap-1 text-amber-400 font-bold group-hover:translate-x-1 transition-transform">
+                    <span className="flex items-center gap-1 text-amber-400 font-bold group-hover:translate-x-1 transition-transform shrink-0">
                       Start <ArrowRight size={13} />
                     </span>
                   </div>

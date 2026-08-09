@@ -4,12 +4,16 @@
   "title": "Design 2-Bit Comparator Using Three 4x1 MUXs",
   "description": "Design a 2-bit magnitude comparator using three 4×1 MUXs and basic logic gates as required. The circuit compares two 2-bit binary numbers A = A1A0 and B = B1B0 and produces three outputs indicating whether A is greater than, equal to, or less than B.",
   "difficulty": "Hard",
-  "category": "mux(design)",
+  "category": "design",
   "tags": [
     "4x1 MUX",
     "2-Bit Comparator",
     "Comparator Design",
-    "Logic Gates"
+    "Logic Gates",
+    "74153",
+    "7404",
+    "7408",
+    "7432"
   ],
   "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
   "ioMapping": {

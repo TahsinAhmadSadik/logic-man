@@ -4,13 +4,17 @@
   "title": "Design Binary to Excess-3 Code Converter Using 8x1 MUX",
   "description": "Design a Binary to Excess-3 code converter using one 8×1 MUX and basic logic gates as many as required. The converter accepts a 4-bit BCD input representing decimal digits 0 through 9 and produces the corresponding 4-bit Excess-3 code. Invalid BCD inputs 10 through 15 are treated as don't-care conditions.",
   "difficulty": "Hard",
-  "category": "mux(design)",
+  "category": "design",
   "tags": [
     "8x1 MUX",
     "Code Converter",
     "Binary to Excess-3",
     "Logic Gates",
-    "Don't Care"
+    "Don't Care",
+    "74151",
+    "7404",
+    "7408",
+    "7432"
   ],
   "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
   "ioMapping": {

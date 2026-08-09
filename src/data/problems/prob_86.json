@@ -4,13 +4,14 @@
   "title": "Design 3-to-8 Decoder Using Eight 8x1 MUXs",
   "description": "Design a 3-to-8 decoder using eight 8×1 MUXs. Use the three decoder inputs A, B and C as the select lines of every 8×1 MUX. Implement each decoder output by connecting one data input of the corresponding MUX to logic HIGH and all other data inputs to logic LOW.",
   "difficulty": "Hard",
-  "category": "mux(design)",
+  "category": "design",
   "tags": [
     "8x1 MUX",
     "3-to-8 Decoder",
     "Decoder Design",
     "MUX Construction",
-    "Logic Design"
+    "Logic Design",
+    "74151"
   ],
   "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
   "ioMapping": {

@@ -4,13 +4,14 @@
   "title": "Design 16x1 MUX Using 4x1 MUXs and Implement Boolean Function",
   "description": "Design a 16×1 MUX using only 4×1 MUXs. Then use the constructed 16×1 MUX to implement the Boolean function f(P,Q,R,S) = Σ(0,2,7,10,14,15). Connect the appropriate data inputs of the 16×1 MUX to logic HIGH or LOW according to the given minterms.",
   "difficulty": "Hard",
-  "category": "mux(design)",
+  "category": "design",
   "tags": [
     "4x1 MUX",
     "16x1 MUX",
     "MUX Construction",
     "Boolean Function",
-    "SOP"
+    "SOP",
+    "74153"
   ],
   "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
   "ioMapping": {
