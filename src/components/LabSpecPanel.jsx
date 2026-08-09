@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSimulatorStore } from '../store/useSimulatorStore';
 import { evaluateCircuit } from '../utils/circuitEngine';
 import { generateBoardCoordinates } from '../utils/boardCoordinates';
-import { FileText, Table, Play, CheckCircle2, XCircle, X, HelpCircle, Award, Loader2 } from 'lucide-react';
+import { FileText, Table, Play, CheckCircle2, XCircle, X, HelpCircle, Award, Loader2, User } from 'lucide-react';
 
 const holeCoords = generateBoardCoordinates();
 
@@ -160,11 +160,22 @@ export const LabSpecPanel = () => {
       <div className="flex-1 p-4 overflow-y-auto text-xs space-y-4">
         {activeTab === 'problem' ? (
           <div className="space-y-3">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
-                {currentProblem.difficulty}
-              </span>
-              <p className="text-zinc-300 leading-relaxed mt-2.5 text-xs">{currentProblem.description}</p>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                  {currentProblem.difficulty}
+                </span>
+
+                {/* Author Badge */}
+                {currentProblem.author && (
+                  <span className="flex items-center gap-1 text-[11px] text-zinc-400 font-medium truncate max-w-[200px]" title={`Authored by ${currentProblem.author}`}>
+                    <User size={12} className="text-amber-400 shrink-0" />
+                    <span className="truncate">By <strong className="text-zinc-300">{currentProblem.author}</strong></span>
+                  </span>
+                )}
+              </div>
+
+              <p className="text-zinc-300 leading-relaxed text-xs">{currentProblem.description}</p>
             </div>
 
             {/* IO Pin Mappings */}
