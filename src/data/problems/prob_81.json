@@ -1,0 +1,138 @@
+{
+  "id": "prob_81",
+  "numId": 81,
+  "title": "Design Boolean Function Using 4x1 MUX",
+  "description": "Design and implement the Boolean function f(P,Q,R,S) = Σ(0,2,7,10,14,15) using a 4×1 MUX and necessary logic gates.",
+  "difficulty": "Easy",
+  "category": "mux(design)",
+  "tags": [
+    "4x1 MUX",
+    "Boolean Function",
+    "SOP",
+    "Logic Gates"
+  ],
+  "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "P",
+        "switchIndex": 0
+      },
+      {
+        "name": "Q",
+        "switchIndex": 1
+      },
+      {
+        "name": "R",
+        "switchIndex": 2
+      },
+      {
+        "name": "S",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "F",
+        "ledIndex": 0
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "P": 0,
+        "Q": 0,
+        "R": 0,
+        "S": 0
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "P": 0,
+        "Q": 0,
+        "R": 1,
+        "S": 0
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "P": 0,
+        "Q": 1,
+        "R": 1,
+        "S": 1
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "P": 1,
+        "Q": 0,
+        "R": 1,
+        "S": 0
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "P": 1,
+        "Q": 1,
+        "R": 1,
+        "S": 0
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "P": 1,
+        "Q": 1,
+        "R": 1,
+        "S": 1
+      },
+      "outputs": {
+        "F": 1
+      }
+    }
+  ],
+  "requiredArchitecture": {
+    "muxCount": 1,
+    "muxType": "4x1",
+    "selectInputs": [
+      "P",
+      "Q"
+    ],
+    "dataInputs": {
+      "D0": "S'",
+      "D1": "R.S",
+      "D2": "R.S'",
+      "D3": "R"
+    }
+  },
+  "allowedICLimits": {
+    "4x1_MUX": 1,
+    "7404": 1,
+    "7408": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Use P and Q as the select inputs of the 4×1 MUX.",
+    "Determine D0, D1, D2 and D3 from the given minterms.",
+    "Use NOT and AND gates to generate the required data inputs.",
+    "Connect the MUX output to LED0."
+  ]
+}

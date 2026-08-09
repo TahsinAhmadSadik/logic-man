@@ -1,0 +1,86 @@
+{
+  "id": "prob_87",
+  "numId": 7,
+  "title": "Design 4-to-2 Encoder Using Two 4x1 MUXs",
+  "description": "Design a 4-to-2 encoder using two 4×1 MUXs and basic gates as required. Assume that at most one input is HIGH at a time. The encoder should generate the corresponding 2-bit binary code at its outputs. When all inputs are LOW, the output should be 00.",
+  "difficulty": "Medium",
+  "category": "mux(design)",
+  "tags": [
+    "4x1 MUX",
+    "4-to-2 Encoder",
+    "Encoder Design",
+    "Logic Gates"
+  ],
+  "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
+  "ioMapping": {
+    "inputs": [
+      { "name": "D0", "switchIndex": 0 },
+      { "name": "D1", "switchIndex": 1 },
+      { "name": "D2", "switchIndex": 2 },
+      { "name": "D3", "switchIndex": 3 }
+    ],
+    "outputs": [
+      { "name": "Y1", "ledIndex": 0 },
+      { "name": "Y0", "ledIndex": 1 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "D0": 0, "D1": 0, "D2": 0, "D3": 0 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "D0": 1, "D1": 0, "D2": 0, "D3": 0 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "D0": 0, "D1": 1, "D2": 0, "D3": 0 }, "outputs": { "Y1": 0, "Y0": 1 } },
+    { "inputs": { "D0": 0, "D1": 0, "D2": 1, "D3": 0 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "D0": 0, "D1": 0, "D2": 0, "D3": 1 }, "outputs": { "Y1": 1, "Y0": 1 } }
+  ],
+  "requiredArchitecture": {
+    "muxCount": 2,
+    "muxType": "4x1",
+    "description": "Use one 4×1 MUX to implement Y1 and another 4×1 MUX to implement Y0. Use D3 as S1 and D2 as S0 for both MUXs. Since at most one encoder input is HIGH at a time, the D2=D3=1 select condition is invalid and may be treated as a don't-care condition.",
+    "selectInputs": [
+      "D3",
+      "D2"
+    ],
+    "muxY1": {
+      "output": "Y1",
+      "selectInputs": [
+        "D3",
+        "D2"
+      ],
+      "dataInputs": {
+        "I0": 0,
+        "I1": 1,
+        "I2": 1,
+        "I3": "dontCare"
+      }
+    },
+    "muxY0": {
+      "output": "Y0",
+      "selectInputs": [
+        "D3",
+        "D2"
+      ],
+      "dataInputs": {
+        "I0": "D1",
+        "I1": 0,
+        "I2": 1,
+        "I3": "dontCare"
+      }
+    }
+  },
+  "allowedICLimits": {
+    "4x1_MUX": 2
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Assume that at most one of D0, D1, D2 or D3 can be HIGH at a time.",
+    "The encoder equations are Y1 = D2 + D3 and Y0 = D1 + D3.",
+    "Use D3 as S1 and D2 as S0 for the select inputs of both 4×1 MUXs.",
+    "For the Y1 MUX, connect I0 to logic LOW (0), I1 and I2 to logic HIGH (1), and I3 can be tied to 0, 1, or left unused as a don't-care state.",
+    "For the Y0 MUX, connect I0 to D1, I1 to logic LOW (0), I2 to logic HIGH (1), and I3 can be tied to 0, 1, or left unused as a don't-care state.",
+    "The select condition D3D2 = 11 is invalid because only one encoder input may be HIGH at a time.",
+    "Connect the first MUX output to Y1 and the second MUX output to Y0.",
+    "Connect Y1 and Y0 to LED0 and LED1 respectively."
+  ]
+}

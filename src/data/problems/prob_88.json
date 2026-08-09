@@ -1,0 +1,100 @@
+{
+  "id": "prob_88",
+  "numId": 88,
+  "title": "Design 2-Bit Comparator Using Three 4x1 MUXs",
+  "description": "Design a 2-bit magnitude comparator using three 4×1 MUXs and basic logic gates as required. The circuit compares two 2-bit binary numbers A = A1A0 and B = B1B0 and produces three outputs indicating whether A is greater than, equal to, or less than B.",
+  "difficulty": "Hard",
+  "category": "mux(design)",
+  "tags": [
+    "4x1 MUX",
+    "2-Bit Comparator",
+    "Comparator Design",
+    "Logic Gates"
+  ],
+  "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
+  "ioMapping": {
+    "inputs": [
+      { "name": "A1", "switchIndex": 0 },
+      { "name": "A0", "switchIndex": 1 },
+      { "name": "B1", "switchIndex": 2 },
+      { "name": "B0", "switchIndex": 3 }
+    ],
+    "outputs": [
+      { "name": "A>B", "ledIndex": 0 },
+      { "name": "A=B", "ledIndex": 1 },
+      { "name": "A<B", "ledIndex": 2 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "A1": 0, "A0": 0, "B1": 0, "B0": 0 }, "outputs": { "A>B": 0, "A=B": 1, "A<B": 0 } },
+    { "inputs": { "A1": 0, "A0": 0, "B1": 0, "B0": 1 }, "outputs": { "A>B": 0, "A=B": 0, "A<B": 1 } },
+    { "inputs": { "A1": 0, "A0": 0, "B1": 1, "B0": 0 }, "outputs": { "A>B": 0, "A=B": 0, "A<B": 1 } },
+    { "inputs": { "A1": 0, "A0": 0, "B1": 1, "B0": 1 }, "outputs": { "A>B": 0, "A=B": 0, "A<B": 1 } },
+    { "inputs": { "A1": 0, "A0": 1, "B1": 0, "B0": 0 }, "outputs": { "A>B": 1, "A=B": 0, "A<B": 0 } },
+    { "inputs": { "A1": 0, "A0": 1, "B1": 0, "B0": 1 }, "outputs": { "A>B": 0, "A=B": 1, "A<B": 0 } },
+    { "inputs": { "A1": 0, "A0": 1, "B1": 1, "B0": 0 }, "outputs": { "A>B": 0, "A=B": 0, "A<B": 1 } },
+    { "inputs": { "A1": 0, "A0": 1, "B1": 1, "B0": 1 }, "outputs": { "A>B": 0, "A=B": 0, "A<B": 1 } },
+    { "inputs": { "A1": 1, "A0": 0, "B1": 0, "B0": 0 }, "outputs": { "A>B": 1, "A=B": 0, "A<B": 0 } },
+    { "inputs": { "A1": 1, "A0": 0, "B1": 0, "B0": 1 }, "outputs": { "A>B": 1, "A=B": 0, "A<B": 0 } },
+    { "inputs": { "A1": 1, "A0": 0, "B1": 1, "B0": 0 }, "outputs": { "A>B": 0, "A=B": 1, "A<B": 0 } },
+    { "inputs": { "A1": 1, "A0": 0, "B1": 1, "B0": 1 }, "outputs": { "A>B": 0, "A=B": 0, "A<B": 1 } },
+    { "inputs": { "A1": 1, "A0": 1, "B1": 0, "B0": 0 }, "outputs": { "A>B": 1, "A=B": 0, "A<B": 0 } },
+    { "inputs": { "A1": 1, "A0": 1, "B1": 0, "B0": 1 }, "outputs": { "A>B": 1, "A=B": 0, "A<B": 0 } },
+    { "inputs": { "A1": 1, "A0": 1, "B1": 1, "B0": 0 }, "outputs": { "A>B": 1, "A=B": 0, "A<B": 0 } },
+    { "inputs": { "A1": 1, "A0": 1, "B1": 1, "B0": 1 }, "outputs": { "A>B": 0, "A=B": 1, "A<B": 0 } }
+  ],
+  "requiredArchitecture": {
+    "muxCount": 3,
+    "muxType": "4x1",
+    "description": "Use three 4×1 MUXs, one for each comparator output. Use A1 and A0 as select inputs (S1=A1, S0=A0) of all three MUXs. Generate required data inputs from B1 and B0 using basic gates.",
+    "selectInputs": ["A1", "A0"],
+    "muxGreater": {
+      "output": "A>B",
+      "selectInputs": ["A1", "A0"],
+      "dataInputs": {
+        "I0": 0,
+        "I1": "B1'B0'",
+        "I2": "B1'",
+        "I3": "B1' + B0'"
+      }
+    },
+    "muxEqual": {
+      "output": "A=B",
+      "selectInputs": ["A1", "A0"],
+      "dataInputs": {
+        "I0": "B1'B0'",
+        "I1": "B1'B0",
+        "I2": "B1B0'",
+        "I3": "B1B0"
+      }
+    },
+    "muxLess": {
+      "output": "A<B",
+      "selectInputs": ["A1", "A0"],
+      "dataInputs": {
+        "I0": "B1 + B0",
+        "I1": "B1",
+        "I2": "B1B0",
+        "I3": 0
+      }
+    }
+  },
+  "allowedICLimits": {
+    "4x1_MUX": 3,
+    "7404": 2,
+    "7408": 4,
+    "7432": 2
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Use A1 as S1 and A0 as S0 for the select inputs of all three 4×1 MUXs.",
+    "For A>B: when A=00, output is 0; when A=01, output is B1'B0'; when A=10, output is B1'; when A=11, output is B1' + B0'.",
+    "For A=B: each MUX data input evaluates to HIGH when B matches the active value of A.",
+    "For A<B: when A=00, output is B1 + B0; when A=01, output is B1; when A=10, output is B1B0; when A=11, output is 0.",
+    "Use 7404 (NOT), 7408 (AND), and 7432 (OR) ICs to create necessary input expressions from B1 and B0.",
+    "Connect outputs to LED0 (A>B), LED1 (A=B), and LED2 (A<B)."
+  ]
+}

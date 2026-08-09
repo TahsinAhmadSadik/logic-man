@@ -1,0 +1,325 @@
+{
+  "id": "prob_85",
+  "numId": 85,
+  "title": "Design Binary to Excess-3 Code Converter Using 8x1 MUX",
+  "description": "Design a Binary to Excess-3 code converter using one 8×1 MUX and basic logic gates as many as required. The converter accepts a 4-bit BCD input representing decimal digits 0 through 9 and produces the corresponding 4-bit Excess-3 code. Invalid BCD inputs 10 through 15 are treated as don't-care conditions.",
+  "difficulty": "Hard",
+  "category": "mux(design)",
+  "tags": [
+    "8x1 MUX",
+    "Code Converter",
+    "Binary to Excess-3",
+    "Logic Gates",
+    "Don't Care"
+  ],
+  "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "A",
+        "switchIndex": 0
+      },
+      {
+        "name": "B",
+        "switchIndex": 1
+      },
+      {
+        "name": "C",
+        "switchIndex": 2
+      },
+      {
+        "name": "D",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "W",
+        "ledIndex": 0
+      },
+      {
+        "name": "X",
+        "ledIndex": 1
+      },
+      {
+        "name": "Y",
+        "ledIndex": 2
+      },
+      {
+        "name": "Z",
+        "ledIndex": 3
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "outputs": {
+        "W": 0,
+        "X": 0,
+        "Y": 1,
+        "Z": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 1
+      },
+      "outputs": {
+        "W": 0,
+        "X": 1,
+        "Y": 0,
+        "Z": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "D": 0
+      },
+      "outputs": {
+        "W": 0,
+        "X": 1,
+        "Y": 0,
+        "Z": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "D": 1
+      },
+      "outputs": {
+        "W": 0,
+        "X": 1,
+        "Y": 1,
+        "Z": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 0
+      },
+      "outputs": {
+        "W": 0,
+        "X": 1,
+        "Y": 1,
+        "Z": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 1
+      },
+      "outputs": {
+        "W": 1,
+        "X": 0,
+        "Y": 0,
+        "Z": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 1,
+        "D": 0
+      },
+      "outputs": {
+        "W": 1,
+        "X": 0,
+        "Y": 0,
+        "Z": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 1,
+        "D": 1
+      },
+      "outputs": {
+        "W": 1,
+        "X": 0,
+        "Y": 1,
+        "Z": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "outputs": {
+        "W": 1,
+        "X": 0,
+        "Y": 1,
+        "Z": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 0,
+        "D": 1
+      },
+      "outputs": {
+        "W": 1,
+        "X": 1,
+        "Y": 0,
+        "Z": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "D": 0
+      },
+      "outputs": {
+        "W": "dontCare",
+        "X": "dontCare",
+        "Y": "dontCare",
+        "Z": "dontCare"
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "D": 1
+      },
+      "outputs": {
+        "W": "dontCare",
+        "X": "dontCare",
+        "Y": "dontCare",
+        "Z": "dontCare"
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "D": 0
+      },
+      "outputs": {
+        "W": "dontCare",
+        "X": "dontCare",
+        "Y": "dontCare",
+        "Z": "dontCare"
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "D": 1
+      },
+      "outputs": {
+        "W": "dontCare",
+        "X": "dontCare",
+        "Y": "dontCare",
+        "Z": "dontCare"
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 1,
+        "D": 0
+      },
+      "outputs": {
+        "W": "dontCare",
+        "X": "dontCare",
+        "Y": "dontCare",
+        "Z": "dontCare"
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 1,
+        "D": 1
+      },
+      "outputs": {
+        "W": "dontCare",
+        "X": "dontCare",
+        "Y": "dontCare",
+        "Z": "dontCare"
+      }
+    }
+  ],
+  "requiredArchitecture": {
+    "muxCount": 1,
+    "muxType": "8x1",
+    "selectInputs": [
+      "B",
+      "C",
+      "D"
+    ],
+    "muxOutput": "W",
+    "muxDataInputs": {
+      "I0": "A",
+      "I1": "A",
+      "I2": "A",
+      "I3": "A",
+      "I4": "A",
+      "I5": "1",
+      "I6": "1",
+      "I7": "1"
+    },
+    "gateOutputs": {
+      "X": "B'.C + B'.D + B.C'.D'",
+      "Y": "C.D + C'.D'",
+      "Z": "D'"
+    }
+  },
+  "allowedICLimits": {
+    "8x1_MUX": 1,
+    "7404": 2,
+    "7408": 4,
+    "7432": 3
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Construct the Binary-to-Excess-3 truth table for decimal inputs 0 through 9.",
+    "Inputs 10 through 15 are invalid BCD inputs and may be treated as don't-care conditions.",
+    "Use B, C and D as the select inputs of the 8×1 MUX.",
+    "Use the 8×1 MUX to implement the W output bit.",
+    "Connect I0 through I4 of the MUX to A and I5 through I7 to logic HIGH.",
+    "Implement the remaining output bits X, Y and Z using basic gates.",
+    "The Excess-3 output is WXYZ.",
+    "Connect W, X, Y and Z to LED0, LED1, LED2 and LED3 respectively."
+  ]
+}

@@ -1,0 +1,353 @@
+{
+  "id": "prob_84",
+  "numId": 84,
+  "title": "Construct 16x1 MUX Using Two 8x1 and One 2x1 MUX",
+  "description": "Construct a 16×1 multiplexer using two 8×1 MUXs and one 2×1 MUX. Connect the first 8×1 MUX to inputs D0 through D7 and the second 8×1 MUX to inputs D8 through D15. Use three select lines as common select inputs for both 8×1 MUXs and use the remaining select line to control the 2×1 MUX.",
+  "difficulty": "Medium",
+  "category": "mux(design)",
+  "tags": [
+    "16x1 MUX",
+    "8x1 MUX",
+    "2x1 MUX",
+    "MUX Construction"
+  ],
+  "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "D0",
+        "switchIndex": 0
+      },
+      {
+        "name": "D1",
+        "switchIndex": 1
+      },
+      {
+        "name": "D2",
+        "switchIndex": 2
+      },
+      {
+        "name": "D3",
+        "switchIndex": 3
+      },
+      {
+        "name": "D4",
+        "switchIndex": 4
+      },
+      {
+        "name": "D5",
+        "switchIndex": 5
+      },
+      {
+        "name": "D6",
+        "switchIndex": 6
+      },
+      {
+        "name": "D7",
+        "switchIndex": 7
+      },
+      {
+        "name": "D8",
+        "switchIndex": 8
+      },
+      {
+        "name": "D9",
+        "switchIndex": 9
+      },
+      {
+        "name": "D10",
+        "switchIndex": 10
+      },
+      {
+        "name": "D11",
+        "switchIndex": 11
+      },
+      {
+        "name": "D12",
+        "switchIndex": 12
+      },
+      {
+        "name": "D13",
+        "switchIndex": 13
+      },
+      {
+        "name": "D14",
+        "switchIndex": 14
+      },
+      {
+        "name": "D15",
+        "switchIndex": 15
+      },
+      {
+        "name": "S0",
+        "switchIndex": 16
+      },
+      {
+        "name": "S1",
+        "switchIndex": 17
+      },
+      {
+        "name": "S2",
+        "switchIndex": 18
+      },
+      {
+        "name": "S3",
+        "switchIndex": 19
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Y",
+        "ledIndex": 0
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "S3": 0,
+        "S2": 0,
+        "S1": 0,
+        "S0": 0
+      },
+      "outputs": {
+        "Y": "D0"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 0,
+        "S2": 0,
+        "S1": 0,
+        "S0": 1
+      },
+      "outputs": {
+        "Y": "D1"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 0,
+        "S2": 0,
+        "S1": 1,
+        "S0": 0
+      },
+      "outputs": {
+        "Y": "D2"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 0,
+        "S2": 0,
+        "S1": 1,
+        "S0": 1
+      },
+      "outputs": {
+        "Y": "D3"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 0,
+        "S2": 1,
+        "S1": 0,
+        "S0": 0
+      },
+      "outputs": {
+        "Y": "D4"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 0,
+        "S2": 1,
+        "S1": 0,
+        "S0": 1
+      },
+      "outputs": {
+        "Y": "D5"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 0,
+        "S2": 1,
+        "S1": 1,
+        "S0": 0
+      },
+      "outputs": {
+        "Y": "D6"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 0,
+        "S2": 1,
+        "S1": 1,
+        "S0": 1
+      },
+      "outputs": {
+        "Y": "D7"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 1,
+        "S2": 0,
+        "S1": 0,
+        "S0": 0
+      },
+      "outputs": {
+        "Y": "D8"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 1,
+        "S2": 0,
+        "S1": 0,
+        "S0": 1
+      },
+      "outputs": {
+        "Y": "D9"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 1,
+        "S2": 0,
+        "S1": 1,
+        "S0": 0
+      },
+      "outputs": {
+        "Y": "D10"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 1,
+        "S2": 0,
+        "S1": 1,
+        "S0": 1
+      },
+      "outputs": {
+        "Y": "D11"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 1,
+        "S2": 1,
+        "S1": 0,
+        "S0": 0
+      },
+      "outputs": {
+        "Y": "D12"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 1,
+        "S2": 1,
+        "S1": 0,
+        "S0": 1
+      },
+      "outputs": {
+        "Y": "D13"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 1,
+        "S2": 1,
+        "S1": 1,
+        "S0": 0
+      },
+      "outputs": {
+        "Y": "D14"
+      }
+    },
+    {
+      "inputs": {
+        "S3": 1,
+        "S2": 1,
+        "S1": 1,
+        "S0": 1
+      },
+      "outputs": {
+        "Y": "D15"
+      }
+    }
+  ],
+  "requiredArchitecture": {
+    "muxCount": 3,
+    "muxTypes": {
+      "8x1": 2,
+      "2x1": 1
+    },
+    "connections": {
+      "mux8_1": {
+        "dataInputs": [
+          "D0",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7"
+        ],
+        "selectInputs": [
+          "S2",
+          "S1",
+          "S0"
+        ],
+        "output": "Y0"
+      },
+      "mux8_2": {
+        "dataInputs": [
+          "D8",
+          "D9",
+          "D10",
+          "D11",
+          "D12",
+          "D13",
+          "D14",
+          "D15"
+        ],
+        "selectInputs": [
+          "S2",
+          "S1",
+          "S0"
+        ],
+        "output": "Y1"
+      },
+      "mux2_1": {
+        "dataInputs": [
+          "Y0",
+          "Y1"
+        ],
+        "selectInput": "S3",
+        "output": "Y"
+      }
+    }
+  },
+  "allowedICLimits": {
+    "8x1_MUX": 2,
+    "2x1_MUX": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Divide the 16 data inputs into two groups of eight.",
+    "Connect D0 through D7 to the first 8×1 MUX.",
+    "Connect D8 through D15 to the second 8×1 MUX.",
+    "Connect S0, S1 and S2 to the select inputs of both 8×1 MUXs.",
+    "Connect the outputs of the two 8×1 MUXs to the two inputs of the 2×1 MUX.",
+    "Use S3 as the select input of the 2×1 MUX.",
+    "Connect the output of the 2×1 MUX to LED0."
+  ]
+}

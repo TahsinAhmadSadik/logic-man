@@ -1,0 +1,321 @@
+{
+  "id": "prob_86",
+  "numId": 86,
+  "title": "Design 3-to-8 Decoder Using Eight 8x1 MUXs",
+  "description": "Design a 3-to-8 decoder using eight 8×1 MUXs. Use the three decoder inputs A, B and C as the select lines of every 8×1 MUX. Implement each decoder output by connecting one data input of the corresponding MUX to logic HIGH and all other data inputs to logic LOW.",
+  "difficulty": "Hard",
+  "category": "mux(design)",
+  "tags": [
+    "8x1 MUX",
+    "3-to-8 Decoder",
+    "Decoder Design",
+    "MUX Construction",
+    "Logic Design"
+  ],
+  "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "A",
+        "switchIndex": 0
+      },
+      {
+        "name": "B",
+        "switchIndex": 1
+      },
+      {
+        "name": "C",
+        "switchIndex": 2
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Y0",
+        "ledIndex": 0
+      },
+      {
+        "name": "Y1",
+        "ledIndex": 1
+      },
+      {
+        "name": "Y2",
+        "ledIndex": 2
+      },
+      {
+        "name": "Y3",
+        "ledIndex": 3
+      },
+      {
+        "name": "Y4",
+        "ledIndex": 4
+      },
+      {
+        "name": "Y5",
+        "ledIndex": 5
+      },
+      {
+        "name": "Y6",
+        "ledIndex": 6
+      },
+      {
+        "name": "Y7",
+        "ledIndex": 7
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "outputs": {
+        "Y0": 1,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Y4": 0,
+        "Y5": 0,
+        "Y6": 0,
+        "Y7": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 1
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 1,
+        "Y2": 0,
+        "Y3": 0,
+        "Y4": 0,
+        "Y5": 0,
+        "Y6": 0,
+        "Y7": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 0
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 1,
+        "Y3": 0,
+        "Y4": 0,
+        "Y5": 0,
+        "Y6": 0,
+        "Y7": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 1
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 1,
+        "Y4": 0,
+        "Y5": 0,
+        "Y6": 0,
+        "Y7": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 0
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Y4": 1,
+        "Y5": 0,
+        "Y6": 0,
+        "Y7": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 1
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Y4": 0,
+        "Y5": 1,
+        "Y6": 0,
+        "Y7": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 0
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Y4": 0,
+        "Y5": 0,
+        "Y6": 1,
+        "Y7": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 1
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Y4": 0,
+        "Y5": 0,
+        "Y6": 0,
+        "Y7": 1
+      }
+    }
+  ],
+  "requiredArchitecture": {
+    "muxCount": 8,
+    "muxType": "8x1",
+    "selectInputs": [
+      "A",
+      "B",
+      "C"
+    ],
+    "muxOutputs": [
+      "Y0",
+      "Y1",
+      "Y2",
+      "Y3",
+      "Y4",
+      "Y5",
+      "Y6",
+      "Y7"
+    ],
+    "dataInputs": {
+      "MUX_Y0": {
+        "I0": 1,
+        "I1": 0,
+        "I2": 0,
+        "I3": 0,
+        "I4": 0,
+        "I5": 0,
+        "I6": 0,
+        "I7": 0
+      },
+      "MUX_Y1": {
+        "I0": 0,
+        "I1": 1,
+        "I2": 0,
+        "I3": 0,
+        "I4": 0,
+        "I5": 0,
+        "I6": 0,
+        "I7": 0
+      },
+      "MUX_Y2": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 1,
+        "I3": 0,
+        "I4": 0,
+        "I5": 0,
+        "I6": 0,
+        "I7": 0
+      },
+      "MUX_Y3": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 0,
+        "I3": 1,
+        "I4": 0,
+        "I5": 0,
+        "I6": 0,
+        "I7": 0
+      },
+      "MUX_Y4": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 0,
+        "I3": 0,
+        "I4": 1,
+        "I5": 0,
+        "I6": 0,
+        "I7": 0
+      },
+      "MUX_Y5": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 0,
+        "I3": 0,
+        "I4": 0,
+        "I5": 1,
+        "I6": 0,
+        "I7": 0
+      },
+      "MUX_Y6": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 0,
+        "I3": 0,
+        "I4": 0,
+        "I5": 0,
+        "I6": 1,
+        "I7": 0
+      },
+      "MUX_Y7": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 0,
+        "I3": 0,
+        "I4": 0,
+        "I5": 0,
+        "I6": 0,
+        "I7": 1
+      }
+    }
+  },
+  "allowedICLimits": {
+    "8x1_MUX": 8
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Use A, B and C as the three select inputs of every 8×1 MUX.",
+    "The select combination ABC = 000 should activate only Y0.",
+    "The select combination ABC = 001 should activate only Y1.",
+    "Continue this pattern until ABC = 111, which should activate only Y7.",
+    "For each MUX, connect exactly one data input to logic HIGH and all other data inputs to logic LOW.",
+    "The position of the HIGH input determines which decoder output is generated.",
+    "Connect the output of each MUX directly to its corresponding LED."
+  ]
+}
