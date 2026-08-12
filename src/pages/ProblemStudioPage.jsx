@@ -360,6 +360,24 @@ export const ProblemStudioPage = () => {
     setTruthTable(truthTable.filter((_, i) => i !== idx));
   };
 
+  // --- HINT HANDLERS ---
+  const addHint = () => {
+    setIsEditingJsonDirectly(false);
+    setHints([...hints, '']);
+  };
+
+  const updateHint = (index, value) => {
+    setIsEditingJsonDirectly(false);
+    const updated = [...hints];
+    updated[index] = value;
+    setHints(updated);
+  };
+
+  const removeHint = (index) => {
+    setIsEditingJsonDirectly(false);
+    setHints(hints.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-amber-500 selection:text-zinc-950">
       {/* Hidden File Input for Circuit Upload */}
@@ -752,6 +770,45 @@ export const ProblemStudioPage = () => {
                 </button>
               </div>
             ))}
+          </div>
+
+          {/* Section 5: Hints (Optional) */}
+          <div className="p-5 bg-zinc-900/60 border border-zinc-800 rounded-2xl space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                <HelpCircle size={16} /> Hints (Optional)
+              </h3>
+              <button
+                onClick={addHint}
+                className="text-amber-400 text-xs font-bold flex items-center gap-1 hover:underline"
+              >
+                <Plus size={12} /> Add Hint
+              </button>
+            </div>
+
+            {hints.length === 0 ? (
+              <p className="text-[11px] text-zinc-500 italic">No hints added yet.</p>
+            ) : (
+              <div className="space-y-2">
+                {hints.map((hint, idx) => (
+                  <div key={idx} className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      placeholder={`Hint #${idx + 1}`}
+                      value={hint}
+                      onChange={(e) => updateHint(idx, e.target.value)}
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-zinc-200"
+                    />
+                    <button
+                      onClick={() => removeHint(idx)}
+                      className="p-1.5 text-zinc-500 hover:text-rose-400 shrink-0"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
