@@ -1,0 +1,57 @@
+{
+  "id": "prob_32",
+  "numId": 32,
+  "title": "2-bit Magnitude Comparator",
+  "description": "Design a 2-bit comparator using basic logic gates to compare two 2-bit binary numbers X (X1X0) and Y (Y1Y0) and produce G (X>Y), E (X=Y), and L (X<Y) outputs.",
+  "difficulty": "Hard",
+  "category": "design",
+  "tags": ["Arithmetic", "Comparator", "7486", "7404", "7408", "7432"],
+  "author": "Siratul Mustakim Arman, Tanzimul Hasan Tahsin",
+  "ioMapping": {
+    "inputs": [
+      { "name": "X1", "switchIndex": 0 },
+      { "name": "X0", "switchIndex": 1 },
+      { "name": "Y1", "switchIndex": 2 },
+      { "name": "Y0", "switchIndex": 3 }
+    ],
+    "outputs": [
+      { "name": "G", "ledIndex": 0 },
+      { "name": "E", "ledIndex": 1 },
+      { "name": "L", "ledIndex": 2 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "X1": 0, "X0": 0, "Y1": 0, "Y0": 0 }, "outputs": { "G": 0, "E": 1, "L": 0 } },
+    { "inputs": { "X1": 0, "X0": 0, "Y1": 0, "Y0": 1 }, "outputs": { "G": 0, "E": 0, "L": 1 } },
+    { "inputs": { "X1": 0, "X0": 0, "Y1": 1, "Y0": 0 }, "outputs": { "G": 0, "E": 0, "L": 1 } },
+    { "inputs": { "X1": 0, "X0": 0, "Y1": 1, "Y0": 1 }, "outputs": { "G": 0, "E": 0, "L": 1 } },
+    { "inputs": { "X1": 0, "X0": 1, "Y1": 0, "Y0": 0 }, "outputs": { "G": 1, "E": 0, "L": 0 } },
+    { "inputs": { "X1": 0, "X0": 1, "Y1": 0, "Y0": 1 }, "outputs": { "G": 0, "E": 1, "L": 0 } },
+    { "inputs": { "X1": 0, "X0": 1, "Y1": 1, "Y0": 0 }, "outputs": { "G": 0, "E": 0, "L": 1 } },
+    { "inputs": { "X1": 0, "X0": 1, "Y1": 1, "Y0": 1 }, "outputs": { "G": 0, "E": 0, "L": 1 } },
+    { "inputs": { "X1": 1, "X0": 0, "Y1": 0, "Y0": 0 }, "outputs": { "G": 1, "E": 0, "L": 0 } },
+    { "inputs": { "X1": 1, "X0": 0, "Y1": 0, "Y0": 1 }, "outputs": { "G": 1, "E": 0, "L": 0 } },
+    { "inputs": { "X1": 1, "X0": 0, "Y1": 1, "Y0": 0 }, "outputs": { "G": 0, "E": 1, "L": 0 } },
+    { "inputs": { "X1": 1, "X0": 0, "Y1": 1, "Y0": 1 }, "outputs": { "G": 0, "E": 0, "L": 1 } },
+    { "inputs": { "X1": 1, "X0": 1, "Y1": 0, "Y0": 0 }, "outputs": { "G": 1, "E": 0, "L": 0 } },
+    { "inputs": { "X1": 1, "X0": 1, "Y1": 0, "Y0": 1 }, "outputs": { "G": 1, "E": 0, "L": 0 } },
+    { "inputs": { "X1": 1, "X0": 1, "Y1": 1, "Y0": 0 }, "outputs": { "G": 1, "E": 0, "L": 0 } },
+    { "inputs": { "X1": 1, "X0": 1, "Y1": 1, "Y0": 1 }, "outputs": { "G": 0, "E": 1, "L": 0 } }
+  ],
+  "allowedICLimits": {
+    "7486": 1,
+    "7404": 1,
+    "7408": 2,
+    "7432": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Construct XNOR using XOR + NOT gate or (X AND Y) OR (X' AND Y').",
+    "G = X1 Y1' + (X1 XNOR Y1) X0 Y0'",
+    "E = (X1 XNOR Y1) (X0 XNOR Y0)",
+    "L = X1' Y1 + (X1 XNOR Y1) X0' Y0"
+  ]
+}

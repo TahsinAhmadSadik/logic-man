@@ -48,7 +48,7 @@ export const LabSpecPanel = () => {
       const currentSwitches = [0, 0, 0, 0, 0, 0, 0, 0];
       currentProblem.ioMapping.inputs.forEach((inputDef) => {
         const val = row.inputs[inputDef.name];
-        if (val !== undefined && val !== 'X') {
+        if (val !== undefined && val !== 'X' && val !== 'x') {
           currentSwitches[inputDef.switchIndex] = Number(val);
         }
       });
@@ -71,12 +71,28 @@ export const LabSpecPanel = () => {
       let rowPassed = !evalResult.isShortCircuit;
 
       currentProblem.ioMapping.outputs.forEach((outDef) => {
-        const expected = row.outputs[outDef.name];
+        const expectedRaw = row.outputs[outDef.name];
         const actual = evalResult.leds[outDef.ledIndex];
         actualOutputs[outDef.name] = actual;
 
-        if (expected !== '-' && expected !== 'X') {
-          if (Number(expected) !== actual) {
+        // Resolve expected value if it refers to an input signal name (e.g. "Y": "D0")
+        let expectedVal = expectedRaw;
+        if (typeof expectedRaw === 'string' && row.inputs[expectedRaw] !== undefined) {
+          expectedVal = row.inputs[expectedRaw];
+        }
+
+        // Check for Don't Care condition ("-", "X", "dontCare", undefined)
+        const expectedStr = String(expectedVal).toLowerCase().trim();
+        const isDontCare =
+          expectedVal === '-' ||
+          expectedVal === 'X' ||
+          expectedStr === 'x' ||
+          expectedStr === 'dontcare' ||
+          expectedVal === undefined;
+
+        // Grade output only if it's NOT a don't care condition
+        if (!isDontCare) {
+          if (Number(expectedVal) !== actual) {
             rowPassed = false;
           }
         }

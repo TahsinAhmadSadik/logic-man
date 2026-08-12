@@ -336,8 +336,8 @@
     }
   },
   "allowedICLimits": {
-    "8x1_MUX": 2,
-    "2x1_MUX": 1
+    "74151": 2,
+    "74157": 1
   },
   "initialCircuit": {
     "placedIcs": [],

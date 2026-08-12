@@ -4,6 +4,7 @@
   "title": "Dual Input Coincidence (AND)",
   "description": "Implement a 2-input AND logic circuit where LED 0 lights up ONLY when both Data Switch 0 (A) and Data Switch 1 (B) are set to Logic 1.",
   "difficulty": "Easy",
+  "category": "design",
   "tags": ["Basic Gates", "7408", "Design"],
   "author": "LogicMan Team",
   "ioMapping": {

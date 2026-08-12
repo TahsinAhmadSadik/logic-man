@@ -1,0 +1,108 @@
+{
+  "id": "prob_39",
+  "numId": 39,
+  "title": "Debug Faulty Arithmetic Gate Connection",
+  "description": "The pre-wired circuit below has missing ground/power rails and improper XOR, AND, and OR output wiring. Inspect the circuit and fix it to correctly implement a 1-bit Full Subtractor circuit.",
+  "difficulty": "Medium",
+  "category": "debug",
+  "tags": ["Debugging", "7404", "7486", "7408", "7432", "Arithmetic"],
+  "author": "Siratul Mustakim Arman, Tanzimul Hasan Tahsin",
+  "ioMapping": {
+    "inputs": [
+      { "name": "x", "switchIndex": 0 },
+      { "name": "y", "switchIndex": 1 },
+      { "name": "z", "switchIndex": 2 }
+    ],
+    "outputs": [
+      { "name": "B", "ledIndex": 0 },
+      { "name": "D", "ledIndex": 1 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "x": 0, "y": 0, "z": 0 }, "outputs": { "B": 0, "D": 0 } },
+    { "inputs": { "x": 0, "y": 0, "z": 1 }, "outputs": { "B": 1, "D": 1 } },
+    { "inputs": { "x": 0, "y": 1, "z": 0 }, "outputs": { "B": 1, "D": 1 } },
+    { "inputs": { "x": 0, "y": 1, "z": 1 }, "outputs": { "B": 1, "D": 0 } },
+    { "inputs": { "x": 1, "y": 0, "z": 0 }, "outputs": { "B": 0, "D": 1 } },
+    { "inputs": { "x": 1, "y": 0, "z": 1 }, "outputs": { "B": 0, "D": 0 } },
+    { "inputs": { "x": 1, "y": 1, "z": 0 }, "outputs": { "B": 0, "D": 0 } },
+    { "inputs": { "x": 1, "y": 1, "z": 1 }, "outputs": { "B": 1, "D": 1 } }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7408": 1,
+    "7432": 1,
+    "7486": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [
+      {
+        "id": "ic_placed_1786552665754_tno5n",
+        "icTypeId": "7486",
+        "blockId": "M1",
+        "startCol": 11
+      },
+      {
+        "id": "ic_placed_1786552766239_fof5r",
+        "icTypeId": "7404",
+        "blockId": "M1",
+        "startCol": 28
+      },
+      {
+        "id": "ic_placed_1786552858859_orjk6",
+        "icTypeId": "7408",
+        "blockId": "M2",
+        "startCol": 17
+      },
+      {
+        "id": "ic_placed_1786552865249_w4rg0",
+        "icTypeId": "7432",
+        "blockId": "M2",
+        "startCol": 45
+      }
+    ],
+    "wires": [
+      {
+        "id": "wire_1786552872648_2xkbr",
+        "startHole": "BB_R17",
+        "endHole": "SWITCH_OUT_0",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786552882536_gpmda",
+        "startHole": "BB_D11",
+        "endHole": "PWR_GND_2",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786552896961_5kc6a",
+        "startHole": "BB_H17",
+        "endHole": "PWR_VCC_2",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786552907675_7h67d",
+        "startHole": "BB_H28",
+        "endHole": "BB_R23",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786552920809_bswjc",
+        "startHole": "BB_R19",
+        "endHole": "SWITCH_OUT_2",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786552925561_j21gk",
+        "startHole": "BB_R20",
+        "endHole": "BB_H34",
+        "color": "#ef4444"
+      }
+    ]
+  },
+  "hints": [
+    "Check if all IC chips (7404, 7408, 7432, 7486) have proper VCC (+5V) and GND connections.",
+    "Difference logic: D = x ⊕ y ⊕ z.",
+    "Borrow logic: B = x'y + x'z + yz."
+  ]
+}

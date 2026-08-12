@@ -1,0 +1,56 @@
+{
+  "id": "prob_34",
+  "numId": 34,
+  "title": "2-bit Binary Multiplier",
+  "description": "Design and implement a 2-bit binary multiplier using basic logic gates to multiply two 2-bit binary numbers X (X1X0) and Y (Y1Y0) producing a 4-bit product P (P3P2P1P0).",
+  "difficulty": "Hard",
+  "category": "design",
+  "tags": ["Arithmetic", "Multiplier", "7408", "7486"],
+  "author": "Siratul Mustakim Arman, Tanzimul Hasan Tahsin",
+  "ioMapping": {
+    "inputs": [
+      { "name": "X1", "switchIndex": 0 },
+      { "name": "X0", "switchIndex": 1 },
+      { "name": "Y1", "switchIndex": 2 },
+      { "name": "Y0", "switchIndex": 3 }
+    ],
+    "outputs": [
+      { "name": "P3", "ledIndex": 0 },
+      { "name": "P2", "ledIndex": 1 },
+      { "name": "P1", "ledIndex": 2 },
+      { "name": "P0", "ledIndex": 3 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "X1": 0, "X0": 0, "Y1": 0, "Y0": 0 }, "outputs": { "P3": 0, "P2": 0, "P1": 0, "P0": 0 } },
+    { "inputs": { "X1": 0, "X0": 0, "Y1": 0, "Y0": 1 }, "outputs": { "P3": 0, "P2": 0, "P1": 0, "P0": 0 } },
+    { "inputs": { "X1": 0, "X0": 0, "Y1": 1, "Y0": 0 }, "outputs": { "P3": 0, "P2": 0, "P1": 0, "P0": 0 } },
+    { "inputs": { "X1": 0, "X0": 0, "Y1": 1, "Y0": 1 }, "outputs": { "P3": 0, "P2": 0, "P1": 0, "P0": 0 } },
+    { "inputs": { "X1": 0, "X0": 1, "Y1": 0, "Y0": 0 }, "outputs": { "P3": 0, "P2": 0, "P1": 0, "P0": 0 } },
+    { "inputs": { "X1": 0, "X0": 1, "Y1": 0, "Y0": 1 }, "outputs": { "P3": 0, "P2": 0, "P1": 0, "P0": 1 } },
+    { "inputs": { "X1": 0, "X0": 1, "Y1": 1, "Y0": 0 }, "outputs": { "P3": 0, "P2": 0, "P1": 1, "P0": 0 } },
+    { "inputs": { "X1": 0, "X0": 1, "Y1": 1, "Y0": 1 }, "outputs": { "P3": 0, "P2": 0, "P1": 1, "P0": 1 } },
+    { "inputs": { "X1": 1, "X0": 0, "Y1": 0, "Y0": 0 }, "outputs": { "P3": 0, "P2": 0, "P1": 0, "P0": 0 } },
+    { "inputs": { "X1": 1, "X0": 0, "Y1": 0, "Y0": 1 }, "outputs": { "P3": 0, "P2": 0, "P1": 1, "P0": 0 } },
+    { "inputs": { "X1": 1, "X0": 0, "Y1": 1, "Y0": 0 }, "outputs": { "P3": 0, "P2": 1, "P1": 0, "P0": 0 } },
+    { "inputs": { "X1": 1, "X0": 0, "Y1": 1, "Y0": 1 }, "outputs": { "P3": 0, "P2": 1, "P1": 1, "P0": 0 } },
+    { "inputs": { "X1": 1, "X0": 1, "Y1": 0, "Y0": 0 }, "outputs": { "P3": 0, "P2": 0, "P1": 0, "P0": 0 } },
+    { "inputs": { "X1": 1, "X0": 1, "Y1": 0, "Y0": 1 }, "outputs": { "P3": 0, "P2": 0, "P1": 1, "P0": 1 } },
+    { "inputs": { "X1": 1, "X0": 1, "Y1": 1, "Y0": 0 }, "outputs": { "P3": 0, "P2": 1, "P1": 1, "P0": 0 } },
+    { "inputs": { "X1": 1, "X0": 1, "Y1": 1, "Y0": 1 }, "outputs": { "P3": 1, "P2": 0, "P1": 0, "P0": 1 } }
+  ],
+  "allowedICLimits": {
+    "7408": 2,
+    "7486": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Partial products: A = X0 AND Y0, B = X1 AND Y0, C = X0 AND Y1, D = X1 AND Y1.",
+    "P0 = A.",
+    "P1 = B XOR C, C1 = B AND C.",
+    "P2 = D XOR C1, P3 = D AND C1."
+  ]
+}

@@ -4,6 +4,7 @@
   "title": "Basic Signal Inversion",
   "description": "Design a circuit that takes an input signal A from Data Switch 0 and outputs its complement A' to LED 0 using a 7404 Hex Inverter IC.",
   "difficulty": "Easy",
+  "category": "design",
   "tags": ["Basic Gates", "7404", "Design"],
   "author": "LogicMan Team",
   "ioMapping": {

@@ -313,7 +313,7 @@
     }
   },
   "allowedICLimits": {
-    "4x1_MUX": 5
+    "74153": 5
   },
   "initialCircuit": {
     "placedIcs": [],

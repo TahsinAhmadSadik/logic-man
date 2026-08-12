@@ -4,6 +4,7 @@
   "title": "Exclusive Select Logic (XOR + AND)",
   "description": "Build a circuit evaluating F(A, B, C) = (A ⊕ B) · C. Use Switch 0 for A, Switch 1 for B, Switch 2 for C, and connect the result to LED 0.",
   "difficulty": "Medium",
+  "category": "debug",
   "tags": ["Combinational Logic", "7486", "7408", "Design"],
   "author": "LogicMan Team",
   "ioMapping": {

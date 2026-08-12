@@ -2,6 +2,11 @@ import prob1 from './prob_1.json';
 import prob2 from './prob_2.json';
 import prob3 from './prob_3.json';
 import prob4 from './prob_4.json';
+import prob31 from './prob_31.json';
+import prob32 from './prob_32.json';
+import prob33 from './prob_33.json';
+import prob34 from './prob_34.json';
+import prob39 from './prob_39.json';
 import prob81 from './prob_81.json';
 import prob82 from './prob_82.json';
 import prob83 from './prob_83.json';
@@ -12,13 +17,19 @@ import prob87 from './prob_87.json';
 import prob88 from './prob_88.json';
 import freeSandbox from './free_sandbox.json';
 
+// Helper to sanitize category string so filters match 'design' or 'debug'
+const getCategory = (prob) => {
+  if (prob.category?.toLowerCase().includes('debug')) return 'debug';
+  return 'design';
+};
+
 export const PROBLEMS_INDEX = [
   {
     id: prob1.id,
     numId: prob1.numId,
     title: prob1.title,
     difficulty: prob1.difficulty,
-    category: prob1.category || 'design',
+    category: getCategory(prob1),
     tags: prob1.tags || ['7404'],
     description: prob1.description
   },
@@ -27,7 +38,7 @@ export const PROBLEMS_INDEX = [
     numId: prob2.numId,
     title: prob2.title,
     difficulty: prob2.difficulty,
-    category: prob2.category || 'design',
+    category: getCategory(prob2),
     tags: prob2.tags || ['7408'],
     description: prob2.description
   },
@@ -36,7 +47,7 @@ export const PROBLEMS_INDEX = [
     numId: prob3.numId,
     title: prob3.title,
     difficulty: prob3.difficulty,
-    category: prob3.category || 'debug',
+    category: getCategory(prob3),
     tags: prob3.tags || ['7486', '7408'],
     description: prob3.description
   },
@@ -45,16 +56,61 @@ export const PROBLEMS_INDEX = [
     numId: prob4.numId,
     title: prob4.title,
     difficulty: prob4.difficulty,
-    category: prob4.category || 'debug',
+    category: getCategory(prob4),
     tags: prob4.tags || ['7404'],
     description: prob4.description
+  },
+  {
+    id: prob31.id,
+    numId: prob31.numId,
+    title: prob31.title,
+    difficulty: prob31.difficulty,
+    category: getCategory(prob31),
+    tags: prob31.tags || [],
+    description: prob31.description
+  },
+  {
+    id: prob32.id,
+    numId: prob32.numId,
+    title: prob32.title,
+    difficulty: prob32.difficulty,
+    category: getCategory(prob32),
+    tags: prob32.tags || [],
+    description: prob32.description
+  },
+  {
+    id: prob33.id,
+    numId: prob33.numId,
+    title: prob33.title,
+    difficulty: prob33.difficulty,
+    category: getCategory(prob33),
+    tags: prob33.tags || [],
+    description: prob33.description
+  },
+  {
+    id: prob34.id,
+    numId: prob34.numId,
+    title: prob34.title,
+    difficulty: prob34.difficulty,
+    category: getCategory(prob34),
+    tags: prob34.tags || [],
+    description: prob34.description
+  },
+  {
+    id: prob39.id,
+    numId: prob39.numId,
+    title: prob39.title,
+    difficulty: prob39.difficulty,
+    category: getCategory(prob39),
+    tags: prob39.tags || [],
+    description: prob39.description
   },
   {
     id: prob81.id,
     numId: prob81.numId,
     title: prob81.title,
     difficulty: prob81.difficulty,
-    category: prob81.category || 'design',
+    category: getCategory(prob81),
     tags: prob81.tags || [],
     description: prob81.description
   },
@@ -63,7 +119,7 @@ export const PROBLEMS_INDEX = [
     numId: prob82.numId,
     title: prob82.title,
     difficulty: prob82.difficulty,
-    category: prob82.category || 'design',
+    category: getCategory(prob82),
     tags: prob82.tags || [],
     description: prob82.description
   },
@@ -72,7 +128,7 @@ export const PROBLEMS_INDEX = [
     numId: prob83.numId,
     title: prob83.title,
     difficulty: prob83.difficulty,
-    category: prob83.category || 'design',
+    category: getCategory(prob83),
     tags: prob83.tags || [],
     description: prob83.description
   },
@@ -81,7 +137,7 @@ export const PROBLEMS_INDEX = [
     numId: prob84.numId,
     title: prob84.title,
     difficulty: prob84.difficulty,
-    category: prob84.category || 'design',
+    category: getCategory(prob84),
     tags: prob84.tags || [],
     description: prob84.description
   },
@@ -90,7 +146,7 @@ export const PROBLEMS_INDEX = [
     numId: prob85.numId,
     title: prob85.title,
     difficulty: prob85.difficulty,
-    category: prob85.category || 'design',
+    category: getCategory(prob85),
     tags: prob85.tags || [],
     description: prob85.description
   },
@@ -99,7 +155,7 @@ export const PROBLEMS_INDEX = [
     numId: prob86.numId,
     title: prob86.title,
     difficulty: prob86.difficulty,
-    category: prob86.category || 'design',
+    category: getCategory(prob86),
     tags: prob86.tags || [],
     description: prob86.description
   },
@@ -108,7 +164,7 @@ export const PROBLEMS_INDEX = [
     numId: prob87.numId,
     title: prob87.title,
     difficulty: prob87.difficulty,
-    category: prob87.category || 'design',
+    category: getCategory(prob87),
     tags: prob87.tags || [],
     description: prob87.description
   },
@@ -117,7 +173,7 @@ export const PROBLEMS_INDEX = [
     numId: prob88.numId,
     title: prob88.title,
     difficulty: prob88.difficulty,
-    category: prob88.category || 'design',
+    category: getCategory(prob88),
     tags: prob88.tags || [],
     description: prob88.description
   }
@@ -128,6 +184,11 @@ export const PROBLEMS_MAP = {
   prob_2: prob2,
   prob_3: prob3,
   prob_4: prob4,
+  prob_31: prob31,
+  prob_32: prob32,
+  prob_33: prob33,
+  prob_34: prob34,
+  prob_39: prob39,
   prob_81: prob81,
   prob_82: prob82,
   prob_83: prob83,
@@ -140,6 +201,11 @@ export const PROBLEMS_MAP = {
   '2': prob2,
   '3': prob3,
   '4': prob4,
+  '31': prob31,
+  '32': prob32,
+  '33': prob33,
+  '34': prob34,
+  '39': prob39,
   '81': prob81,
   '82': prob82,
   '83': prob83,
@@ -154,8 +220,3 @@ export const PROBLEMS_MAP = {
 };
 
 export const getProblemById = (id) => PROBLEMS_MAP[id] || null;
-
-
-// add import
-// add into Problem Index
-// add into Problem map twice
