@@ -203,7 +203,6 @@ export const ProblemStudioPage = () => {
   const handleRawJsonChange = (e) => {
     const text = e.target.value;
     setRawJsonText(text);
-    setIsEditingJsonDirectly(true);
 
     try {
       const parsed = JSON.parse(text);
@@ -211,18 +210,20 @@ export const ProblemStudioPage = () => {
 
       if (err) {
         setJsonError(err);
+        // Keep direct edit active while there is a validation error
+        setIsEditingJsonDirectly(true);
       } else {
         setJsonError(null);
 
-        // Sync parsed JSON back to form states
-        if (parsed.id) setId(parsed.id);
+        // 1. Immediately sync direct JSON changes into individual UI state fields
+        if (parsed.id !== undefined) setId(parsed.id);
         if (parsed.numId !== undefined) setNumId(parsed.numId);
-        if (parsed.title) setTitle(parsed.title);
-        if (parsed.description) setDescription(parsed.description);
-        if (parsed.difficulty) setDifficulty(parsed.difficulty);
-        if (parsed.category) setCategory(parsed.category);
+        if (parsed.title !== undefined) setTitle(parsed.title);
+        if (parsed.description !== undefined) setDescription(parsed.description);
+        if (parsed.difficulty !== undefined) setDifficulty(parsed.difficulty);
+        if (parsed.category !== undefined) setCategory(parsed.category);
         if (Array.isArray(parsed.tags)) setTags(parsed.tags.join(', '));
-        if (parsed.author) setAuthor(parsed.author);
+        if (parsed.author !== undefined) setAuthor(parsed.author);
         if (parsed.ioMapping?.inputs) setInputs(parsed.ioMapping.inputs);
         if (parsed.ioMapping?.outputs) setOutputs(parsed.ioMapping.outputs);
         if (Array.isArray(parsed.truthTable)) setTruthTable(parsed.truthTable);
@@ -236,8 +237,12 @@ export const ProblemStudioPage = () => {
           }));
           setIcLimits(formatted);
         }
+
+        // 2. Clear direct edit mode so subsequent UI edits don't overwrite JSON edits
+        setIsEditingJsonDirectly(false);
       }
     } catch (syntaxErr) {
+      setIsEditingJsonDirectly(true);
       setJsonError(`Syntax Error: ${syntaxErr.message}`);
     }
   };
