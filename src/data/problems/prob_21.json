@@ -1,0 +1,70 @@
+{
+  "id": "prob_21",
+  "numId": 21,
+  "title": "Multilevel NAND Circuit Implementation",
+  "description": "Design and implement the Boolean function F = X(YB + C) + BC' using only NAND gates (7400 ICs). Connect switches SW0, SW1, SW2 to inputs X, Y, B, C respectively, and route the final output to LED0.",
+  "difficulty": "Medium",
+  "category": "design",
+  "author": "Jarin Subah, Tabassum Binte Kamal",
+  "tags": [
+    "NAND Gates",
+    "Multilevel Logic",
+    "7400",
+    "Combinational Logic"
+  ],
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "X",
+        "switchIndex": 0
+      },
+      {
+        "name": "Y",
+        "switchIndex": 1
+      },
+      {
+        "name": "B",
+        "switchIndex": 2
+      },
+      {
+        "name": "C",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "F",
+        "ledIndex": 0
+      }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "X": 0, "Y": 0, "B": 0, "C": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 0, "B": 0, "C": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 0, "B": 1, "C": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 0, "B": 1, "C": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 1, "B": 0, "C": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 1, "B": 0, "C": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 1, "B": 1, "C": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 1, "B": 1, "C": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 0, "B": 0, "C": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 0, "B": 0, "C": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "B": 1, "C": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "B": 1, "C": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 1, "B": 0, "C": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 1, "B": 0, "C": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 1, "B": 1, "C": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 1, "B": 1, "C": 1 }, "outputs": { "F": 1 } }
+  ],
+  "allowedICLimits": {
+    "7400": 3
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Convert the expression level-by-level starting from the innermost terms (YB and BC').",
+    "Remember that an OR operation in multilevel logic converts to an Invert-OR (NAND equivalent)."
+  ]
+}

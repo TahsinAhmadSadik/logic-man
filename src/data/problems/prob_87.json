@@ -1,6 +1,6 @@
 {
   "id": "prob_87",
-  "numId": 7,
+  "numId": 87,
   "title": "Design 4-to-2 Encoder Using Two 4x1 MUXs",
   "description": "Design a 4-to-2 encoder using two 4×1 MUXs and basic gates as required. Assume that at most one input is HIGH at a time. The encoder should generate the corresponding 2-bit binary code at its outputs. When all inputs are LOW, the output should be 00.",
   "difficulty": "Medium",

@@ -1,0 +1,72 @@
+{
+  "id": "prob_22",
+  "numId": 22,
+  "title": "Multilevel NAND Circuit",
+  "description": "Implement the Boolean function F = (XY' + X'Y)(A + B') using only NAND gates. Map inputs X, Y, A, B to SW0-SW3 respectively, and output F to LED0.",
+  "difficulty": "Medium",
+  "category": "design",
+  "author": "Jarin Subah, Tabassum Binte Kamal",
+  "tags": [
+    "NAND Gates",
+    "Multilevel Logic",
+    "7400",
+    "Combinational Logic"
+  ],
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "X",
+        "switchIndex": 0
+      },
+      {
+        "name": "Y",
+        "switchIndex": 1
+      },
+      {
+        "name": "A",
+        "switchIndex": 2
+      },
+      {
+        "name": "B",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "F",
+        "ledIndex": 0
+      }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "X": 0, "Y": 0, "A": 0, "B": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 0, "A": 0, "B": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 0, "A": 1, "B": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 0, "A": 1, "B": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 1, "A": 0, "B": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 1, "A": 0, "B": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 1, "A": 1, "B": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 1, "A": 1, "B": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "A": 0, "B": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "A": 0, "B": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 0, "A": 1, "B": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "A": 1, "B": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 1, "A": 0, "B": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 1, "A": 0, "B": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 1, "A": 1, "B": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 1, "A": 1, "B": 1 }, "outputs": { "F": 0 } }
+  ],
+  "allowedICLimits": {
+    "7400": 3,
+    "7404": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Notice that (XY' + X'Y) is an XOR operation; implement its product terms using NAND gates.",
+    "Convert (A + B') using De Morgan's theorem to a NAND form with inverted inputs.",
+    "Because the final structure has an odd number of logic levels, add a single NAND-based inverter stage at the output."
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "id": "prob_23",
+  "numId": 23,
+  "title": "OR-AND-INVERT Implementation",
+  "description": "Construct an OAI (OR-AND-INVERT) circuit for F = ((X + Y)(Z + W)V)' using standard gate operations (OR-NAND or NOR-OR equivalent). Map inputs X, Y, Z, W, V to SW0-SW4 respectively, and output F to LED0.",
+  "difficulty": "Medium",
+  "category": "design",
+  "author": "Jarin Subah, Tabassum Binte Kamal",
+  "tags": [
+    "OAI",
+    "OR-NAND",
+    "Combinational Logic",
+    "Multilevel Logic"
+  ],
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "X",
+        "switchIndex": 0
+      },
+      {
+        "name": "Y",
+        "switchIndex": 1
+      },
+      {
+        "name": "Z",
+        "switchIndex": 2
+      },
+      {
+        "name": "W",
+        "switchIndex": 3
+      },
+      {
+        "name": "V",
+        "switchIndex": 4
+      }
+    ],
+    "outputs": [
+      {
+        "name": "F",
+        "ledIndex": 0
+      }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "X": 0, "Y": 0, "Z": 0, "W": 0, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 0, "Z": 0, "W": 0, "V": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 0, "Z": 0, "W": 1, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 0, "Z": 0, "W": 1, "V": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 0, "Z": 1, "W": 0, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 0, "Z": 1, "W": 0, "V": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 0, "Z": 1, "W": 1, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 0, "Z": 1, "W": 1, "V": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 1, "Z": 0, "W": 0, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 1, "Z": 0, "W": 0, "V": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 1, "Z": 0, "W": 1, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 1, "Z": 0, "W": 1, "V": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 1, "Z": 1, "W": 0, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 1, "Z": 1, "W": 0, "V": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 0, "Y": 1, "Z": 1, "W": 1, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 0, "Y": 1, "Z": 1, "W": 1, "V": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 0, "Z": 0, "W": 0, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "Z": 0, "W": 0, "V": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "Z": 0, "W": 1, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "Z": 0, "W": 1, "V": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 0, "Z": 1, "W": 0, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "Z": 1, "W": 0, "V": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 0, "Z": 1, "W": 1, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 0, "Z": 1, "W": 1, "V": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 1, "Z": 0, "W": 0, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 1, "Z": 0, "W": 0, "V": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 1, "Z": 0, "W": 1, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 1, "Z": 0, "W": 1, "V": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 1, "Z": 1, "W": 0, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 1, "Z": 1, "W": 0, "V": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "X": 1, "Y": 1, "Z": 1, "W": 1, "V": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "X": 1, "Y": 1, "Z": 1, "W": 1, "V": 1 }, "outputs": { "F": 0 } }
+  ],
+  "allowedICLimits": {
+    "7432": 1,
+    "7400": 1,
+    "7402": 1,
+    "7410": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "You can construct the first level using 2-input OR gates for (X+Y) and (Z+W).",
+    "Feed the outputs of both OR gates along with literal V directly into a 3-input NAND gate to achieve the final inversion."
+  ]
+}
