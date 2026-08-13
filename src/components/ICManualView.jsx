@@ -4,6 +4,21 @@ import { ArrowLeft, Cpu } from 'lucide-react';
 export const ICManualView = ({ ic, onBack }) => {
   if (!ic) return null;
 
+  const totalPins = ic.pins || 14;
+  const halfPins = totalPins / 2;
+
+  // Left column: Pins 1 to N/2 (ascending)
+  const leftPins = Array.from({ length: halfPins }, (_, i) => {
+    const pinNum = i + 1;
+    return ic.pinout.find((p) => p.pin === pinNum) || { pin: pinNum, label: 'NC', type: 'nc' };
+  });
+
+  // Right column: Pins (N/2 + 1) to N (descending so highest pin is at top-right)
+  const rightPins = Array.from({ length: halfPins }, (_, i) => {
+    const pinNum = totalPins - i;
+    return ic.pinout.find((p) => p.pin === pinNum) || { pin: pinNum, label: 'NC', type: 'nc' };
+  });
+
   return (
     <div className="flex flex-col h-full bg-zinc-900 text-zinc-200 p-4 overflow-y-auto">
       {/* Header with Back Button */}
@@ -28,34 +43,36 @@ export const ICManualView = ({ ic, onBack }) => {
       {/* Pin Configuration Diagram */}
       <div className="mb-6">
         <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
-          Pin Configuration ({ic.pins}-Pin DIP)
+          Pin Configuration ({totalPins}-Pin DIP)
         </h3>
         <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-4 flex justify-center">
-          <div className="relative border-2 border-zinc-700 bg-zinc-900 rounded-md py-3 px-8 flex flex-col items-center gap-1.5 shadow-lg">
+          <div className="relative border-2 border-zinc-700 bg-zinc-900 rounded-md py-3 px-8 flex flex-col items-center gap-1.5 shadow-lg min-w-[220px]">
             {/* DIP Notch */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-2 bg-zinc-950 rounded-b-full border-b border-x border-zinc-700" />
             <span className="text-xs font-mono font-bold text-amber-400 my-1">{ic.name}</span>
 
-            {/* Pins Table */}
+            {/* Pins Diagram */}
             <div className="w-full flex justify-between gap-8 text-[11px] font-mono">
-              <div className="flex flex-col gap-1 text-zinc-300">
-                {ic.pinout.slice(0, ic.pins / 2).map((p) => (
+              {/* Left Column (Pins 1 -> N/2) */}
+              <div className="flex flex-col gap-1.5 text-zinc-300">
+                {leftPins.map((p) => (
                   <div key={p.pin} className="flex items-center gap-2">
-                    <span className="text-zinc-500 w-3">{p.pin}</span>
-                    <span className={p.type === 'power' ? 'text-red-400' : p.type === 'ground' ? 'text-sky-400' : 'text-zinc-200'}>
+                    <span className="text-zinc-500 w-3 font-bold">{p.pin}</span>
+                    <span className={p.type === 'power' ? 'text-red-400 font-bold' : p.type === 'ground' ? 'text-sky-400 font-bold' : 'text-zinc-200'}>
                       {p.label}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="flex flex-col gap-1 text-zinc-300 text-right">
-                {ic.pinout.slice(ic.pins / 2).map((p) => (
+              {/* Right Column (Pins N -> N/2 + 1) */}
+              <div className="flex flex-col gap-1.5 text-zinc-300 text-right">
+                {rightPins.map((p) => (
                   <div key={p.pin} className="flex items-center justify-end gap-2">
-                    <span className={p.type === 'power' ? 'text-red-400' : p.type === 'ground' ? 'text-sky-400' : 'text-zinc-200'}>
+                    <span className={p.type === 'power' ? 'text-red-400 font-bold' : p.type === 'ground' ? 'text-sky-400 font-bold' : 'text-zinc-200'}>
                       {p.label}
                     </span>
-                    <span className="text-zinc-500 w-3">{p.pin}</span>
+                    <span className="text-zinc-500 w-3 font-bold">{p.pin}</span>
                   </div>
                 ))}
               </div>
