@@ -41,6 +41,8 @@ import prob85 from './prob_85.json';
 import prob86 from './prob_86.json';
 import prob87 from './prob_87.json';
 import prob88 from './prob_88.json';
+import prob89 from './prob_89.json';
+import prob90 from './prob_90.json';
 import freeSandbox from './free_sandbox.json';
 
 // Helper to sanitize category string so filters match 'design' or 'debug'
@@ -436,6 +438,24 @@ export const PROBLEMS_INDEX = [
     category: getCategory(prob88),
     tags: prob88.tags || [],
     description: prob88.description
+  },
+  {
+    id: prob89.id,
+    numId: prob89.numId,
+    title: prob89.title,
+    difficulty: prob89.difficulty,
+    category: getCategory(prob89),
+    tags: prob89.tags || [],
+    description: prob89.description
+  },
+  {
+    id: prob90.id,
+    numId: prob90.numId,
+    title: prob90.title,
+    difficulty: prob90.difficulty,
+    category: getCategory(prob90),
+    tags: prob90.tags || [],
+    description: prob90.description
   }
 ];
 
@@ -483,6 +503,8 @@ export const PROBLEMS_MAP = {
   prob_86: prob86,
   prob_87: prob87,
   prob_88: prob88,
+  prob_89: prob89,
+  prob_90: prob90,
   '1': prob1,
   '2': prob2,
   '3': prob3,
@@ -526,6 +548,8 @@ export const PROBLEMS_MAP = {
   '86': prob86,
   '87': prob87,
   '88': prob88,
+  '89': prob89,
+  '90': prob90,
   free: freeSandbox,
   sandbox: freeSandbox,
   '0': freeSandbox

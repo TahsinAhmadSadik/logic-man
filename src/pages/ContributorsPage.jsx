@@ -28,7 +28,7 @@ export const ContributorsPage = () => {
     'Abdur Rahman Rounak',
     'Ali Tahmid Chowdhury',
     'Al Nahian Alif',
-    'Imran Bin Hafiz',
+    // 'Imran Bin Hafiz',
     'Jarin Subah',
     'Jeneya Islam',
     'Nazmul Hasan Rafi',
@@ -38,9 +38,9 @@ export const ContributorsPage = () => {
     'Sifat Al Islam',
     'Siratul Mustakim Arman',
     'Tabassum Binte Kamal',
-    'Tamim Chowdhury',
+    // 'Tamim Chowdhury',
     'Tanzimul Hasan Tahsin',
-    'Tarif Mahir',
+    // 'Tarif Mahir',
     'Tasnia Mehzabin Mysha'
   ];
 
@@ -172,14 +172,14 @@ export const ContributorsPage = () => {
                     </div>
                   </div>
 
-                  <a
+                  {/* <a
                     href={contrib.github}
                     target="_blank"
                     rel="noreferrer"
                     className="p-2 text-zinc-400 hover:text-white rounded-lg bg-zinc-800/50 hover:bg-zinc-800 transition-colors"
                   >
                     <GitBranch size={15} />
-                  </a>
+                  </a> */}
                 </div>
 
                 <p className="text-xs text-zinc-400 leading-relaxed">{contrib.contribution}</p>

@@ -1,0 +1,281 @@
+{
+  "id": "prob_89",
+  "numId": 89,
+  "title": "Debug Faulty MUX Connection",
+  "description": "The pre-wired circuit below uses a 74153 4-to-1 Multiplexer and basic gates to implement F(A,B,C,D) = Σ(1,2,4,7,8,9,10,11,13,15), where A and B are selection lines (S1=A, S0=B). However, the pre-wired circuit has power supply faults, bad signal routing, and floating gate inputs. Inspect the circuit, trace the signals, and fix all faults so the output Y matches the truth table.",
+  "difficulty": "Medium",
+  "category": "debug",
+  "tags": [
+    "Debugging",
+    "74153",
+    "Multiplexer",
+    "Basic Gates"
+  ],
+  "author": "LogicMan Team",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "A",
+        "switchIndex": 0
+      },
+      {
+        "name": "B",
+        "switchIndex": 1
+      },
+      {
+        "name": "C",
+        "switchIndex": 2
+      },
+      {
+        "name": "D",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Y",
+        "ledIndex": 0
+      }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "A": 0, "B": 0, "C": 0, "D": 0 }, "outputs": { "Y": 0 } },
+    { "inputs": { "A": 0, "B": 0, "C": 0, "D": 1 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 0, "B": 0, "C": 1, "D": 0 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 0, "B": 0, "C": 1, "D": 1 }, "outputs": { "Y": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 0, "D": 0 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 0, "B": 1, "C": 0, "D": 1 }, "outputs": { "Y": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 1, "D": 0 }, "outputs": { "Y": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 1, "D": 1 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 1, "B": 0, "C": 0, "D": 0 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 1, "B": 0, "C": 0, "D": 1 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 1, "B": 0, "C": 1, "D": 0 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 1, "B": 0, "C": 1, "D": 1 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 1, "B": 1, "C": 0, "D": 0 }, "outputs": { "Y": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 0, "D": 1 }, "outputs": { "Y": 1 } },
+    { "inputs": { "A": 1, "B": 1, "C": 1, "D": 0 }, "outputs": { "Y": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 1, "D": 1 }, "outputs": { "Y": 1 } }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7408": 1,
+    "7432": 1,
+    "74153": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [
+      {
+        "id": "ic_placed_1786629490288_h2wrk",
+        "icTypeId": "7432",
+        "blockId": "M2",
+        "startCol": 29
+      },
+      {
+        "id": "ic_placed_1786629500347_ivsam",
+        "icTypeId": "7408",
+        "blockId": "M2",
+        "startCol": 43
+      },
+      {
+        "id": "ic_placed_1786629521778_aj3fk",
+        "icTypeId": "7404",
+        "blockId": "M3",
+        "startCol": 36
+      },
+      {
+        "id": "ic_placed_1786629645342_pm6g4",
+        "icTypeId": "74153",
+        "blockId": "M2",
+        "startCol": 9
+      }
+    ],
+    "wires": [
+      {
+        "id": "wire_1786629416879_m7ekp",
+        "startHole": "PWR_VCC_2",
+        "endHole": "BUS_TOP_VCC_1",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786629667829_prto6",
+        "startHole": "BUS_TOP_VCC_27",
+        "endHole": "BB_N29",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786629677056_ny7vd",
+        "startHole": "BUS_TOP_VCC_36",
+        "endHole": "BB_X36",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786629690458_mek8f",
+        "startHole": "BUS_TOP_GND_15",
+        "endHole": "BB_Q16",
+        "color": "#18181b"
+      },
+      {
+        "id": "wire_1786629700526_rgy70",
+        "startHole": "BUS_TOP_GND_49",
+        "endHole": "BB_Q49",
+        "color": "#18181b"
+      },
+      {
+        "id": "wire_1786629708578_r47ss",
+        "startHole": "BUS_TOP_GND_41",
+        "endHole": "BB_AA42",
+        "color": "#18181b"
+      },
+      {
+        "id": "wire_1786629746195_r43uj",
+        "startHole": "BUS_TOP_VCC_8",
+        "endHole": "BB_N9",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786629777357_6c866",
+        "startHole": "SWITCH_OUT_0",
+        "endHole": "BB_Q10",
+        "color": "#3b82f6"
+      },
+      {
+        "id": "wire_1786629822050_0t5rj",
+        "startHole": "SWITCH_OUT_3",
+        "endHole": "BUS_BOT_VCC_27",
+        "color": "#f97316"
+      },
+      {
+        "id": "wire_1786629867647_dov8p",
+        "startHole": "BUS_BOT_VCC_12",
+        "endHole": "BB_T11",
+        "color": "#f97316"
+      },
+      {
+        "id": "wire_1786629916378_j5yrp",
+        "startHole": "BUS_BOT_GND_36",
+        "endHole": "BB_AA36",
+        "color": "#eab308"
+      },
+      {
+        "id": "wire_1786629943119_itv4h",
+        "startHole": "BB_AA37",
+        "endHole": "BB_Q43",
+        "color": "#eab308"
+      },
+      {
+        "id": "wire_1786629950700_3wpeb",
+        "startHole": "BUS_BOT_VCC_37",
+        "endHole": "BB_AA38",
+        "color": "#f97316"
+      },
+      {
+        "id": "wire_1786629955066_o0cnk",
+        "startHole": "BB_AA39",
+        "endHole": "BB_Q44",
+        "color": "#f97316"
+      },
+      {
+        "id": "wire_1786629971394_iaesu",
+        "startHole": "BB_Q45",
+        "endHole": "BB_T29",
+        "color": "#78350f"
+      },
+      {
+        "id": "wire_1786630009955_nq934",
+        "startHole": "BUS_BOT_GND_46",
+        "endHole": "BB_Q46",
+        "color": "#eab308"
+      },
+      {
+        "id": "wire_1786630016416_6qfhb",
+        "startHole": "BUS_BOT_VCC_47",
+        "endHole": "BB_Q47",
+        "color": "#f97316"
+      },
+      {
+        "id": "wire_1786630025716_w8kt1",
+        "startHole": "BB_Q48",
+        "endHole": "BB_S30",
+        "color": "#78350f"
+      },
+      {
+        "id": "wire_1786630045659_foj0f",
+        "startHole": "BB_Q31",
+        "endHole": "BB_Q13",
+        "color": "#78350f"
+      },
+      {
+        "id": "wire_1786630230957_ft2s1",
+        "startHole": "BB_AC37",
+        "endHole": "BB_N47",
+        "color": "#eab308"
+      },
+      {
+        "id": "wire_1786630238026_9uhm0",
+        "startHole": "BUS_BOT_VCC_50",
+        "endHole": "BB_N48",
+        "color": "#f97316"
+      },
+      {
+        "id": "wire_1786630275953_odbve",
+        "startHole": "BB_N49",
+        "endHole": "BB_T32",
+        "color": "#06b6d4"
+      },
+      {
+        "id": "wire_1786630287485_z0ygg",
+        "startHole": "BUS_BOT_GND_43",
+        "endHole": "BB_N44",
+        "color": "#eab308"
+      },
+      {
+        "id": "wire_1786630295714_fk3sk",
+        "startHole": "BB_AD39",
+        "endHole": "BB_N45",
+        "color": "#f97316"
+      },
+      {
+        "id": "wire_1786630306660_9k1xv",
+        "startHole": "BB_L46",
+        "endHole": "BB_T33",
+        "color": "#06b6d4"
+      },
+      {
+        "id": "wire_1786630321286_4kx1b",
+        "startHole": "BB_T34",
+        "endHole": "BB_R14",
+        "color": "#78350f"
+      },
+      {
+        "id": "wire_1786630340039_uufx6",
+        "startHole": "BB_T15",
+        "endHole": "LED_IN_0",
+        "color": "#a855f7"
+      },
+      {
+        "id": "wire_1786634562882_o1k73",
+        "startHole": "SWITCH_OUT_2",
+        "endHole": "BUS_BOT_VCC_22",
+        "color": "#eab308"
+      },
+      {
+        "id": "wire_1786634645063_3cn2m",
+        "startHole": "BB_K44",
+        "endHole": "BUS_TOP_VCC_42",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786634705406_r8yiq",
+        "startHole": "SWITCH_OUT_1",
+        "endHole": "BB_N13",
+        "color": "#22c55e"
+      }
+    ]
+  },
+  "hints": [
+    "Verify the MUX multiplexing inputs for each select line combination (AB = 00, 01, 10, 11).",
+    "Check if VCC (+5V) and GND are connected properly to pin 16 and pin 8 of the 74153 IC.",
+    "Verify that Enable pin 1 (1G) of 74153 is grounded.",
+    "Ensure inputs C and D are routed properly from Switches 2 and 3."
+  ]
+}
