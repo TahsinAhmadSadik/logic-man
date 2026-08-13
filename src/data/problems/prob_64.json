@@ -1,0 +1,272 @@
+{
+  "id": "prob_64",
+  "numId": 64,
+  "title": "4-to-2 Priority Encoder with Valid Output Flag",
+  "description": "Design a standard 4-to-2 priority encoder with inputs I3, I2, I1, I0 (where I3 has highest priority). Include an additional output V (Valid signal) that goes HIGH whenever at least one input line is active (1).",
+  "difficulty": "Medium",
+  "category": "design",
+  "tags": [
+    "Priority Encoder",
+    "Valid Flag",
+    "Logic Gates"
+  ],
+  "author": "Ritaz, Mysha",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "I0",
+        "switchIndex": 0
+      },
+      {
+        "name": "I1",
+        "switchIndex": 1
+      },
+      {
+        "name": "I2",
+        "switchIndex": 2
+      },
+      {
+        "name": "I3",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Y0",
+        "ledIndex": 0
+      },
+      {
+        "name": "Y1",
+        "ledIndex": 1
+      },
+      {
+        "name": "V",
+        "ledIndex": 2
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 0,
+        "I3": 0
+      },
+      "outputs": {
+        "Y1": 0,
+        "Y0": 0,
+        "V": 0
+      }
+    },
+    {
+      "inputs": {
+        "I0": 1,
+        "I1": 0,
+        "I2": 0,
+        "I3": 0
+      },
+      "outputs": {
+        "Y1": 0,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 0,
+        "I1": 1,
+        "I2": 0,
+        "I3": 0
+      },
+      "outputs": {
+        "Y1": 0,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 1,
+        "I1": 1,
+        "I2": 0,
+        "I3": 0
+      },
+      "outputs": {
+        "Y1": 0,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 1,
+        "I3": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 1,
+        "I1": 0,
+        "I2": 1,
+        "I3": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 0,
+        "I1": 1,
+        "I2": 1,
+        "I3": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 1,
+        "I1": 1,
+        "I2": 1,
+        "I3": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 0,
+        "I3": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 1,
+        "I1": 0,
+        "I2": 0,
+        "I3": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 0,
+        "I1": 1,
+        "I2": 0,
+        "I3": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 1,
+        "I1": 1,
+        "I2": 0,
+        "I3": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 0,
+        "I1": 0,
+        "I2": 1,
+        "I3": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 1,
+        "I1": 0,
+        "I2": 1,
+        "I3": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 0,
+        "I1": 1,
+        "I2": 1,
+        "I3": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "I0": 1,
+        "I1": 1,
+        "I2": 1,
+        "I3": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    }
+  ],
+  "allowedICLimits": {
+  "7432": 1,
+  "7408": 1,
+  "7404": 1
+},
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Output equations: Y1 = I3 + I2, Y0 = I3 + I2' · I1, and V = I3 + I2 + I1 + I0.",
+    "Invert I2 using 7404 NOT gate to compute the term I2' · I1 with a 7408 AND gate.",
+    "Combine terms using 7432 OR gates to drive Y1, Y0, and V outputs."
+  ]
+}

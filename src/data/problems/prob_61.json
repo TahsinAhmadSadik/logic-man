@@ -1,0 +1,78 @@
+{
+  "id": "prob_61",
+  "numId": 61,
+  "title": "4-to-2 Priority Encoder (Custom Priority)",
+  "description": "Design and implement a 4-to-2 priority encoder using basic gates. The priority of data bit inputs in descending order is C > A > B > D (inputs C=2, A=0, B=1, D=3). Outputs Y1 Y0 encode the active input with the highest priority.",
+  "difficulty": "Medium",
+  "category": "design",
+  "tags": [
+    "Priority Encoder",
+    "7404",
+    "7408",
+    "7432",
+    "Basic Gates"
+  ],
+  "author": "Ritaz, Mysha",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "A",
+        "switchIndex": 0
+      },
+      {
+        "name": "B",
+        "switchIndex": 1
+      },
+      {
+        "name": "C",
+        "switchIndex": 2
+      },
+      {
+        "name": "D",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Y0",
+        "ledIndex": 0
+      },
+      {
+        "name": "Y1",
+        "ledIndex": 1
+      }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "A": 0, "B": 0, "C": 0, "D": 0 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "A": 0, "B": 0, "C": 0, "D": 1 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "A": 0, "B": 0, "C": 1, "D": 0 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "A": 0, "B": 0, "C": 1, "D": 1 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 0, "D": 0 }, "outputs": { "Y1": 0, "Y0": 1 } },
+    { "inputs": { "A": 0, "B": 1, "C": 0, "D": 1 }, "outputs": { "Y1": 0, "Y0": 1 } },
+    { "inputs": { "A": 0, "B": 1, "C": 1, "D": 0 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 1, "D": 1 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "A": 1, "B": 0, "C": 0, "D": 0 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "A": 1, "B": 0, "C": 0, "D": 1 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "A": 1, "B": 0, "C": 1, "D": 0 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "A": 1, "B": 0, "C": 1, "D": 1 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 0, "D": 0 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 0, "D": 1 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 1, "D": 0 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 1, "D": 1 }, "outputs": { "Y1": 1, "Y0": 0 } }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7408": 1,
+    "7432": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Priority hierarchy: C (2) > A (0) > B (1) > D (3).",
+    "Boolean equations: Y1 = C + A'B'D and Y0 = A'B + A'B'D.",
+    "Use a 7404 IC for inverters, 7408 for AND terms, and 7432 to combine OR outputs."
+  ]
+}

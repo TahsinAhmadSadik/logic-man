@@ -1,0 +1,61 @@
+{
+  "id": "prob_63",
+  "numId": 63,
+  "title": "Active-LOW Input 4-to-2 Priority Encoder",
+  "description": "Design a 4-to-2 priority encoder where the inputs are Active-LOW (I3', I2', I1', I0'). Priority order follows standard descending order (I3' > I2' > I1' > I0'). An input is considered active when it is set to 0. The output should produce standard Active-HIGH binary logic (Y1, Y0).",
+  "difficulty": "Easy",
+  "category": "design",
+  "tags": [
+    "Encoder",
+    "Active Low",
+    "Priority Encoder",
+    "7404",
+    "7408",
+    "7432"
+  ],
+  "author": "Ritaz, Mysha",
+  "ioMapping": {
+    "inputs": [
+      { "name": "I0'", "switchIndex": 0 },
+      { "name": "I1'", "switchIndex": 1 },
+      { "name": "I2'", "switchIndex": 2 },
+      { "name": "I3'", "switchIndex": 3 }
+    ],
+    "outputs": [
+      { "name": "Y0", "ledIndex": 0 },
+      { "name": "Y1", "ledIndex": 1 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "I0'": 1, "I1'": 1, "I2'": 1, "I3'": 1 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "I0'": 0, "I1'": 1, "I2'": 1, "I3'": 1 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "I0'": 1, "I1'": 0, "I2'": 1, "I3'": 1 }, "outputs": { "Y1": 0, "Y0": 1 } },
+    { "inputs": { "I0'": 0, "I1'": 0, "I2'": 1, "I3'": 1 }, "outputs": { "Y1": 0, "Y0": 1 } },
+    { "inputs": { "I0'": 1, "I1'": 1, "I2'": 0, "I3'": 1 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "I0'": 0, "I1'": 1, "I2'": 0, "I3'": 1 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "I0'": 1, "I1'": 0, "I2'": 0, "I3'": 1 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "I0'": 0, "I1'": 0, "I2'": 0, "I3'": 1 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "I0'": 1, "I1'": 1, "I2'": 1, "I3'": 0 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0'": 0, "I1'": 1, "I2'": 1, "I3'": 0 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0'": 1, "I1'": 0, "I2'": 1, "I3'": 0 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0'": 0, "I1'": 0, "I2'": 1, "I3'": 0 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0'": 1, "I1'": 1, "I2'": 0, "I3'": 0 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0'": 0, "I1'": 1, "I2'": 0, "I3'": 0 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0'": 1, "I1'": 0, "I2'": 0, "I3'": 0 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0'": 0, "I1'": 0, "I2'": 0, "I3'": 0 }, "outputs": { "Y1": 1, "Y0": 1 } }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7408": 1,
+    "7432": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Inputs are Active-LOW, meaning a switch value of 0 indicates an active input.",
+    "First invert inputs using 7404 NOT gates to convert them into active-HIGH signals: I3, I2, I1, I0.",
+    "Use standard priority equations: Y1 = I3 + I2, Y0 = I3 + I2' · I1."
+  ]
+}

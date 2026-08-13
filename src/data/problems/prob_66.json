@@ -1,0 +1,58 @@
+{
+    "id": "prob_66",
+    "numId": 66,
+    "title": "Active-LOW Output 4-to-2 Priority Encoder",
+    "description": "Design a 4-to-2 priority encoder (I3 > I2 > I1 > I0) using NAND and NOT gates such that the encoded output lines are Active-LOW (Y1', Y0'). For example, selecting input I3 should produce active-low output 00 (Y1'=0, Y0'=0).",
+    "difficulty": "Medium",
+    "category": "design",
+    "tags": [
+      "NAND Gates",
+      "Active Low",
+      "Priority Encoder"
+    ],
+    "author": "Ritaz, Mysha",
+    "ioMapping": {
+      "inputs": [
+        { "name": "I0", "switchIndex": 0 },
+        { "name": "I1", "switchIndex": 1 },
+        { "name": "I2", "switchIndex": 2 },
+        { "name": "I3", "switchIndex": 3 }
+      ],
+      "outputs": [
+        { "name": "Y0'", "ledIndex": 0 },
+        { "name": "Y1'", "ledIndex": 1 }
+      ]
+    },
+    "truthTable": [
+      { "inputs": { "I0": 0, "I1": 0, "I2": 0, "I3": 0 }, "outputs": { "Y1'": 1, "Y0'": 1 } },
+      { "inputs": { "I0": 1, "I1": 0, "I2": 0, "I3": 0 }, "outputs": { "Y1'": 1, "Y0'": 1 } },
+      { "inputs": { "I0": 0, "I1": 1, "I2": 0, "I3": 0 }, "outputs": { "Y1'": 1, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 1, "I2": 0, "I3": 0 }, "outputs": { "Y1'": 1, "Y0'": 0 } },
+      { "inputs": { "I0": 0, "I1": 0, "I2": 1, "I3": 0 }, "outputs": { "Y1'": 0, "Y0'": 1 } },
+      { "inputs": { "I0": 1, "I1": 0, "I2": 1, "I3": 0 }, "outputs": { "Y1'": 0, "Y0'": 1 } },
+      { "inputs": { "I0": 0, "I1": 1, "I2": 1, "I3": 0 }, "outputs": { "Y1'": 0, "Y0'": 1 } },
+      { "inputs": { "I0": 1, "I1": 1, "I2": 1, "I3": 0 }, "outputs": { "Y1'": 0, "Y0'": 1 } },
+      { "inputs": { "I0": 0, "I1": 0, "I2": 0, "I3": 1 }, "outputs": { "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 0, "I2": 0, "I3": 1 }, "outputs": { "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 0, "I1": 1, "I2": 0, "I3": 1 }, "outputs": { "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 1, "I2": 0, "I3": 1 }, "outputs": { "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 0, "I1": 0, "I2": 1, "I3": 1 }, "outputs": { "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 0, "I2": 1, "I3": 1 }, "outputs": { "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 0, "I1": 1, "I2": 1, "I3": 1 }, "outputs": { "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 1, "I2": 1, "I3": 1 }, "outputs": { "Y1'": 0, "Y0'": 0 } }
+    ],
+    "allowedICLimits": {
+        "7400": 2,
+  "7404": 1
+    },
+    "initialCircuit": {
+      "placedIcs": [],
+      "wires": []
+    },
+    "hints": [
+        "First derive the standard active-HIGH priority expressions: Y1 = I3 + I2 and Y0 = I3 + I2' · I1.",
+        "Invert the final outputs using 7404 NOT gates to obtain Active-LOW signals: Y1' = (Y1)' and Y0' = (Y0)'.",
+        "Alternatively, apply De Morgan's laws to construct Y1' and Y0' directly using 7400 NAND gates."
+    ]
+  }
+  

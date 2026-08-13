@@ -1,0 +1,89 @@
+{
+  "id": "prob_62",
+  "numId": 62,
+  "title": "Octal Priority Encoder",
+  "description": "Design and implement an 8-to-3 Priority Encoder with a Valid Bit (V) output. Among inputs D0-D7, D7 has the highest priority and D0 has the lowest priority. Outputs Y2, Y1, Y0 give the binary representation of the highest priority active input.",
+  "difficulty": "Hard",
+  "category": "design",
+  "tags": [
+    "Encoder",
+    "Priority Encoder",
+    "74148",
+    "7404",
+    "7408",
+    "7432"
+  ],
+  "author": "Ritaz, Mysha",
+  "ioMapping": {
+    "inputs": [
+      { "name": "D0", "switchIndex": 0 },
+      { "name": "D1", "switchIndex": 1 },
+      { "name": "D2", "switchIndex": 2 },
+      { "name": "D3", "switchIndex": 3 },
+      { "name": "D4", "switchIndex": 4 },
+      { "name": "D5", "switchIndex": 5 },
+      { "name": "D6", "switchIndex": 6 },
+      { "name": "D7", "switchIndex": 7 }
+    ],
+    "outputs": [
+      { "name": "Y0", "ledIndex": 0 },
+      { "name": "Y1", "ledIndex": 1 },
+      { "name": "Y2", "ledIndex": 2 },
+      { "name": "V",  "ledIndex": 3 }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": { "D0": 0, "D1": 0, "D2": 0, "D3": 0, "D4": 0, "D5": 0, "D6": 0, "D7": 0 },
+      "outputs": { "Y2": 0, "Y1": 0, "Y0": 0, "V": 0 }
+    },
+    {
+      "inputs": { "D0": "X", "D1": "X", "D2": "X", "D3": "X", "D4": "X", "D5": "X", "D6": "X", "D7": 1 },
+      "outputs": { "Y2": 1, "Y1": 1, "Y0": 1, "V": 1 }
+    },
+    {
+      "inputs": { "D0": "X", "D1": "X", "D2": "X", "D3": "X", "D4": "X", "D5": "X", "D6": 1, "D7": 0 },
+      "outputs": { "Y2": 1, "Y1": 1, "Y0": 0, "V": 1 }
+    },
+    {
+      "inputs": { "D0": "X", "D1": "X", "D2": "X", "D3": "X", "D4": "X", "D5": 1, "D6": 0, "D7": 0 },
+      "outputs": { "Y2": 1, "Y1": 0, "Y0": 1, "V": 1 }
+    },
+    {
+      "inputs": { "D0": "X", "D1": "X", "D2": "X", "D3": "X", "D4": 1, "D5": 0, "D6": 0, "D7": 0 },
+      "outputs": { "Y2": 1, "Y1": 0, "Y0": 0, "V": 1 }
+    },
+    {
+      "inputs": { "D0": "X", "D1": "X", "D2": "X", "D3": 1, "D4": 0, "D5": 0, "D6": 0, "D7": 0 },
+      "outputs": { "Y2": 0, "Y1": 1, "Y0": 1, "V": 1 }
+    },
+    {
+      "inputs": { "D0": "X", "D1": "X", "D2": "X", "D3": 0, "D4": 0, "D5": 0, "D6": 0, "D7": 0 },
+      "outputs": { "Y2": 0, "Y1": 1, "Y0": 0, "V": 1 }
+    },
+    {
+      "inputs": { "D0": "X", "D1": 1, "D2": 0, "D3": 0, "D4": 0, "D5": 0, "D6": 0, "D7": 0 },
+      "outputs": { "Y2": 0, "Y1": 0, "Y0": 1, "V": 1 }
+    },
+    {
+      "inputs": { "D0": 1, "D1": 0, "D2": 0, "D3": 0, "D4": 0, "D5": 0, "D6": 0, "D7": 0 },
+      "outputs": { "Y2": 0, "Y1": 0, "Y0": 0, "V": 1 }
+    }
+  ],
+  "allowedICLimits": {
+    "74148": 1,
+    "7404": 1,
+    "7408": 1,
+    "7432": 2
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Priority cascades from D7 down to D0.",
+    "If using basic gates: Y2 = D4 + D5 + D6 + D7, Y1 = D2 + D3 + D6 + D7, Y0 = D1 + D3 + D5 + D7.",
+    "Valid output V = D0 + D1 + D2 + D3 + D4 + D5 + D6 + D7.",
+    "If using the 74148 IC, remember that its inputs and outputs are active-LOW."
+  ]
+}

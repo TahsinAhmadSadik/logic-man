@@ -1,0 +1,212 @@
+{
+  "id": "prob_70",
+  "numId": 70,
+  "title": "Debug NOR-Logic 8-to-3 Encoder",
+  "description": "A student tried to build an 8-to-3 Octal-to-Binary encoder using only NOR gates to satisfy the lab constraint (No standard OR/AND gates allowed). However, the pre-wired circuit outputs incorrect binary codes when flipping switches I_4 through I_7. Inspect the NOR gate wiring, identify the missing connection or swapped input line, and fix it so that every active input produces its correct 3-bit binary code (A_2, A_1, A_0).\n\nConstraint: Strict Gate Restriction: The use of standard OR or AND gates is strictly prohibited. The circuit must be built using only NOR gates and Inverters.",
+  "difficulty": "Easy",
+  "category": "debug",
+  "tags": [
+    "Debugging",
+    "Encoder",
+    "8-to-3",
+    "NOR Gates"
+  ],
+  "author": "Ritaz, Mysha",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "I_0",
+        "switchIndex": 0
+      },
+      {
+        "name": "I_1",
+        "switchIndex": 1
+      },
+      {
+        "name": "I_2",
+        "switchIndex": 2
+      },
+      {
+        "name": "I_3",
+        "switchIndex": 3
+      },
+      {
+        "name": "I_4",
+        "switchIndex": 4
+      },
+      {
+        "name": "I_5",
+        "switchIndex": 5
+      },
+      {
+        "name": "I_6",
+        "switchIndex": 6
+      },
+      {
+        "name": "I_7",
+        "switchIndex": 7
+      }
+    ],
+    "outputs": [
+      {
+        "name": "A_0",
+        "ledIndex": 0
+      },
+      {
+        "name": "A_1",
+        "ledIndex": 1
+      },
+      {
+        "name": "A_2",
+        "ledIndex": 2
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": { "I_0": 1, "I_1": 0, "I_2": 0, "I_3": 0, "I_4": 0, "I_5": 0, "I_6": 0, "I_7": 0 },
+      "outputs": { "A_0": 0, "A_1": 0, "A_2": 0 }
+    },
+    {
+      "inputs": { "I_0": 0, "I_1": 1, "I_2": 0, "I_3": 0, "I_4": 0, "I_5": 0, "I_6": 0, "I_7": 0 },
+      "outputs": { "A_0": 1, "A_1": 0, "A_2": 0 }
+    },
+    {
+      "inputs": { "I_0": 0, "I_1": 0, "I_2": 1, "I_3": 0, "I_4": 0, "I_5": 0, "I_6": 0, "I_7": 0 },
+      "outputs": { "A_0": 0, "A_1": 1, "A_2": 0 }
+    },
+    {
+      "inputs": { "I_0": 0, "I_1": 0, "I_2": 0, "I_3": 1, "I_4": 0, "I_5": 0, "I_6": 0, "I_7": 0 },
+      "outputs": { "A_0": 1, "A_1": 1, "A_2": 0 }
+    },
+    {
+      "inputs": { "I_0": 0, "I_1": 0, "I_2": 0, "I_3": 0, "I_4": 1, "I_5": 0, "I_6": 0, "I_7": 0 },
+      "outputs": { "A_0": 0, "A_1": 0, "A_2": 1 }
+    },
+    {
+      "inputs": { "I_0": 0, "I_1": 0, "I_2": 0, "I_3": 0, "I_4": 0, "I_5": 1, "I_6": 0, "I_7": 0 },
+      "outputs": { "A_0": 1, "A_1": 0, "A_2": 1 }
+    },
+    {
+      "inputs": { "I_0": 0, "I_1": 0, "I_2": 0, "I_3": 0, "I_4": 0, "I_5": 0, "I_6": 1, "I_7": 0 },
+      "outputs": { "A_0": 0, "A_1": 1, "A_2": 1 }
+    },
+    {
+      "inputs": { "I_0": 0, "I_1": 0, "I_2": 0, "I_3": 0, "I_4": 0, "I_5": 0, "I_6": 0, "I_7": 1 },
+      "outputs": { "A_0": 1, "A_1": 1, "A_2": 1 }
+    }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7427": 2,
+    "7408": 0,
+    "7432": 0
+  },
+  "initialCircuit": {
+    "placedIcs": [
+      {
+        "id": "ic_placed_7427_1",
+        "icTypeId": "7427",
+        "blockId": "M3",
+        "startCol": 10
+      },
+      {
+        "id": "ic_placed_7427_2",
+        "icTypeId": "7427",
+        "blockId": "M3",
+        "startCol": 28
+      },
+      {
+        "id": "ic_placed_7404_1",
+        "icTypeId": "7404",
+        "blockId": "M2",
+        "startCol": 48
+      }
+    ],
+    "wires": [
+      {
+        "id": "w_vcc_1",
+        "startHole": "PWR_VCC_1",
+        "endHole": "BUS_TOP_VCC_5",
+        "color": "#ef4444"
+      },
+      {
+        "id": "w_gnd_1",
+        "startHole": "PWR_GND_1",
+        "endHole": "BUS_TOP_GND_3",
+        "color": "#3b82f6"
+      },
+      {
+        "id": "w_sw0",
+        "startHole": "SWITCH_OUT_0",
+        "endHole": "BB_AD2",
+        "color": "#10b981"
+      },
+      {
+        "id": "w_sw1",
+        "startHole": "SWITCH_OUT_1",
+        "endHole": "BB_AD10",
+        "color": "#10b981"
+      },
+      {
+        "id": "w_sw2",
+        "startHole": "SWITCH_OUT_2",
+        "endHole": "BB_AD11",
+        "color": "#10b981"
+      },
+      {
+        "id": "w_sw3",
+        "startHole": "SWITCH_OUT_3",
+        "endHole": "BB_AD12",
+        "color": "#10b981"
+      },
+      {
+        "id": "w_sw4",
+        "startHole": "SWITCH_OUT_4",
+        "endHole": "BB_AD28",
+        "color": "#10b981"
+      },
+      {
+        "id": "w_sw5",
+        "startHole": "SWITCH_OUT_5",
+        "endHole": "BB_AD29",
+        "color": "#10b981"
+      },
+      {
+        "id": "w_sw6_fault",
+        "startHole": "SWITCH_OUT_6",
+        "endHole": "BB_AD11",
+        "color": "#ef4444"
+      },
+      {
+        "id": "w_sw7",
+        "startHole": "SWITCH_OUT_7",
+        "endHole": "BB_AD30",
+        "color": "#10b981"
+      },
+      {
+        "id": "w_out0",
+        "startHole": "BB_S49",
+        "endHole": "LED_IN_0",
+        "color": "#f59e0b"
+      },
+      {
+        "id": "w_out1",
+        "startHole": "BB_S51",
+        "endHole": "LED_IN_1",
+        "color": "#f59e0b"
+      },
+      {
+        "id": "w_out2",
+        "startHole": "BB_S53",
+        "endHole": "LED_IN_2",
+        "color": "#f59e0b"
+      }
+    ]
+  },
+  "hints": [
+    "Check the wiring of switch I_4, I_5, I_6, and I_7 connected to the NOR gate driving bit A_2.",
+    "Verify that active inputs pass through the NOR logic (7427) and are properly inverted by the 7404 Hex Inverter before connecting to LEDs.",
+    "Ensure standard AND/OR gates (7408/7432) are not used."
+  ]
+}

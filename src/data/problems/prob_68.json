@@ -1,0 +1,58 @@
+{
+    "id": "prob_68",
+    "numId": 68,
+    "title": "4-to-2 Priority Encoder with Complementary Outputs",
+    "description": "Design a 4-to-2 priority encoder with inputs I3, I2, I1, I0 where I3 has the highest priority. The circuit must simultaneously produce both Active-HIGH binary outputs (Y1, Y0) and Active-LOW binary outputs (Y1', Y0'). This allows the encoder to drive two different logic families or displays at the same time.",
+    "difficulty": "Medium",
+    "category": "design",
+    "tags": [
+      "Encoder",
+      "Priority Encoder",
+      "Complementary Outputs"
+    ],
+    "author": "Ritaz, Mysha",
+    "ioMapping": {
+      "inputs": [
+        { "name": "I0", "switchIndex": 0 },
+        { "name": "I1", "switchIndex": 1 },
+        { "name": "I2", "switchIndex": 2 },
+        { "name": "I3", "switchIndex": 3 }
+      ],
+      "outputs": [
+        { "name": "Y0", "ledIndex": 0 },
+        { "name": "Y1", "ledIndex": 1 },
+        { "name": "Y0'", "ledIndex": 2 },
+        { "name": "Y1'", "ledIndex": 3 }
+      ]
+    },
+    "truthTable": [
+      { "inputs": { "I0": 0, "I1": 0, "I2": 0, "I3": 0 }, "outputs": { "Y1": 0, "Y0": 0, "Y1'": 1, "Y0'": 1 } },
+      { "inputs": { "I0": 1, "I1": 0, "I2": 0, "I3": 0 }, "outputs": { "Y1": 0, "Y0": 0, "Y1'": 1, "Y0'": 1 } },
+      { "inputs": { "I0": 0, "I1": 1, "I2": 0, "I3": 0 }, "outputs": { "Y1": 0, "Y0": 1, "Y1'": 1, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 1, "I2": 0, "I3": 0 }, "outputs": { "Y1": 0, "Y0": 1, "Y1'": 1, "Y0'": 0 } },
+      { "inputs": { "I0": 0, "I1": 0, "I2": 1, "I3": 0 }, "outputs": { "Y1": 1, "Y0": 0, "Y1'": 0, "Y0'": 1 } },
+      { "inputs": { "I0": 1, "I1": 0, "I2": 1, "I3": 0 }, "outputs": { "Y1": 1, "Y0": 0, "Y1'": 0, "Y0'": 1 } },
+      { "inputs": { "I0": 0, "I1": 1, "I2": 1, "I3": 0 }, "outputs": { "Y1": 1, "Y0": 0, "Y1'": 0, "Y0'": 1 } },
+      { "inputs": { "I0": 1, "I1": 1, "I2": 1, "I3": 0 }, "outputs": { "Y1": 1, "Y0": 0, "Y1'": 0, "Y0'": 1 } },
+      { "inputs": { "I0": 0, "I1": 0, "I2": 0, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1, "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 0, "I2": 0, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1, "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 0, "I1": 1, "I2": 0, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1, "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 1, "I2": 0, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1, "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 0, "I1": 0, "I2": 1, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1, "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 0, "I2": 1, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1, "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 0, "I1": 1, "I2": 1, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1, "Y1'": 0, "Y0'": 0 } },
+      { "inputs": { "I0": 1, "I1": 1, "I2": 1, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1, "Y1'": 0, "Y0'": 0 } }
+    ],
+    "allowedICLimits": {"7432": 1,
+  "7408": 1,
+  "7404": 1},
+    "initialCircuit": {
+      "placedIcs": [],
+      "wires": []
+    },
+    "hints": [
+        "Construct standard active-HIGH priority logic first: Y1 = I3 + I2, Y0 = I3 + I2' · I1.",
+        "Pass Y1 and Y0 through 7404 NOT gates to generate inverted outputs: Y1' = (Y1)' and Y0' = (Y0)'.",
+        "Route Y1 and Y0 to LED1 and LED0, and route Y1' and Y0' to LED3 and LED2."
+    ]
+  }

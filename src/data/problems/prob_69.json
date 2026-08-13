@@ -1,0 +1,125 @@
+{
+  "id": "prob_69",
+  "numId": 69,
+  "title": "Debug Faulty Priority Encoder Wiring",
+  "description": "A 4-to-2 Priority Encoder (I3 > I2 > I1 > I0) is pre-wired on the breadboard using 7404 (NOT) and 7432 (OR) ICs. However, due to a wrong wire routing from SW2 (I2), selecting input I2 incorrectly lights up LED0 instead of LED1. Inspect the pre-wired circuit and re-route the faulty wire so SW2 properly produces Y1=1, Y0=0.",
+  "difficulty": "Medium",
+  "category": "debug",
+  "tags": [
+    "Debugging",
+    "Priority Encoder",
+    "7404",
+    "7432"
+  ],
+  "author": "Ritaz, Mysha",
+  "ioMapping": {
+    "inputs": [
+      { "name": "I0", "switchIndex": 0 },
+      { "name": "I1", "switchIndex": 1 },
+      { "name": "I2", "switchIndex": 2 },
+      { "name": "I3", "switchIndex": 3 }
+    ],
+    "outputs": [
+      { "name": "Y0", "ledIndex": 0 },
+      { "name": "Y1", "ledIndex": 1 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "I0": 0, "I1": 0, "I2": 0, "I3": 0 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "I0": 1, "I1": 0, "I2": 0, "I3": 0 }, "outputs": { "Y1": 0, "Y0": 0 } },
+    { "inputs": { "I0": 0, "I1": 1, "I2": 0, "I3": 0 }, "outputs": { "Y1": 0, "Y0": 1 } },
+    { "inputs": { "I0": 1, "I1": 1, "I2": 0, "I3": 0 }, "outputs": { "Y1": 0, "Y0": 1 } },
+    { "inputs": { "I0": 0, "I1": 0, "I2": 1, "I3": 0 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "I0": 1, "I1": 0, "I2": 1, "I3": 0 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "I0": 0, "I1": 1, "I2": 1, "I3": 0 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "I0": 1, "I1": 1, "I2": 1, "I3": 0 }, "outputs": { "Y1": 1, "Y0": 0 } },
+    { "inputs": { "I0": 0, "I1": 0, "I2": 0, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0": 1, "I1": 0, "I2": 0, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0": 0, "I1": 1, "I2": 0, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0": 1, "I1": 1, "I2": 0, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0": 0, "I1": 0, "I2": 1, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0": 1, "I1": 0, "I2": 1, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0": 0, "I1": 1, "I2": 1, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1 } },
+    { "inputs": { "I0": 1, "I1": 1, "I2": 1, "I3": 1 }, "outputs": { "Y1": 1, "Y0": 1 } }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7432": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [
+      {
+        "id": "ic_placed_7432_1",
+        "icTypeId": "7432",
+        "blockId": "M1",
+        "startCol": 10
+      },
+      {
+        "id": "ic_placed_7404_1",
+        "icTypeId": "7404",
+        "blockId": "M1",
+        "startCol": 20
+      }
+    ],
+    "wires": [
+      {
+        "id": "w_vcc_1",
+        "startHole": "PWR_VCC_1",
+        "endHole": "BUS_TOP_VCC_10",
+        "color": "#ef4444"
+      },
+      {
+        "id": "w_gnd_1",
+        "startHole": "PWR_GND_1",
+        "endHole": "BUS_MID_0_GND_16",
+        "color": "#18181b"
+      },
+      {
+        "id": "w_vcc_2",
+        "startHole": "PWR_VCC_2",
+        "endHole": "BUS_TOP_VCC_20",
+        "color": "#ef4444"
+      },
+      {
+        "id": "w_gnd_2",
+        "startHole": "PWR_GND_2",
+        "endHole": "BUS_MID_0_GND_26",
+        "color": "#18181b"
+      },
+      {
+        "id": "w_sw3_y1",
+        "startHole": "SWITCH_OUT_3",
+        "endHole": "BB_J10",
+        "color": "#ef4444"
+      },
+      {
+        "id": "w_sw2_fault",
+        "startHole": "SWITCH_OUT_2",
+        "endHole": "BB_J13",
+        "color": "#ef4444"
+      },
+      {
+        "id": "w_sw3_y0",
+        "startHole": "SWITCH_OUT_3",
+        "endHole": "BB_J11",
+        "color": "#ef4444"
+      },
+      {
+        "id": "w_out_y1",
+        "startHole": "BB_H12",
+        "endHole": "LED_IN_1",
+        "color": "#22c55e"
+      },
+      {
+        "id": "w_out_y0",
+        "startHole": "BB_H15",
+        "endHole": "LED_IN_0",
+        "color": "#22c55e"
+      }
+    ]
+  },
+  "hints": [
+    "Trace where SWITCH_OUT_2 (I2) is connected. It is wired to Pin 4 (OR gate input for Y0) instead of Pin 1 (OR gate input for Y1).",
+    "Move the wire from SWITCH_OUT_2 so that it connects to Pin 1 or Pin 2 of the 7432 OR IC."
+  ]
+}

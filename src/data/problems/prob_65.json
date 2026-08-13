@@ -1,0 +1,44 @@
+{
+  "id": "prob_65",
+  "numId": 65,
+  "title": "Partial Decimal-to-BCD Encoder (Digits 0-3)",
+  "description": "Construct a partial Decimal-to-BCD encoder that takes 4 active-HIGH inputs representing decimal digits D0, D1, D2, D3 and produces a 2-bit output (B1, B0). Assume only one input digit is active at any time.",
+  "difficulty": "Easy",
+  "category": "design",
+  "tags": [
+    "BCD",
+    "Encoder",
+    "Logic Gates"
+  ],
+  "author": "Ritaz, Mysha",
+  "ioMapping": {
+    "inputs": [
+      { "name": "D0", "switchIndex": 0 },
+      { "name": "D1", "switchIndex": 1 },
+      { "name": "D2", "switchIndex": 2 },
+      { "name": "D3", "switchIndex": 3 }
+    ],
+    "outputs": [
+      { "name": "B0", "ledIndex": 0 },
+      { "name": "B1", "ledIndex": 1 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "D0": 1, "D1": 0, "D2": 0, "D3": 0 }, "outputs": { "B1": 0, "B0": 0 } },
+    { "inputs": { "D0": 0, "D1": 1, "D2": 0, "D3": 0 }, "outputs": { "B1": 0, "B0": 1 } },
+    { "inputs": { "D0": 0, "D1": 0, "D2": 1, "D3": 0 }, "outputs": { "B1": 1, "B0": 0 } },
+    { "inputs": { "D0": 0, "D1": 0, "D2": 0, "D3": 1 }, "outputs": { "B1": 1, "B0": 1 } }
+  ],
+  "allowedICLimits": {
+    "7432": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Determine which digits make each output bit HIGH: B0 = D1 + D3.",
+    "Determine B1 logic: B1 = D2 + D3.",
+    "Implement both OR expressions using gates from a single 7432 IC."
+  ]
+}
