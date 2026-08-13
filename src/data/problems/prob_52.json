@@ -1,0 +1,251 @@
+{
+  "id": "prob_52",
+  "numId": 52,
+  "title": "Two-Bit Controlled Function Generator (X, X+1, X', X'+1)",
+  "description": "Design a circuit controlled by two select lines S1 S0 that produces the following output for a 4-bit number X: 00 -> X, 01 -> X + 1, 10 -> X', 11 -> X' + 1. Use XOR gates and ONE 7483 IC only. You are NOT allowed to use any inverter (7404). Here '+' means the addition operation. Hint: X XOR S1 gives X when S1 = 0 and X' when S1 = 1; S0 can be applied to the Carry-In of the 7483 while all B inputs are grounded.",
+  "difficulty": "Medium",
+  "category": "design",
+  "tags": [
+    "7483",
+    "7486",
+    "Select Lines",
+    "No Inverter",
+    "Adder"
+  ],
+  "author": "Rahat Mohashin Zarif, Al Nahian Alif",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "X0",
+        "switchIndex": 0
+      },
+      {
+        "name": "X1",
+        "switchIndex": 1
+      },
+      {
+        "name": "X2",
+        "switchIndex": 2
+      },
+      {
+        "name": "X3",
+        "switchIndex": 3
+      },
+      {
+        "name": "S1",
+        "switchIndex": 4
+      },
+      {
+        "name": "S0",
+        "switchIndex": 5
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Y0",
+        "ledIndex": 0
+      },
+      {
+        "name": "Y1",
+        "ledIndex": 1
+      },
+      {
+        "name": "Y2",
+        "ledIndex": 2
+      },
+      {
+        "name": "Y3",
+        "ledIndex": 3
+      },
+      {
+        "name": "Cout",
+        "ledIndex": 4
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "X0": 1,
+        "X1": 0,
+        "X2": 1,
+        "X3": 0,
+        "S1": 0,
+        "S0": 0
+      },
+      "outputs": {
+        "Y0": 1,
+        "Y1": 0,
+        "Y2": 1,
+        "Y3": 0,
+        "Cout": 0
+      }
+    },
+    {
+      "inputs": {
+        "X0": 1,
+        "X1": 0,
+        "X2": 1,
+        "X3": 0,
+        "S1": 0,
+        "S0": 1
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 1,
+        "Y2": 1,
+        "Y3": 0,
+        "Cout": 0
+      }
+    },
+    {
+      "inputs": {
+        "X0": 1,
+        "X1": 0,
+        "X2": 1,
+        "X3": 0,
+        "S1": 1,
+        "S0": 0
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 1,
+        "Y2": 0,
+        "Y3": 1,
+        "Cout": 0
+      }
+    },
+    {
+      "inputs": {
+        "X0": 1,
+        "X1": 0,
+        "X2": 1,
+        "X3": 0,
+        "S1": 1,
+        "S0": 1
+      },
+      "outputs": {
+        "Y0": 1,
+        "Y1": 1,
+        "Y2": 0,
+        "Y3": 1,
+        "Cout": 0
+      }
+    },
+    {
+      "inputs": {
+        "X0": 1,
+        "X1": 1,
+        "X2": 1,
+        "X3": 1,
+        "S1": 0,
+        "S0": 1
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Cout": 1
+      }
+    },
+    {
+      "inputs": {
+        "X0": 1,
+        "X1": 1,
+        "X2": 1,
+        "X3": 1,
+        "S1": 1,
+        "S0": 0
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Cout": 0
+      }
+    },
+    {
+      "inputs": {
+        "X0": 0,
+        "X1": 0,
+        "X2": 0,
+        "X3": 0,
+        "S1": 1,
+        "S0": 0
+      },
+      "outputs": {
+        "Y0": 1,
+        "Y1": 1,
+        "Y2": 1,
+        "Y3": 1,
+        "Cout": 0
+      }
+    },
+    {
+      "inputs": {
+        "X0": 0,
+        "X1": 0,
+        "X2": 0,
+        "X3": 0,
+        "S1": 1,
+        "S0": 1
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Cout": 1
+      }
+    },
+    {
+      "inputs": {
+        "X0": 0,
+        "X1": 0,
+        "X2": 0,
+        "X3": 0,
+        "S1": 0,
+        "S0": 0
+      },
+      "outputs": {
+        "Y0": 0,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Cout": 0
+      }
+    },
+    {
+      "inputs": {
+        "X0": 0,
+        "X1": 0,
+        "X2": 0,
+        "X3": 0,
+        "S1": 0,
+        "S0": 1
+      },
+      "outputs": {
+        "Y0": 1,
+        "Y1": 0,
+        "Y2": 0,
+        "Y3": 0,
+        "Cout": 0
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7483": 1,
+    "7486": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "An XOR gate with one input tied to a control line works as a controlled inverter.",
+    "All four B inputs of the 7483 should be tied to GND.",
+    "S0 goes to C0 (Carry-In, pin 13) of the 7483."
+  ]
+}

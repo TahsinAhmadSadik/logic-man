@@ -1,0 +1,210 @@
+{
+  "id": "prob_57",
+  "numId": 57,
+  "title": "9's Complement Generator of a BCD Digit (No Inverter)",
+  "description": "Design a circuit that outputs the 9's complement (9 - N) of a BCD digit N (N3 N2 N1 N0, range 0-9) using one 7483 IC and XOR gates. You are NOT allowed to use a 7404 inverter. Hint: 9 - N = 1001 + N' + 1. Obtain N' by XOR-ing each bit with logic 1 (Vcc), put 1001 on the A inputs and tie the Carry-In to logic 1. This block is the first step of building a BCD subtractor.",
+  "difficulty": "Medium",
+  "category": "design",
+  "tags": [
+    "BCD",
+    "9's Complement",
+    "7483",
+    "7486",
+    "No Inverter"
+  ],
+  "author": "Rahat Mohashin Zarif, Al Nahian Alif",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "N0",
+        "switchIndex": 0
+      },
+      {
+        "name": "N1",
+        "switchIndex": 1
+      },
+      {
+        "name": "N2",
+        "switchIndex": 2
+      },
+      {
+        "name": "N3",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "R0",
+        "ledIndex": 0
+      },
+      {
+        "name": "R1",
+        "ledIndex": 1
+      },
+      {
+        "name": "R2",
+        "ledIndex": 2
+      },
+      {
+        "name": "R3",
+        "ledIndex": 3
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "N0": 0,
+        "N1": 0,
+        "N2": 0,
+        "N3": 0
+      },
+      "outputs": {
+        "R0": 1,
+        "R1": 0,
+        "R2": 0,
+        "R3": 1
+      }
+    },
+    {
+      "inputs": {
+        "N0": 1,
+        "N1": 0,
+        "N2": 0,
+        "N3": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 0,
+        "R3": 1
+      }
+    },
+    {
+      "inputs": {
+        "N0": 0,
+        "N1": 1,
+        "N2": 0,
+        "N3": 0
+      },
+      "outputs": {
+        "R0": 1,
+        "R1": 1,
+        "R2": 1,
+        "R3": 0
+      }
+    },
+    {
+      "inputs": {
+        "N0": 1,
+        "N1": 1,
+        "N2": 0,
+        "N3": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 1,
+        "R2": 1,
+        "R3": 0
+      }
+    },
+    {
+      "inputs": {
+        "N0": 0,
+        "N1": 0,
+        "N2": 1,
+        "N3": 0
+      },
+      "outputs": {
+        "R0": 1,
+        "R1": 0,
+        "R2": 1,
+        "R3": 0
+      }
+    },
+    {
+      "inputs": {
+        "N0": 1,
+        "N1": 0,
+        "N2": 1,
+        "N3": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 1,
+        "R3": 0
+      }
+    },
+    {
+      "inputs": {
+        "N0": 0,
+        "N1": 1,
+        "N2": 1,
+        "N3": 0
+      },
+      "outputs": {
+        "R0": 1,
+        "R1": 1,
+        "R2": 0,
+        "R3": 0
+      }
+    },
+    {
+      "inputs": {
+        "N0": 1,
+        "N1": 1,
+        "N2": 1,
+        "N3": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 1,
+        "R2": 0,
+        "R3": 0
+      }
+    },
+    {
+      "inputs": {
+        "N0": 0,
+        "N1": 0,
+        "N2": 0,
+        "N3": 1
+      },
+      "outputs": {
+        "R0": 1,
+        "R1": 0,
+        "R2": 0,
+        "R3": 0
+      }
+    },
+    {
+      "inputs": {
+        "N0": 1,
+        "N1": 0,
+        "N2": 0,
+        "N3": 1
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 0,
+        "R3": 0
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7483": 1,
+    "7486": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "X XOR 1 = X', so tie one input of every XOR gate to Vcc.",
+    "A inputs of the 7483 are hard-wired to 1001 (Vcc, GND, GND, Vcc).",
+    "Carry-In (pin 13) must be tied to Vcc, not GND.",
+    "The carry-out of the 7483 is discarded."
+  ]
+}

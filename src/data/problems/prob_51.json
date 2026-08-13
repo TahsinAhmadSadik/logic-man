@@ -1,0 +1,242 @@
+{
+  "id": "prob_51",
+  "numId": 51,
+  "title": "4-Bit Subtractor (P - Q)",
+  "description": "Design and implement a 4-bit Subtractor circuit that performs P - Q using 2's complement arithmetic (P + Q' + 1). P and Q are 4-bit numbers mapped to Switches 0-3 and Switches 4-7 respectively. Use one 7483 4-bit adder IC and XOR gates (7486 IC) to complement Q and provide the +1 Carry-In. Output LED C acts as an inverted-borrow indicator (C = 1 means P >= Q).",
+  "difficulty": "Medium",
+  "category": "design",
+  "tags": [
+    "Subtractor",
+    "7483",
+    "7486",
+    "2's Complement",
+    "Arithmetic"
+  ],
+  "author": "Rahat Mohashin Zarif, Al Nahian Alif",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "P0",
+        "switchIndex": 0
+      },
+      {
+        "name": "P1",
+        "switchIndex": 1
+      },
+      {
+        "name": "P2",
+        "switchIndex": 2
+      },
+      {
+        "name": "P3",
+        "switchIndex": 3
+      },
+      {
+        "name": "Q0",
+        "switchIndex": 4
+      },
+      {
+        "name": "Q1",
+        "switchIndex": 5
+      },
+      {
+        "name": "Q2",
+        "switchIndex": 6
+      },
+      {
+        "name": "Q3",
+        "switchIndex": 7
+      }
+    ],
+    "outputs": [
+      {
+        "name": "R0",
+        "ledIndex": 0
+      },
+      {
+        "name": "R1",
+        "ledIndex": 1
+      },
+      {
+        "name": "R2",
+        "ledIndex": 2
+      },
+      {
+        "name": "R3",
+        "ledIndex": 3
+      },
+      {
+        "name": "C",
+        "ledIndex": 4
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "P0": 1,
+        "P1": 1,
+        "P2": 1,
+        "P3": 0,
+        "Q0": 1,
+        "Q1": 1,
+        "Q2": 0,
+        "Q3": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 1,
+        "R3": 0,
+        "C": 1
+      }
+    },
+    {
+      "inputs": {
+        "P0": 1,
+        "P1": 1,
+        "P2": 0,
+        "P3": 0,
+        "Q0": 1,
+        "Q1": 1,
+        "Q2": 1,
+        "Q3": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 1,
+        "R3": 1,
+        "C": 0
+      }
+    },
+    {
+      "inputs": {
+        "P0": 1,
+        "P1": 0,
+        "P2": 0,
+        "P3": 1,
+        "Q0": 1,
+        "Q1": 0,
+        "Q2": 0,
+        "Q3": 1
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 0,
+        "R3": 0,
+        "C": 1
+      }
+    },
+    {
+      "inputs": {
+        "P0": 0,
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "Q0": 1,
+        "Q1": 0,
+        "Q2": 0,
+        "Q3": 0
+      },
+      "outputs": {
+        "R0": 1,
+        "R1": 1,
+        "R2": 1,
+        "R3": 1,
+        "C": 0
+      }
+    },
+    {
+      "inputs": {
+        "P0": 1,
+        "P1": 1,
+        "P2": 1,
+        "P3": 1,
+        "Q0": 1,
+        "Q1": 0,
+        "Q2": 0,
+        "Q3": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 1,
+        "R2": 1,
+        "R3": 1,
+        "C": 1
+      }
+    },
+    {
+      "inputs": {
+        "P0": 0,
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "Q0": 0,
+        "Q1": 0,
+        "Q2": 0,
+        "Q3": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 0,
+        "R3": 0,
+        "C": 1
+      }
+    },
+    {
+      "inputs": {
+        "P0": 1,
+        "P1": 0,
+        "P2": 1,
+        "P3": 0,
+        "Q0": 0,
+        "Q1": 0,
+        "Q2": 1,
+        "Q3": 1
+      },
+      "outputs": {
+        "R0": 1,
+        "R1": 0,
+        "R2": 0,
+        "R3": 1,
+        "C": 0
+      }
+    },
+    {
+      "inputs": {
+        "P0": 0,
+        "P1": 0,
+        "P2": 1,
+        "P3": 1,
+        "Q0": 1,
+        "Q1": 0,
+        "Q2": 1,
+        "Q3": 0
+      },
+      "outputs": {
+        "R0": 1,
+        "R1": 1,
+        "R2": 1,
+        "R3": 0,
+        "C": 1
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7483": 1,
+    "7486": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Feed P directly into the A inputs (A1-A4) of the 7483.",
+    "Pass each Q bit through an XOR gate with its second input tied to VCC (+5V) to invert it (Q').",
+    "Connect Carry-In (C0, pin 13) of the 7483 directly to VCC (+5V) to add the +1 for 2's complement.",
+    "Do not forget VCC (pin 5) and GND (pin 12) on the 7483 IC."
+  ]
+}

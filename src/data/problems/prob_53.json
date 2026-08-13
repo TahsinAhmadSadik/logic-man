@@ -1,0 +1,206 @@
+{
+  "id": "prob_53",
+  "numId": 53,
+  "title": "Binary to BCD Converter (0 - 19)",
+  "description": "Design a Binary to BCD converter that converts any 5-bit binary number in the range 0 to 19 into BCD. The output has a tens digit T (single bit, 0 or 1) and a 4-bit units digit U3 U2 U1 U0. Use one 7483 IC and basic gates. Hint: if the binary value is greater than 9, add 0110 (6) to the lower four bits and make T = 1. The 'greater than 9' condition is T = B4 + B3(B2 + B1).",
+  "difficulty": "Medium",
+  "category": "design",
+  "tags": [
+    "BCD",
+    "Code Converter",
+    "7483",
+    "7432",
+    "7408"
+  ],
+  "author": "Rahat Mohashin Zarif, Al Nahian Alif",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "B0",
+        "switchIndex": 0
+      },
+      {
+        "name": "B1",
+        "switchIndex": 1
+      },
+      {
+        "name": "B2",
+        "switchIndex": 2
+      },
+      {
+        "name": "B3",
+        "switchIndex": 3
+      },
+      {
+        "name": "B4",
+        "switchIndex": 4
+      }
+    ],
+    "outputs": [
+      {
+        "name": "U0",
+        "ledIndex": 0
+      },
+      {
+        "name": "U1",
+        "ledIndex": 1
+      },
+      {
+        "name": "U2",
+        "ledIndex": 2
+      },
+      {
+        "name": "U3",
+        "ledIndex": 3
+      },
+      {
+        "name": "T",
+        "ledIndex": 4
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 0,
+        "B3": 0,
+        "B4": 0
+      },
+      "outputs": {
+        "U0": 0,
+        "U1": 0,
+        "U2": 0,
+        "U3": 0,
+        "T": 0
+      }
+    },
+    {
+      "inputs": {
+        "B0": 1,
+        "B1": 1,
+        "B2": 1,
+        "B3": 0,
+        "B4": 0
+      },
+      "outputs": {
+        "U0": 1,
+        "U1": 1,
+        "U2": 1,
+        "U3": 0,
+        "T": 0
+      }
+    },
+    {
+      "inputs": {
+        "B0": 1,
+        "B1": 0,
+        "B2": 0,
+        "B3": 1,
+        "B4": 0
+      },
+      "outputs": {
+        "U0": 1,
+        "U1": 0,
+        "U2": 0,
+        "U3": 1,
+        "T": 0
+      }
+    },
+    {
+      "inputs": {
+        "B0": 0,
+        "B1": 1,
+        "B2": 0,
+        "B3": 1,
+        "B4": 0
+      },
+      "outputs": {
+        "U0": 0,
+        "U1": 0,
+        "U2": 0,
+        "U3": 0,
+        "T": 1
+      }
+    },
+    {
+      "inputs": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 1,
+        "B3": 1,
+        "B4": 0
+      },
+      "outputs": {
+        "U0": 0,
+        "U1": 1,
+        "U2": 0,
+        "U3": 0,
+        "T": 1
+      }
+    },
+    {
+      "inputs": {
+        "B0": 1,
+        "B1": 1,
+        "B2": 1,
+        "B3": 1,
+        "B4": 0
+      },
+      "outputs": {
+        "U0": 1,
+        "U1": 0,
+        "U2": 1,
+        "U3": 0,
+        "T": 1
+      }
+    },
+    {
+      "inputs": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 0,
+        "B3": 0,
+        "B4": 1
+      },
+      "outputs": {
+        "U0": 0,
+        "U1": 1,
+        "U2": 1,
+        "U3": 0,
+        "T": 1
+      }
+    },
+    {
+      "inputs": {
+        "B0": 1,
+        "B1": 1,
+        "B2": 0,
+        "B3": 0,
+        "B4": 1
+      },
+      "outputs": {
+        "U0": 1,
+        "U1": 0,
+        "U2": 0,
+        "U3": 1,
+        "T": 1
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7483": 1,
+    "7432": 1,
+    "7408": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Only the lower four bits B3 B2 B1 B0 go to the A inputs of the 7483.",
+    "The correction value is 0110, so B2 and B3 inputs of the 7483 come from the detector output while B1 and B4 are grounded.",
+    "The same detector output drives the tens LED T."
+  ]
+}

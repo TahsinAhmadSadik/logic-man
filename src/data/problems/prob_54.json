@@ -1,0 +1,229 @@
+{
+  "id": "prob_54",
+  "numId": 54,
+  "title": "3-Bit x 3-Bit Binary Multiplier",
+  "description": "Given two 3-bit binary numbers A (a2 a1 a0) and B (b2 b1 b0), design a circuit that produces the 6-bit product C (c5 c4 c3 c2 c1 c0) using AND gates and Full Adder circuits. Hint: generate the nine partial products ai.bj with AND gates and then add the shifted partial-product rows using two rows of full adders (a 7483 can be used as a 4-bit adder block).",
+  "difficulty": "Hard",
+  "category": "design",
+  "tags": [
+    "Multiplier",
+    "Full Adder",
+    "7408",
+    "7483",
+    "Combinational"
+  ],
+  "author": "Rahat Mohashin Zarif, Al Nahian Alif",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "A0",
+        "switchIndex": 0
+      },
+      {
+        "name": "A1",
+        "switchIndex": 1
+      },
+      {
+        "name": "A2",
+        "switchIndex": 2
+      },
+      {
+        "name": "B0",
+        "switchIndex": 3
+      },
+      {
+        "name": "B1",
+        "switchIndex": 4
+      },
+      {
+        "name": "B2",
+        "switchIndex": 5
+      }
+    ],
+    "outputs": [
+      {
+        "name": "C0",
+        "ledIndex": 0
+      },
+      {
+        "name": "C1",
+        "ledIndex": 1
+      },
+      {
+        "name": "C2",
+        "ledIndex": 2
+      },
+      {
+        "name": "C3",
+        "ledIndex": 3
+      },
+      {
+        "name": "C4",
+        "ledIndex": 4
+      },
+      {
+        "name": "C5",
+        "ledIndex": 5
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "A0": 0,
+        "A1": 0,
+        "A2": 0,
+        "B0": 1,
+        "B1": 1,
+        "B2": 1
+      },
+      "outputs": {
+        "C0": 0,
+        "C1": 0,
+        "C2": 0,
+        "C3": 0,
+        "C4": 0,
+        "C5": 0
+      }
+    },
+    {
+      "inputs": {
+        "A0": 1,
+        "A1": 1,
+        "A2": 1,
+        "B0": 1,
+        "B1": 1,
+        "B2": 1
+      },
+      "outputs": {
+        "C0": 1,
+        "C1": 0,
+        "C2": 0,
+        "C3": 0,
+        "C4": 1,
+        "C5": 1
+      }
+    },
+    {
+      "inputs": {
+        "A0": 1,
+        "A1": 0,
+        "A2": 1,
+        "B0": 1,
+        "B1": 1,
+        "B2": 0
+      },
+      "outputs": {
+        "C0": 1,
+        "C1": 1,
+        "C2": 1,
+        "C3": 1,
+        "C4": 0,
+        "C5": 0
+      }
+    },
+    {
+      "inputs": {
+        "A0": 1,
+        "A1": 1,
+        "A2": 0,
+        "B0": 1,
+        "B1": 1,
+        "B2": 0
+      },
+      "outputs": {
+        "C0": 1,
+        "C1": 0,
+        "C2": 0,
+        "C3": 1,
+        "C4": 0,
+        "C5": 0
+      }
+    },
+    {
+      "inputs": {
+        "A0": 0,
+        "A1": 1,
+        "A2": 1,
+        "B0": 1,
+        "B1": 0,
+        "B2": 1
+      },
+      "outputs": {
+        "C0": 0,
+        "C1": 1,
+        "C2": 1,
+        "C3": 1,
+        "C4": 1,
+        "C5": 0
+      }
+    },
+    {
+      "inputs": {
+        "A0": 0,
+        "A1": 0,
+        "A2": 1,
+        "B0": 0,
+        "B1": 1,
+        "B2": 0
+      },
+      "outputs": {
+        "C0": 0,
+        "C1": 0,
+        "C2": 0,
+        "C3": 1,
+        "C4": 0,
+        "C5": 0
+      }
+    },
+    {
+      "inputs": {
+        "A0": 1,
+        "A1": 1,
+        "A2": 1,
+        "B0": 1,
+        "B1": 0,
+        "B2": 0
+      },
+      "outputs": {
+        "C0": 1,
+        "C1": 1,
+        "C2": 1,
+        "C3": 0,
+        "C4": 0,
+        "C5": 0
+      }
+    },
+    {
+      "inputs": {
+        "A0": 0,
+        "A1": 1,
+        "A2": 0,
+        "B0": 0,
+        "B1": 1,
+        "B2": 1
+      },
+      "outputs": {
+        "C0": 0,
+        "C1": 0,
+        "C2": 1,
+        "C3": 1,
+        "C4": 0,
+        "C5": 0
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7408": 3,
+    "7483": 2
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "C0 = a0.b0 needs no adder at all.",
+    "Write the three partial-product rows on paper first, shifting each row one position to the left.",
+    "The carry-out of the first adder stage becomes an input bit of the next stage."
+  ]
+}

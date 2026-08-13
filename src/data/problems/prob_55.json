@@ -1,0 +1,243 @@
+{
+  "id": "prob_55",
+  "numId": 55,
+  "title": "Single-Digit BCD Adder (A + B)",
+  "description": "Design a single-digit BCD adder that adds two BCD digits A (A3 A2 A1 A0) and B (B3 B2 B1 B0), each in the range 0-9. Inputs A and B are mapped to Switches 0-3 and Switches 4-7 respectively. The circuit must produce a valid BCD sum S (S3 S2 S1 S0) and a BCD carry-out Cout. Use two 7483 ICs and basic gates. Hint: after the first binary addition, the result must be corrected by adding 6 (0110) whenever the sum exceeds 9. The correction condition is Cout = K + Z3.Z2 + Z3.Z1, where K is the carry-out of the first adder and Z3 Z2 Z1 Z0 is its sum.",
+  "difficulty": "Hard",
+  "category": "design",
+  "tags": [
+    "BCD Adder",
+    "7483",
+    "7408",
+    "7432",
+    "Correction Logic"
+  ],
+  "author": "Rahat Mohashin Zarif, Al Nahian Alif",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "A0",
+        "switchIndex": 0
+      },
+      {
+        "name": "A1",
+        "switchIndex": 1
+      },
+      {
+        "name": "A2",
+        "switchIndex": 2
+      },
+      {
+        "name": "A3",
+        "switchIndex": 3
+      },
+      {
+        "name": "B0",
+        "switchIndex": 4
+      },
+      {
+        "name": "B1",
+        "switchIndex": 5
+      },
+      {
+        "name": "B2",
+        "switchIndex": 6
+      },
+      {
+        "name": "B3",
+        "switchIndex": 7
+      }
+    ],
+    "outputs": [
+      {
+        "name": "S0",
+        "ledIndex": 0
+      },
+      {
+        "name": "S1",
+        "ledIndex": 1
+      },
+      {
+        "name": "S2",
+        "ledIndex": 2
+      },
+      {
+        "name": "S3",
+        "ledIndex": 3
+      },
+      {
+        "name": "Cout",
+        "ledIndex": 4
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "A0": 0,
+        "A1": 0,
+        "A2": 0,
+        "A3": 0,
+        "B0": 0,
+        "B1": 0,
+        "B2": 0,
+        "B3": 0
+      },
+      "outputs": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "Cout": 0
+      }
+    },
+    {
+      "inputs": {
+        "A0": 1,
+        "A1": 0,
+        "A2": 1,
+        "A3": 0,
+        "B0": 1,
+        "B1": 1,
+        "B2": 0,
+        "B3": 0
+      },
+      "outputs": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0,
+        "S3": 1,
+        "Cout": 0
+      }
+    },
+    {
+      "inputs": {
+        "A0": 0,
+        "A1": 0,
+        "A2": 1,
+        "A3": 0,
+        "B0": 1,
+        "B1": 0,
+        "B2": 0,
+        "B3": 1
+      },
+      "outputs": {
+        "S0": 1,
+        "S1": 1,
+        "S2": 0,
+        "S3": 0,
+        "Cout": 1
+      }
+    },
+    {
+      "inputs": {
+        "A0": 1,
+        "A1": 0,
+        "A2": 1,
+        "A3": 0,
+        "B0": 1,
+        "B1": 0,
+        "B2": 1,
+        "B3": 0
+      },
+      "outputs": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "Cout": 1
+      }
+    },
+    {
+      "inputs": {
+        "A0": 1,
+        "A1": 1,
+        "A2": 1,
+        "A3": 0,
+        "B0": 0,
+        "B1": 1,
+        "B2": 1,
+        "B3": 0
+      },
+      "outputs": {
+        "S0": 1,
+        "S1": 1,
+        "S2": 0,
+        "S3": 0,
+        "Cout": 1
+      }
+    },
+    {
+      "inputs": {
+        "A0": 1,
+        "A1": 0,
+        "A2": 0,
+        "A3": 1,
+        "B0": 1,
+        "B1": 0,
+        "B2": 0,
+        "B3": 1
+      },
+      "outputs": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0,
+        "S3": 1,
+        "Cout": 1
+      }
+    },
+    {
+      "inputs": {
+        "A0": 0,
+        "A1": 0,
+        "A2": 0,
+        "A3": 1,
+        "B0": 1,
+        "B1": 1,
+        "B2": 0,
+        "B3": 0
+      },
+      "outputs": {
+        "S0": 1,
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "Cout": 1
+      }
+    },
+    {
+      "inputs": {
+        "A0": 0,
+        "A1": 0,
+        "A2": 1,
+        "A3": 0,
+        "B0": 1,
+        "B1": 0,
+        "B2": 1,
+        "B3": 0
+      },
+      "outputs": {
+        "S0": 1,
+        "S1": 0,
+        "S2": 0,
+        "S3": 1,
+        "Cout": 0
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7483": 2,
+    "7408": 1,
+    "7432": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "First 7483: Adds A + B with Carry-In (pin 13) grounded. Call its outputs Z3 Z2 Z1 Z0 and its carry-out K.",
+    "Correction detector: Cout = K OR (Z3 AND Z2) OR (Z3 AND Z1).",
+    "Second 7483: A inputs = Z, B inputs = 0 Cout Cout 0 (adds 0110 when Cout = 1), Carry-In grounded.",
+    "The carry-out of the second 7483 is ignored - the final Cout comes directly from the detector."
+  ]
+}
