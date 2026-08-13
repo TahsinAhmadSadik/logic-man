@@ -1,16 +1,17 @@
 {
   "id": "prob_23",
   "numId": 23,
-  "title": "OR-AND-INVERT Implementation",
-  "description": "Construct an OAI (OR-AND-INVERT) circuit for F = ((X + Y)(Z + W)V)' using standard gate operations (OR-NAND or NOR-OR equivalent). Map inputs X, Y, Z, W, V to SW0-SW4 respectively, and output F to LED0.",
+  "title": "OR-AND-INVERT Implementation using IC 7400 & IC 7427",
+  "description": "Construct an OAI (OR-AND-INVERT) circuit for F = ((X + Y)(Z + W)V)' using De Morgan's equivalent form F = (X + Y)' + (Z + W)' + V'. Use IC 7400 (Quad 2-Input NAND) and IC 7427 (Triple 3-Input NOR). Map inputs X, Y, Z, W, V to SW0-SW4 respectively, and output F to LED0.",
   "difficulty": "Medium",
   "category": "design",
   "author": "Jarin Subah, Tabassum Binte Kamal",
   "tags": [
-    "OAI",
-    "OR-NAND",
-    "Combinational Logic",
-    "Multilevel Logic"
+    "OAI",    
+    "7400",
+    "7427",
+    "NOR-NAND Logic",
+    "De Morgan's Laws"
   ],
   "ioMapping": {
     "inputs": [
@@ -77,17 +78,17 @@
     { "inputs": { "X": 1, "Y": 1, "Z": 1, "W": 1, "V": 1 }, "outputs": { "F": 0 } }
   ],
   "allowedICLimits": {
-    "7432": 1,
-    "7400": 1,
-    "7402": 1,
-    "7410": 1
+    "7427": 1,
+    "7400": 1
   },
   "initialCircuit": {
     "placedIcs": [],
     "wires": []
   },
   "hints": [
-    "You can construct the first level using 2-input OR gates for (X+Y) and (Z+W).",
-    "Feed the outputs of both OR gates along with literal V directly into a 3-input NAND gate to achieve the final inversion."
+    "Apply De Morgan's Law to rewrite F as (X + Y)' + (Z + W)' + V'.",
+    "Use 3-input NOR gates from IC 7427 for terms like (X + Y + 0)' and (Z + W + 0)' by tying unused inputs to GND.",
+    "Invert signal V using a 2-input NAND gate (IC 7400) configured as a NOT gate.",
+    "Combine the outputs using the remaining NOR gate on IC 7427 and invert the result with IC 7400 to obtain F."
   ]
 }

@@ -1,17 +1,18 @@
 {
   "id": "prob_25",
   "numId": 25,
-  "title": "NAND-Only Logic Realization with Don't-Care Conditions",
-  "description": "Simplify the function F(A,B,C,D) = Σm(1,3,5,7,9,11,13,15) with Don't-Care conditions d(0,2,8,10) using K-Map, then implement the simplified result strictly using 2-input NAND gates (7400 ICs). Map inputs A, B, C, D to SW0-SW3 respectively, and route output F to LED0.",
+  "title": "K-Map Optimization with Don't-Care Conditions using IC 7400 & IC 7427",
+  "description": "Simplify the function F(A,B,C,D) = Σm(1,4,5,6,12,13,14) with Don't-Care conditions d(3,7,15) . Implement the circuit using IC 7400 and IC 7427. Map inputs A, B, C, D to SW0-SW3 respectively, and route output F to LED0.",
   "difficulty": "Hard",
   "category": "design",
   "author": "Jarin Subah, Tabassum Binte Kamal",
   "tags": [
     "NAND Logic",
+    "NOR Logic",
     "K-Map",
-    "Don't Care",
-    "Universal Gates",
-    "7400"
+    "Don't Care",    
+    "7400",
+    "7427"
   ],
   "ioMapping": {
     "inputs": [
@@ -29,29 +30,30 @@
     { "inputs": { "A": 0, "B": 0, "C": 0, "D": 1 }, "outputs": { "F": 1 } },
     { "inputs": { "A": 0, "B": 0, "C": 1, "D": 0 }, "outputs": { "F": 0 } },
     { "inputs": { "A": 0, "B": 0, "C": 1, "D": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 0, "B": 1, "C": 0, "D": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 0, "D": 0 }, "outputs": { "F": 1 } },
     { "inputs": { "A": 0, "B": 1, "C": 0, "D": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 0, "B": 1, "C": 1, "D": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 1, "D": 0 }, "outputs": { "F": 1 } },
     { "inputs": { "A": 0, "B": 1, "C": 1, "D": 1 }, "outputs": { "F": 1 } },
     { "inputs": { "A": 1, "B": 0, "C": 0, "D": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 1, "B": 0, "C": 0, "D": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "A": 1, "B": 0, "C": 0, "D": 1 }, "outputs": { "F": 0 } },
     { "inputs": { "A": 1, "B": 0, "C": 1, "D": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 1, "B": 0, "C": 1, "D": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 1, "B": 1, "C": 0, "D": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "A": 1, "B": 0, "C": 1, "D": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 0, "D": 0 }, "outputs": { "F": 1 } },
     { "inputs": { "A": 1, "B": 1, "C": 0, "D": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 1, "B": 1, "C": 1, "D": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 1, "D": 0 }, "outputs": { "F": 1 } },
     { "inputs": { "A": 1, "B": 1, "C": 1, "D": 1 }, "outputs": { "F": 1 } }
   ],
   "allowedICLimits": {
-    "7400": 1
+    "7400": 1,
+    "7427": 1
   },
   "initialCircuit": {
     "placedIcs": [],
     "wires": []
   },
   "hints": [
-    "Plot minterms (1s) and don't-care conditions (Xs) on a 4-variable K-Map.",
-    "Notice that minterms 1, 3, 5, 7, 9, 11, 13, 15 plus don't cares 0, 2, 8, 10 allow a full 8-cell or 16-cell octet grouping, reducing F directly to D.",
-    "To pass signal D to output using NAND logic, pass D through two double-inverting 2-input NAND stages: F = ((D')')'."
+    "Plot minterms 1, 4, 5, 6, 12, 13, 14 and don't-cares 3, 7, 15 on a 4-variable K-Map.",
+    "Form an 8-cell group covering minterms (4,5,6,12,13,14) and don't-cares (7,15) to get term B.",
+    "Form a 4-cell group covering minterms (1,5) and don't-cares (3,7) to get term A'D."
   ]
 }

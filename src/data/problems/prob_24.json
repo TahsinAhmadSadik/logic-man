@@ -1,18 +1,18 @@
 {
   "id": "prob_24",
   "numId": 24,
-  "title": "Four-Variable XOR Realization using Universal NAND/NOR Logic",
-  "description": "Implement the 4-variable XOR function F(A, B, C, D) = A ⊕ B ⊕ C ⊕ D using universal gates (NAND/NOR ICs) based on its expanded SOP expression: F = (AB' + A'B)(CD + C'D') + (AB + A'B')(CD' + C'D). Map inputs A, B, C, D to SW0, SW1, SW2, SW3 respectively, and output F to LED0.",
+  "title": "Three-Variable XOR Realization using IC 7400 & IC 7427",
+  "description": "Implement the 3-variable XOR function F(A, B, C) = A ⊕ B ⊕ C using a cascaded structure F = (A ⊕ B) ⊕ C. Construct the first stage  X = A ⊕ B using NAND logic (IC 7400) and complete the second stage using IC 7400 and IC 7427. Map inputs A, B, C to SW0, SW1, SW2 respectively, and output F to LED0.",
   "difficulty": "Medium",
   "category": "design",
   "author": "Jarin Subah, Tabassum Binte Kamal",
   "tags": [
     "NAND Logic",
     "NOR Logic",
-    "Universal Gates",
-    "4-Variable XOR",
+    "Cascaded Logic",
+    "3-Variable XOR",
     "7400",
-    "7402"
+    "7427"
   ],
   "ioMapping": {
     "inputs": [
@@ -27,10 +27,6 @@
       {
         "name": "C",
         "switchIndex": 2
-      },
-      {
-        "name": "D",
-        "switchIndex": 3
       }
     ],
     "outputs": [
@@ -41,34 +37,27 @@
     ]
   },
   "truthTable": [
-    { "inputs": { "A": 0, "B": 0, "C": 0, "D": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 0, "B": 0, "C": 0, "D": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 0, "B": 0, "C": 1, "D": 0 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 0, "B": 0, "C": 1, "D": 1 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 0, "B": 1, "C": 0, "D": 0 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 0, "B": 1, "C": 0, "D": 1 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 0, "B": 1, "C": 1, "D": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 0, "B": 1, "C": 1, "D": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 1, "B": 0, "C": 0, "D": 0 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 1, "B": 0, "C": 0, "D": 1 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 1, "B": 0, "C": 1, "D": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 1, "B": 0, "C": 1, "D": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 1, "B": 1, "C": 0, "D": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 1, "B": 1, "C": 0, "D": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 1, "B": 1, "C": 1, "D": 0 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 1, "B": 1, "C": 1, "D": 1 }, "outputs": { "F": 0 } }
+    { "inputs": { "A": 0, "B": 0, "C": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "A": 0, "B": 0, "C": 1 }, "outputs": { "F": 1 } },
+    { "inputs": { "A": 0, "B": 1, "C": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "A": 0, "B": 1, "C": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "A": 1, "B": 0, "C": 0 }, "outputs": { "F": 1 } },
+    { "inputs": { "A": 1, "B": 0, "C": 1 }, "outputs": { "F": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 0 }, "outputs": { "F": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 1 }, "outputs": { "F": 1 } }
   ],
   "allowedICLimits": {
-    "7400": 4,
-    "7402": 3,
-    "7404": 1
+    "7400": 2,
+    "7427": 1
   },
   "initialCircuit": {
     "placedIcs": [],
     "wires": []
   },
   "hints": [
-    "You can build two separate 2-input XOR sub-circuits (P = A ⊕ B and Q = C ⊕ D) using 4 NAND gates each.",
-    "Combine P and Q using a final 4-NAND-gate stage to evaluate P ⊕ Q."
+    "Break the 3-input XOR into two stages: X = A ⊕ B, then F = X ⊕ C.",
+    "Use 4 2-input NAND gates from one IC 7400 to form the first 2-input XOR sub-circuit X = A ⊕ B.",
+    "For IC 7427, you can tie any unused 3rd input of a 3-input NOR gate to GND (0) to use it as a standard 2-input NOR gate.",
+    "Cascade X and C through the remaining gates on IC 7400 and IC 7427 to produce the final output F."
   ]
 }
