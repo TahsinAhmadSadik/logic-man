@@ -29,6 +29,13 @@ export const LabSpecPanel = () => {
     completedProblemIds.includes(currentProblem.id) ||
     completedProblemIds.includes(String(currentProblem.numId));
 
+  // Helper to check if a value represents a Don't Care condition
+  const checkIsDontCare = (val) => {
+    if (val === undefined || val === null) return true;
+    const str = String(val).toLowerCase().trim();
+    return str === 'x' || str === '-' || str === 'dontcare';
+  };
+
   // --- RUN ANIMATED AUTO-GRADER TESTER ---
   const handleRunTester = async () => {
     setIsRunningTests(true);
@@ -44,61 +51,85 @@ export const LabSpecPanel = () => {
       const row = currentProblem.truthTable[rowIndex];
       setActiveRowIndex(rowIndex);
 
-      // 1. Update switches in store live so switches & LEDs animate on breadboard
-      const currentSwitches = [0, 0, 0, 0, 0, 0, 0, 0];
+      // 1. Build list of input switch configurations to test for this row
+      // If an input is 'X', test both 0 and 1 states to verify true Don't Care behavior
+      const dontCareInputs = [];
+      const baseSwitches = [0, 0, 0, 0, 0, 0, 0, 0];
+
       currentProblem.ioMapping.inputs.forEach((inputDef) => {
         const val = row.inputs[inputDef.name];
-        if (val !== undefined && val !== 'X' && val !== 'x') {
-          currentSwitches[inputDef.switchIndex] = Number(val);
+        if (checkIsDontCare(val)) {
+          dontCareInputs.push(inputDef.switchIndex);
+        } else {
+          baseSwitches[inputDef.switchIndex] = Number(val);
         }
       });
 
-      // Synchronize live switches in Zustand store & reevaluate circuit outputs
-      useSimulatorStore.setState({ switches: currentSwitches });
-      reevaluate();
+      // Generate all 2^N combinations for Don't Care input switches (or [0] if no 'X')
+      const combinationsCount = Math.pow(2, dontCareInputs.length);
+      let rowPassed = true;
+      let lastEvalResult = null;
+      let lastTestedSwitches = [...baseSwitches];
 
-      // 2. Evaluate circuit state
-      const evalResult = evaluateCircuit({
-        powerOn: true,
-        wires,
-        placedIcs,
-        switches: currentSwitches,
-        holeCoords
-      });
+      for (let combo = 0; combo < combinationsCount; combo++) {
+        const currentSwitches = [...baseSwitches];
+        dontCareInputs.forEach((switchIdx, bitIndex) => {
+          currentSwitches[switchIdx] = (combo >> bitIndex) & 1;
+        });
 
-      // 3. Verify output signals
-      const actualOutputs = {};
-      let rowPassed = !evalResult.isShortCircuit;
+        lastTestedSwitches = currentSwitches;
 
-      currentProblem.ioMapping.outputs.forEach((outDef) => {
-        const expectedRaw = row.outputs[outDef.name];
-        const actual = evalResult.leds[outDef.ledIndex];
-        actualOutputs[outDef.name] = actual;
+        // Synchronize live switches in Zustand store & reevaluate circuit outputs
+        useSimulatorStore.setState({ switches: currentSwitches });
+        reevaluate();
 
-        // Resolve expected value if it refers to an input signal name (e.g. "Y": "D0")
-        let expectedVal = expectedRaw;
-        if (typeof expectedRaw === 'string' && row.inputs[expectedRaw] !== undefined) {
-          expectedVal = row.inputs[expectedRaw];
+        // 2. Evaluate circuit state
+        const evalResult = evaluateCircuit({
+          powerOn: true,
+          wires,
+          placedIcs,
+          switches: currentSwitches,
+          holeCoords
+        });
+
+        lastEvalResult = evalResult;
+
+        if (evalResult.isShortCircuit) {
+          rowPassed = false;
+          break;
         }
 
-        // Check for Don't Care condition ("-", "X", "dontCare", undefined)
-        const expectedStr = String(expectedVal).toLowerCase().trim();
-        const isDontCare =
-          expectedVal === '-' ||
-          expectedVal === 'X' ||
-          expectedStr === 'x' ||
-          expectedStr === 'dontcare' ||
-          expectedVal === undefined;
+        // 3. Verify output signals for this switch combination
+        currentProblem.ioMapping.outputs.forEach((outDef) => {
+          const expectedRaw = row.outputs[outDef.name];
+          const actual = evalResult.leds[outDef.ledIndex];
 
-        // Grade output only if it's NOT a don't care condition
-        if (!isDontCare) {
-          if (Number(expectedVal) !== actual) {
-            rowPassed = false;
+          // Resolve expected value if it refers to an input signal name (e.g. "Y": "D0")
+          let expectedVal = expectedRaw;
+          if (typeof expectedRaw === 'string' && row.inputs[expectedRaw] !== undefined) {
+            expectedVal = row.inputs[expectedRaw];
           }
-        }
-      });
+
+          // Grade output only if it's NOT a don't care condition
+          if (!checkIsDontCare(expectedVal)) {
+            if (Number(expectedVal) !== actual) {
+              rowPassed = false;
+            }
+          }
+        });
+
+        if (!rowPassed) break;
+      }
 
       if (!rowPassed) allPassed = false;
+
+      // Map actual LED outputs from the final tested state for UI table display
+      const actualOutputs = {};
+      if (lastEvalResult) {
+        currentProblem.ioMapping.outputs.forEach((outDef) => {
+          actualOutputs[outDef.name] = lastEvalResult.leds[outDef.ledIndex];
+        });
+      }
 
       accumulatedResults.push({
         rowIndex,
