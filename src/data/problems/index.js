@@ -2,6 +2,12 @@ import prob1 from './prob_1.json';
 import prob2 from './prob_2.json';
 import prob3 from './prob_3.json';
 import prob4 from './prob_4.json';
+import prob5 from './prob_5.json';
+import prob6 from './prob_6.json';
+import prob7 from './prob_7.json';
+import prob8 from './prob_8.json';
+import prob9 from './prob_9.json';
+import prob10 from './prob_10.json';
 import prob21 from './prob_21.json';
 import prob22 from './prob_22.json';
 import prob23 from './prob_23.json';
@@ -79,6 +85,60 @@ export const PROBLEMS_INDEX = [
     category: getCategory(prob4),
     tags: prob4.tags || ['7404'],
     description: prob4.description
+  },
+  {
+    id: prob5.id,
+    numId: prob5.numId,
+    title: prob5.title,
+    difficulty: prob5.difficulty,
+    category: getCategory(prob5),
+    tags: prob5.tags || ['7404'],
+    description: prob5.description
+  },
+  {
+    id: prob6.id,
+    numId: prob6.numId,
+    title: prob6.title,
+    difficulty: prob6.difficulty,
+    category: getCategory(prob6),
+    tags: prob6.tags || ['7404'],
+    description: prob6.description
+  },
+  {
+    id: prob7.id,
+    numId: prob7.numId,
+    title: prob7.title,
+    difficulty: prob7.difficulty,
+    category: getCategory(prob7),
+    tags: prob7.tags || ['7404'],
+    description: prob7.description
+  },
+  {
+    id: prob8.id,
+    numId: prob8.numId,
+    title: prob8.title,
+    difficulty: prob8.difficulty,
+    category: getCategory(prob8),
+    tags: prob8.tags || ['7404'],
+    description: prob8.description
+  },
+  {
+    id: prob9.id,
+    numId: prob9.numId,
+    title: prob9.title,
+    difficulty: prob9.difficulty,
+    category: getCategory(prob9),
+    tags: prob9.tags || ['7404'],
+    description: prob9.description
+  },
+  {
+    id: prob10.id,
+    numId: prob10.numId,
+    title: prob10.title,
+    difficulty: prob10.difficulty,
+    category: getCategory(prob10),
+    tags: prob10.tags || ['7404'],
+    description: prob10.description
   },
   {
     id: prob21.id,
@@ -384,6 +444,12 @@ export const PROBLEMS_MAP = {
   prob_2: prob2,
   prob_3: prob3,
   prob_4: prob4,
+  prob_5: prob5,
+  prob_6: prob6,
+  prob_7: prob7,
+  prob_8: prob8,
+  prob_9: prob9,
+  prob_10: prob10,
   prob_21: prob21,
   prob_22: prob22,
   prob_23: prob23,
@@ -421,6 +487,12 @@ export const PROBLEMS_MAP = {
   '2': prob2,
   '3': prob3,
   '4': prob4,
+  '5': prob5,
+  '6': prob6,
+  '7': prob7,
+  '8': prob8,
+  '9': prob9,
+  '10': prob10,
   '21': prob21,
   '22': prob22,
   '23': prob23,

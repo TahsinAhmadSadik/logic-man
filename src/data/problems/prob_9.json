@@ -1,0 +1,235 @@
+{
+  "id": "prob_9",
+  "numId": 9,
+  "title": "Boolean Expression Implementation",
+  "description": "Implement the following expression using basic gates:\n\nF = AB + A'C",
+  "difficulty": "Easy",
+  "category": "debug",
+  "tags": [
+    "7404",
+    "7432",
+    "7408"
+  ],
+  "author": "Sifat, Rafi",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "A",
+        "switchIndex": 0
+      },
+      {
+        "name": "B",
+        "switchIndex": 1
+      },
+      {
+        "name": "C",
+        "switchIndex": 2
+      }
+    ],
+    "outputs": [
+      {
+        "name": "F",
+        "ledIndex": 0
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "outputs": {
+        "F": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 1
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 0
+      },
+      "outputs": {
+        "F": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 1
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 0
+      },
+      "outputs": {
+        "F": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 1
+      },
+      "outputs": {
+        "F": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 0
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 1
+      },
+      "outputs": {
+        "F": 1
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7408": 1,
+    "7432": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [
+      {
+        "id": "ic_7404_not",
+        "icTypeId": "7404",
+        "blockId": "M1",
+        "startCol": 10
+      },
+      {
+        "id": "ic_7408_and",
+        "icTypeId": "7408",
+        "blockId": "M1",
+        "startCol": 20
+      },
+      {
+        "id": "ic_7432_or",
+        "icTypeId": "7432",
+        "blockId": "M1",
+        "startCol": 30
+      }
+    ],
+    "wires": [
+      {
+        "id": "wire_pwr_gnd",
+        "startHole": "PWR_GND_2",
+        "endHole": "BUS_MID_0_GND_1",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic1_vcc",
+        "startHole": "BB_E10",
+        "endHole": "BUS_TOP_VCC_10",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic1_gnd",
+        "startHole": "BB_G16",
+        "endHole": "BUS_MID_0_GND_16",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic2_vcc",
+        "startHole": "BB_E20",
+        "endHole": "BUS_TOP_VCC_20",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic3_vcc",
+        "startHole": "BB_E30",
+        "endHole": "BUS_TOP_VCC_30",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic3_gnd",
+        "startHole": "BB_G36",
+        "endHole": "BUS_MID_0_GND_36",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_in_a",
+        "startHole": "SWITCH_OUT_0",
+        "endHole": "BB_J10",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_in_b",
+        "startHole": "SWITCH_OUT_1",
+        "endHole": "BB_J21",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_in_c",
+        "startHole": "SWITCH_OUT_2",
+        "endHole": "BB_J24",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_a_to_and",
+        "startHole": "BB_I10",
+        "endHole": "BB_J20",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ab_to_or",
+        "startHole": "BB_H22",
+        "endHole": "BB_J30",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_not_ac_to_or",
+        "startHole": "BB_H25",
+        "endHole": "BB_J31",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786601742897_2b43a",
+        "startHole": "BB_H31",
+        "endHole": "LED_IN_0",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786601981375_usjxs",
+        "startHole": "BB_H12",
+        "endHole": "BB_J23",
+        "color": "#ef4444"
+      }
+    ]
+  },
+  "hints": [
+    "Check if GND (Pin 7) on the 7408 AND IC is connected to the ground rail.",
+    "Verify that the LED_IN_0 wire connects to the OR gate output (Pin 3, pin column 32) instead of an input pin."
+  ]
+}

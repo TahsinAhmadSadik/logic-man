@@ -1,89 +1,64 @@
 {
   "id": "prob_4",
   "numId": 4,
-  "title": "Debug Faulty Inverter Connection",
-  "description": "The pre-wired circuit below has a missing ground rail and improper inverter output wiring. Inspect the circuit and fix it so SW0 complements to LED0.",
-  "difficulty": "Easy",
-  "category": "debug",
+  "title": "1-Bit Full Adder (No XOR Gate)",
+  "description": "Design a 1-bit Full Adder using only basic gates (no XOR gate allowed — derive XOR itself from AND/OR/NOT first).",
+  "difficulty": "Medium",
+  "category": "design",
   "tags": [
-    "Debugging",
     "7404",
-    "Basic Gates"
+    "7408",
+    "7432"
   ],
-  "author": "LogicMan Team",
+  "author": "Sifat, Rafi",
   "ioMapping": {
     "inputs": [
       {
         "name": "A",
         "switchIndex": 0
+      },
+      {
+        "name": "B",
+        "switchIndex": 1
+      },
+      {
+        "name": "Cin",
+        "switchIndex": 2
       }
     ],
     "outputs": [
       {
-        "name": "Y",
+        "name": "Sum",
         "ledIndex": 0
+      },
+      {
+        "name": "Cout",
+        "ledIndex": 1
       }
     ]
   },
   "truthTable": [
-    {
-      "inputs": {
-        "A": 0
-      },
-      "outputs": {
-        "Y": 1
-      }
-    },
-    {
-      "inputs": {
-        "A": 1
-      },
-      "outputs": {
-        "Y": 0
-      }
-    }
+    { "inputs": { "A": 0, "B": 0, "Cin": 0 }, "outputs": { "Sum": 0, "Cout": 0 } },
+    { "inputs": { "A": 0, "B": 0, "Cin": 1 }, "outputs": { "Sum": 1, "Cout": 0 } },
+    { "inputs": { "A": 0, "B": 1, "Cin": 0 }, "outputs": { "Sum": 1, "Cout": 0 } },
+    { "inputs": { "A": 0, "B": 1, "Cin": 1 }, "outputs": { "Sum": 0, "Cout": 1 } },
+    { "inputs": { "A": 1, "B": 0, "Cin": 0 }, "outputs": { "Sum": 1, "Cout": 0 } },
+    { "inputs": { "A": 1, "B": 0, "Cin": 1 }, "outputs": { "Sum": 0, "Cout": 1 } },
+    { "inputs": { "A": 1, "B": 1, "Cin": 0 }, "outputs": { "Sum": 0, "Cout": 1 } },
+    { "inputs": { "A": 1, "B": 1, "Cin": 1 }, "outputs": { "Sum": 1, "Cout": 1 } }
   ],
   "allowedICLimits": {
-    "7404": 1
+    "7404": 1,
+    "7408": 2,
+    "7432": 2
   },
   "initialCircuit": {
-    "placedIcs": [
-      {
-        "id": "ic_placed_1786040043767_22ico",
-        "icTypeId": "7404",
-        "blockId": "M1",
-        "startCol": 15
-      }
-    ],
-    "wires": [
-      {
-        "id": "wire_1786040048023_zc3cx",
-        "startHole": "PWR_VCC_1",
-        "endHole": "BB_B15",
-        "color": "#ef4444"
-      },
-      {
-        "id": "wire_1786040052031_zmg7r",
-        "startHole": "PWR_GND_1",
-        "endHole": "BB_I20",
-        "color": "#ef4444"
-      },
-      {
-        "id": "wire_1786040064487_o7ium",
-        "startHole": "BB_I15",
-        "endHole": "SWITCH_OUT_0",
-        "color": "#ef4444"
-      },
-      {
-        "id": "wire_1786040068391_zpevw",
-        "startHole": "BB_I16",
-        "endHole": "LED_IN_0",
-        "color": "#ef4444"
-      }
-    ]
+    "placedIcs": [],
+    "wires": []
   },
   "hints": [
-    "Check if Pin 7 of the 7404 is connected to GND.",
-    "Ensure Pin 2 is wired directly to LED 0."
+    "Construct XOR logic (X ⊕ Y = XY' + X'Y) using 7404 (NOT), 7408 (AND), and 7432 (OR).",
+    "First calculate intermediate XOR output P = A ⊕ B.",
+    "Calculate Sum = P ⊕ Cin and Cout = AB + P · Cin."
   ]
 }

@@ -1,0 +1,74 @@
+{
+  "id": "prob_5",
+  "numId": 5,
+  "title": "4-Bit Even-Parity Checker",
+  "description": "Design an even-parity checker for a 4-bit data word (D3 D2 D1 D0): the output P should be 1 if the number of 1's among the four bits is odd (i.e., needs a parity bit to make it even), and 0 otherwise.",
+  "difficulty": "Hard",
+  "category": "design",
+  "tags": [
+    "Parity Generator",
+    "Basic Gates",
+    "7404",
+    "7408",
+    "7432"
+  ],
+  "author": "Sifat, Rafi",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "D3",
+        "switchIndex": 0
+      },
+      {
+        "name": "D2",
+        "switchIndex": 1
+      },
+      {
+        "name": "D1",
+        "switchIndex": 2
+      },
+      {
+        "name": "D0",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "P",
+        "ledIndex": 0
+      }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "D3": 0, "D2": 0, "D1": 0, "D0": 0 }, "outputs": { "P": 0 } },
+    { "inputs": { "D3": 0, "D2": 0, "D1": 0, "D0": 1 }, "outputs": { "P": 1 } },
+    { "inputs": { "D3": 0, "D2": 0, "D1": 1, "D0": 0 }, "outputs": { "P": 1 } },
+    { "inputs": { "D3": 0, "D2": 0, "D1": 1, "D0": 1 }, "outputs": { "P": 0 } },
+    { "inputs": { "D3": 0, "D2": 1, "D1": 0, "D0": 0 }, "outputs": { "P": 1 } },
+    { "inputs": { "D3": 0, "D2": 1, "D1": 0, "D0": 1 }, "outputs": { "P": 0 } },
+    { "inputs": { "D3": 0, "D2": 1, "D1": 1, "D0": 0 }, "outputs": { "P": 0 } },
+    { "inputs": { "D3": 0, "D2": 1, "D1": 1, "D0": 1 }, "outputs": { "P": 1 } },
+    { "inputs": { "D3": 1, "D2": 0, "D1": 0, "D0": 0 }, "outputs": { "P": 1 } },
+    { "inputs": { "D3": 1, "D2": 0, "D1": 0, "D0": 1 }, "outputs": { "P": 0 } },
+    { "inputs": { "D3": 1, "D2": 0, "D1": 1, "D0": 0 }, "outputs": { "P": 0 } },
+    { "inputs": { "D3": 1, "D2": 0, "D1": 1, "D0": 1 }, "outputs": { "P": 1 } },
+    { "inputs": { "D3": 1, "D2": 1, "D1": 0, "D0": 0 }, "outputs": { "P": 0 } },
+    { "inputs": { "D3": 1, "D2": 1, "D1": 0, "D0": 1 }, "outputs": { "P": 1 } },
+    { "inputs": { "D3": 1, "D2": 1, "D1": 1, "D0": 0 }, "outputs": { "P": 1 } },
+    { "inputs": { "D3": 1, "D2": 1, "D1": 1, "D0": 1 }, "outputs": { "P": 0 } }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7408": 2,
+    "7432": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Parity generation requires 4-variable XOR logic: P = D3 ⊕ D2 ⊕ D1 ⊕ D0.",
+    "Build XOR functions in stages using basic gates: X ⊕ Y = XY' + X'Y.",
+    "First compute X1 = D3 ⊕ D2 and X2 = D1 ⊕ D0, then output P = X1 ⊕ X2."
+  ]
+}

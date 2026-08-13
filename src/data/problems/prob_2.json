@@ -1,43 +1,72 @@
 {
   "id": "prob_2",
   "numId": 2,
-  "title": "Dual Input Coincidence (AND)",
-  "description": "Implement a 2-input AND logic circuit where LED 0 lights up ONLY when both Data Switch 0 (A) and Data Switch 1 (B) are set to Logic 1.",
-  "difficulty": "Easy",
+  "title": "Cooling Fan Control with Fault Override",
+  "description": "A small server room has three temperature sensors: A, B, and C. Design a circuit so that a cooling fan turns ON if at least two of the three sensors report \"too hot\" (logic 1), unless sensor A alone reports a fault code (a separate fault line F = 1), in which case the fan must stay OFF regardless of the other inputs.",
+  "difficulty": "Medium",
   "category": "design",
-  "tags": ["Basic Gates", "7408", "Design"],
-  "author": "LogicMan Team",
+  "tags": [
+    "7404",
+    "7432",
+    "7408"
+  ],
+  "author": "Sifat, Rafi",
   "ioMapping": {
     "inputs": [
-      { "name": "A", "switchIndex": 0 },
-      { "name": "B", "switchIndex": 1 }
+      {
+        "name": "A",
+        "switchIndex": 0
+      },
+      {
+        "name": "B",
+        "switchIndex": 1
+      },
+      {
+        "name": "C",
+        "switchIndex": 2
+      },
+      {
+        "name": "F",
+        "switchIndex": 3
+      }
     ],
     "outputs": [
-      { "name": "Y", "ledIndex": 0 }
+      {
+        "name": "Fan",
+        "ledIndex": 0
+      }
     ]
   },
   "truthTable": [
-    { "inputs": { "A": 0, "B": 0 }, "outputs": { "Y": 0 } },
-    { "inputs": { "A": 0, "B": 1 }, "outputs": { "Y": 0 } },
-    { "inputs": { "A": 1, "B": 0 }, "outputs": { "Y": 0 } },
-    { "inputs": { "A": 1, "B": 1 }, "outputs": { "Y": 1 } }
+    { "inputs": { "A": 0, "B": 0, "C": 0, "F": 0 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 0, "B": 0, "C": 0, "F": 1 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 0, "B": 0, "C": 1, "F": 0 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 0, "B": 0, "C": 1, "F": 1 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 0, "F": 0 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 0, "F": 1 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 0, "B": 1, "C": 1, "F": 0 }, "outputs": { "Fan": 1 } },
+    { "inputs": { "A": 0, "B": 1, "C": 1, "F": 1 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 1, "B": 0, "C": 0, "F": 0 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 1, "B": 0, "C": 0, "F": 1 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 1, "B": 0, "C": 1, "F": 0 }, "outputs": { "Fan": 1 } },
+    { "inputs": { "A": 1, "B": 0, "C": 1, "F": 1 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 0, "F": 0 }, "outputs": { "Fan": 1 } },
+    { "inputs": { "A": 1, "B": 1, "C": 0, "F": 1 }, "outputs": { "Fan": 0 } },
+    { "inputs": { "A": 1, "B": 1, "C": 1, "F": 0 }, "outputs": { "Fan": 1 } },
+    { "inputs": { "A": 1, "B": 1, "C": 1, "F": 1 }, "outputs": { "Fan": 0 } }
   ],
   "allowedICLimits": {
-    "7408": 1
+    "7404": 1,
+    "7408": 1,
+    "7432": 1
   },
   "initialCircuit": {
-    "placedIcs": [
-      {
-        "id": "ic_init_7408",
-        "icTypeId": "7408",
-        "blockId": "M1",
-        "startCol": 15
-      }
-    ],
+    "placedIcs": [],
     "wires": []
   },
   "hints": [
-    "Pin 14 is VCC (+5V) and Pin 7 is GND for the 7408 IC.",
-    "Gate 1 uses Pin 1 and Pin 2 as inputs, and Pin 3 as the output."
+    "Construct the 3-sensor majority function M = AB + BC + AC using 7408 AND and 7432 OR gates.",
+    "Invert the fault line F using a 7404 NOT gate to obtain F'.",
+    "AND the majority signal M with F' to generate the final Fan output: Fan = M · F'."
   ]
 }

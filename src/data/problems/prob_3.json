@@ -1,56 +1,60 @@
 {
   "id": "prob_3",
   "numId": 3,
-  "title": "Exclusive Select Logic (XOR + AND)",
-  "description": "Build a circuit evaluating F(A, B, C) = (A ⊕ B) · C. Use Switch 0 for A, Switch 1 for B, Switch 2 for C, and connect the result to LED 0.",
-  "difficulty": "Medium",
-  "category": "debug",
-  "tags": ["Combinational Logic", "7486", "7408", "Design"],
-  "author": "LogicMan Team",
+  "title": "1-Bit Magnitude Comparator",
+  "description": "Design a 1-bit magnitude comparator for two inputs X and Y with three outputs: X>Y, X=Y, X<Y.",
+  "difficulty": "Easy",
+  "category": "design",
+  "tags": [
+    "7404",
+    "7408",
+    "7432"
+  ],
+  "author": "Sifat, Rafi",
   "ioMapping": {
     "inputs": [
-      { "name": "A", "switchIndex": 0 },
-      { "name": "B", "switchIndex": 1 },
-      { "name": "C", "switchIndex": 2 }
+      {
+        "name": "X",
+        "switchIndex": 0
+      },
+      {
+        "name": "Y",
+        "switchIndex": 1
+      }
     ],
     "outputs": [
-      { "name": "F", "ledIndex": 0 }
+      {
+        "name": "X_GT_Y",
+        "ledIndex": 0
+      },
+      {
+        "name": "X_EQ_Y",
+        "ledIndex": 1
+      },
+      {
+        "name": "X_LT_Y",
+        "ledIndex": 2
+      }
     ]
   },
   "truthTable": [
-    { "inputs": { "A": 0, "B": 0, "C": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 0, "B": 0, "C": 1 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 0, "B": 1, "C": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 0, "B": 1, "C": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 1, "B": 0, "C": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 1, "B": 0, "C": 1 }, "outputs": { "F": 1 } },
-    { "inputs": { "A": 1, "B": 1, "C": 0 }, "outputs": { "F": 0 } },
-    { "inputs": { "A": 1, "B": 1, "C": 1 }, "outputs": { "F": 0 } }
+    { "inputs": { "X": 0, "Y": 0 }, "outputs": { "X_GT_Y": 0, "X_EQ_Y": 1, "X_LT_Y": 0 } },
+    { "inputs": { "X": 0, "Y": 1 }, "outputs": { "X_GT_Y": 0, "X_EQ_Y": 0, "X_LT_Y": 1 } },
+    { "inputs": { "X": 1, "Y": 0 }, "outputs": { "X_GT_Y": 1, "X_EQ_Y": 0, "X_LT_Y": 0 } },
+    { "inputs": { "X": 1, "Y": 1 }, "outputs": { "X_GT_Y": 0, "X_EQ_Y": 1, "X_LT_Y": 0 } }
   ],
   "allowedICLimits": {
-    "7486": 1,
-    "7408": 1
+    "7404": 1,
+    "7408": 1,
+    "7432": 1
   },
   "initialCircuit": {
-    "placedIcs": [
-      {
-        "id": "ic_init_7486",
-        "icTypeId": "7486",
-        "blockId": "M1",
-        "startCol": 10
-      },
-      {
-        "id": "ic_init_7408",
-        "icTypeId": "7408",
-        "blockId": "M1",
-        "startCol": 20
-      }
-    ],
+    "placedIcs": [],
     "wires": []
   },
   "hints": [
-    "First evaluate (A ⊕ B) using the 7486 XOR gate.",
-    "Pass the output of the XOR gate and input C into the 7408 AND gate.",
-    "Ensure both ICs are properly grounded and powered!"
+    "Greater-than equation: X_GT_Y = X · Y'.",
+    "Less-than equation: X_LT_Y = X' · Y.",
+    "Equal-to equation: X_EQ_Y = X'Y' + XY (or XNOR logic)."
   ]
 }

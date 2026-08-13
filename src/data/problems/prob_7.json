@@ -1,0 +1,63 @@
+{
+  "id": "prob_7",
+  "numId": 7,
+  "title": "3-to-8 Line Decoder with Enable",
+  "description": "Design a 3-to-8 line decoder with an enable input. When the enable input EN is 0, all outputs (Y0–Y7) must be 0 regardless of the address inputs. When EN is 1, exactly one output line, corresponding to the binary value of the address inputs A2 A1 A0, should be 1, and all other outputs 0.",
+  "difficulty": "Easy",
+  "category": "design",
+  "tags": [
+    "Decoder",
+    "7404",
+    "7408"
+  ],
+  "author": "Sifat, Rafi",
+  "ioMapping": {
+    "inputs": [
+      { "name": "EN", "switchIndex": 0 },
+      { "name": "A2", "switchIndex": 1 },
+      { "name": "A1", "switchIndex": 2 },
+      { "name": "A0", "switchIndex": 3 }
+    ],
+    "outputs": [
+      { "name": "Y0", "ledIndex": 0 },
+      { "name": "Y1", "ledIndex": 1 },
+      { "name": "Y2", "ledIndex": 2 },
+      { "name": "Y3", "ledIndex": 3 },
+      { "name": "Y4", "ledIndex": 4 },
+      { "name": "Y5", "ledIndex": 5 },
+      { "name": "Y6", "ledIndex": 6 },
+      { "name": "Y7", "ledIndex": 7 }
+    ]
+  },
+  "truthTable": [
+    { "inputs": { "EN": 0, "A2": 0, "A1": 0, "A0": 0 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 0, "A2": 0, "A1": 0, "A0": 1 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 0, "A2": 0, "A1": 1, "A0": 0 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 0, "A2": 0, "A1": 1, "A0": 1 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 0, "A2": 1, "A1": 0, "A0": 0 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 0, "A2": 1, "A1": 0, "A0": 1 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 0, "A2": 1, "A1": 1, "A0": 0 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 0, "A2": 1, "A1": 1, "A0": 1 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 1, "A2": 0, "A1": 0, "A0": 0 }, "outputs": { "Y0": 1, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 1, "A2": 0, "A1": 0, "A0": 1 }, "outputs": { "Y0": 0, "Y1": 1, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 1, "A2": 0, "A1": 1, "A0": 0 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 1, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 1, "A2": 0, "A1": 1, "A0": 1 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 1, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 1, "A2": 1, "A1": 0, "A0": 0 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 1, "Y5": 0, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 1, "A2": 1, "A1": 0, "A0": 1 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 1, "Y6": 0, "Y7": 0 } },
+    { "inputs": { "EN": 1, "A2": 1, "A1": 1, "A0": 0 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 1, "Y7": 0 } },
+    { "inputs": { "EN": 1, "A2": 1, "A1": 1, "A0": 1 }, "outputs": { "Y0": 0, "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 0, "Y5": 0, "Y6": 0, "Y7": 1 } }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7408": 4
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Generate complemented address lines A2', A1', and A0' using a 7404 NOT IC.",
+    "Form 3-input minterms using two cascaded 2-input AND gates (7408 ICs) for each output.",
+    "AND the enable line EN with each minterm term so outputs stay 0 when EN = 0."
+  ]
+}

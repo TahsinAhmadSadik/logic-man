@@ -1,0 +1,453 @@
+{
+  "id": "prob_10",
+  "numId": 10,
+  "title": "4-to-2 Priority Encoder (Custom Priority Order)",
+  "description": "Design a 4-to-2 priority encoder using only basic gates (AND, OR, NOT), where the priority order (highest to lowest) is D2 > D3 > D0 > D1. The 2-bit output (Y1 Y0) encodes the active input with the highest priority, and a Valid (V) output indicates whether any input is active.",
+  "difficulty": "Hard",
+  "category": "debug",
+  "tags": [
+    "7404",
+    "7432",
+    "7408"
+  ],
+  "author": "Sifat, Rafi",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "D3",
+        "switchIndex": 0
+      },
+      {
+        "name": "D2",
+        "switchIndex": 1
+      },
+      {
+        "name": "D1",
+        "switchIndex": 2
+      },
+      {
+        "name": "D0",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Y1",
+        "ledIndex": 0
+      },
+      {
+        "name": "Y0",
+        "ledIndex": 1
+      },
+      {
+        "name": "V",
+        "ledIndex": 2
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "D3": 0,
+        "D2": 0,
+        "D1": 0,
+        "D0": 0
+      },
+      "outputs": {
+        "Y1": 0,
+        "Y0": 0,
+        "V": 0
+      }
+    },
+    {
+      "inputs": {
+        "D3": 0,
+        "D2": 0,
+        "D1": 0,
+        "D0": 1
+      },
+      "outputs": {
+        "Y1": 0,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 0,
+        "D2": 0,
+        "D1": 1,
+        "D0": 0
+      },
+      "outputs": {
+        "Y1": 0,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 0,
+        "D2": 0,
+        "D1": 1,
+        "D0": 1
+      },
+      "outputs": {
+        "Y1": 0,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 0,
+        "D2": 1,
+        "D1": 0,
+        "D0": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 0,
+        "D2": 1,
+        "D1": 0,
+        "D0": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 0,
+        "D2": 1,
+        "D1": 1,
+        "D0": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 0,
+        "D2": 1,
+        "D1": 1,
+        "D0": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 1,
+        "D2": 0,
+        "D1": 0,
+        "D0": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 1,
+        "D2": 0,
+        "D1": 0,
+        "D0": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 1,
+        "D2": 0,
+        "D1": 1,
+        "D0": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 1,
+        "D2": 0,
+        "D1": 1,
+        "D0": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 1,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 1,
+        "D2": 1,
+        "D1": 0,
+        "D0": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 1,
+        "D2": 1,
+        "D1": 0,
+        "D0": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 1,
+        "D2": 1,
+        "D1": 1,
+        "D0": 0
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    },
+    {
+      "inputs": {
+        "D3": 1,
+        "D2": 1,
+        "D1": 1,
+        "D0": 1
+      },
+      "outputs": {
+        "Y1": 1,
+        "Y0": 0,
+        "V": 1
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7404": 1,
+    "7408": 1,
+    "7432": 2
+  },
+  "initialCircuit": {
+    "placedIcs": [
+      {
+        "id": "ic_7404_not",
+        "icTypeId": "7404",
+        "blockId": "M1",
+        "startCol": 10
+      },
+      {
+        "id": "ic_7408_and",
+        "icTypeId": "7408",
+        "blockId": "M1",
+        "startCol": 20
+      },
+      {
+        "id": "ic_7432_or_1",
+        "icTypeId": "7432",
+        "blockId": "M1",
+        "startCol": 30
+      },
+      {
+        "id": "ic_7432_or_2",
+        "icTypeId": "7432",
+        "blockId": "M1",
+        "startCol": 40
+      }
+    ],
+    "wires": [
+      {
+        "id": "wire_pwr_vcc",
+        "startHole": "PWR_VCC_1",
+        "endHole": "BUS_TOP_VCC_1",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_pwr_gnd",
+        "startHole": "PWR_GND_2",
+        "endHole": "BUS_MID_0_GND_1",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic1_vcc",
+        "startHole": "BB_E10",
+        "endHole": "BUS_TOP_VCC_10",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic1_gnd",
+        "startHole": "BB_G16",
+        "endHole": "BUS_MID_0_GND_16",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic2_vcc",
+        "startHole": "BB_E20",
+        "endHole": "BUS_TOP_VCC_20",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic3_vcc",
+        "startHole": "BB_E30",
+        "endHole": "BUS_TOP_VCC_30",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic3_gnd",
+        "startHole": "BB_G36",
+        "endHole": "BUS_MID_0_GND_36",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic4_vcc",
+        "startHole": "BB_E40",
+        "endHole": "BUS_TOP_VCC_40",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_ic4_gnd",
+        "startHole": "BB_G46",
+        "endHole": "BUS_MID_0_GND_46",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_in_d3",
+        "startHole": "SWITCH_OUT_0",
+        "endHole": "BB_J30",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_in_d2",
+        "startHole": "SWITCH_OUT_1",
+        "endHole": "BB_J31",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_in_d1",
+        "startHole": "SWITCH_OUT_2",
+        "endHole": "BB_J21",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_in_d0",
+        "startHole": "SWITCH_OUT_3",
+        "endHole": "BB_J10",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_not_d0_in",
+        "startHole": "BB_H10",
+        "endHole": "BB_I10",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_not_d2_in",
+        "startHole": "BB_H12",
+        "endHole": "BB_H31",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_and_d0not_d1_out",
+        "startHole": "BB_H22",
+        "endHole": "BB_J33",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_or_d3_d0notd1_in",
+        "startHole": "BB_I30",
+        "endHole": "BB_J34",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_or_d3_d0notd1_out",
+        "startHole": "BB_H35",
+        "endHole": "BB_J24",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_and_d2not_rest_in",
+        "startHole": "BB_H13",
+        "endHole": "BB_J23",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_y1_out",
+        "startHole": "BB_H32",
+        "endHole": "LED_IN_0",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_or_v_1",
+        "startHole": "BB_C32",
+        "endHole": "BB_J40",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_or_v_2_in1",
+        "startHole": "BB_G21",
+        "endHole": "BB_J43",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_or_v_2_in2",
+        "startHole": "BB_G10",
+        "endHole": "BB_J44",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_or_v_2_out",
+        "startHole": "BB_H45",
+        "endHole": "BB_J41",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_v_out",
+        "startHole": "BB_H42",
+        "endHole": "LED_IN_2",
+        "color": "#ef4444"
+      },
+      {
+        "id": "wire_1786604674335_tqk1w",
+        "startHole": "BB_I22",
+        "endHole": "LED_IN_1",
+        "color": "#ef4444"
+      }
+    ]
+  },
+  "hints": [
+    "Check if GND (Pin 7) on IC2 (7408 AND IC at column 20) is properly connected to the ground bus rail.",
+    "Verify the priority encoding equations: Y1 = D2 + D3, Y0 = D3 + D2' D3' D0' D1, and V = D2 + D3 + D0 + D1."
+  ]
+}
