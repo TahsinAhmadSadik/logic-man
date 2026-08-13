@@ -1,0 +1,134 @@
+{
+  "id": "prob_27",
+  "numId": 27,
+  "title": "Three-Sensor Majority Voting Circuit Using NAND Gates",
+  "description": "A safety monitoring system contains three sensors A, B, and C. The alarm output F must become HIGH whenever at least two of the three sensors are HIGH. Derive the Boolean expression for this condition and implement the resulting function strictly using only 2-input NAND gates (7400 ICs). Connect A, B, and C to SW0, SW1, and SW2 respectively, and route F to LED0.",
+  "difficulty": "Medium",
+  "category": "design",
+  "tags": [
+    "NAND Gates",
+    "Majority Logic",
+    "Universal Gates",
+    "7400",
+    "Combinational Logic",
+    "Application Based"
+  ],
+  "author": "Tabassum Binte Kamal, Jarin Subah",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "A",
+        "switchIndex": 0
+      },
+      {
+        "name": "B",
+        "switchIndex": 1
+      },
+      {
+        "name": "C",
+        "switchIndex": 2
+      }
+    ],
+    "outputs": [
+      {
+        "name": "F",
+        "ledIndex": 0
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 0
+      },
+      "outputs": {
+        "F": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 1
+      },
+      "outputs": {
+        "F": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 0
+      },
+      "outputs": {
+        "F": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 1
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 0
+      },
+      "outputs": {
+        "F": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 1
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 0
+      },
+      "outputs": {
+        "F": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 1
+      },
+      "outputs": {
+        "F": 1
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7400": 2
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "Determine the input combinations for which at least two of A, B, and C are HIGH.",
+    "The majority function can be written as F = AB + AC + BC.",
+    "Use NAND gates to generate (AB)', (AC)', and (BC)' first.",
+    "Remember that the 7400 contains only 2-input NAND gates, so a three-input NAND operation must be constructed using multiple 2-input NAND gates."
+  ]
+}

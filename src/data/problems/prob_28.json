@@ -1,0 +1,258 @@
+{
+  "id": "prob_28",
+  "numId": 28,
+  "title": "NAND vs NOR Universal Gate Implementation Comparison",
+  "description": "Implement the Boolean function F = (A + B)(C + D) in two separate ways. First, implement it strictly using only 3-input NOR gates from a single 7427 IC. Second, implement the same function strictly using only 2-input NAND gates from 7400 ICs. Both implementations must produce identical outputs for every input combination. Connect A, B, C, and D to SW0, SW1, SW2, and SW3 respectively. Route the NOR implementation output F_NOR to LED0 and the NAND implementation output F_NAND to LED1.",
+  "difficulty": "Hard",
+  "category": "design",
+  "tags": [
+    "NAND Gates",
+    "NOR Gates",
+    "Universal Gates",
+    "Product of Sums",
+    "7400",
+    "7427",
+    "3-Input NOR",
+    "Combinational Logic"
+  ],
+  "author": "Tabassum Binte Kamal, Jarin Subah",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "A",
+        "switchIndex": 0
+      },
+      {
+        "name": "B",
+        "switchIndex": 1
+      },
+      {
+        "name": "C",
+        "switchIndex": 2
+      },
+      {
+        "name": "D",
+        "switchIndex": 3
+      }
+    ],
+    "outputs": [
+      {
+        "name": "F_NOR",
+        "ledIndex": 0
+      },
+      {
+        "name": "F_NAND",
+        "ledIndex": 1
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "outputs": {
+        "F_NOR": 0,
+        "F_NAND": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 1
+      },
+      "outputs": {
+        "F_NOR": 0,
+        "F_NAND": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "D": 0
+      },
+      "outputs": {
+        "F_NOR": 0,
+        "F_NAND": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "D": 1
+      },
+      "outputs": {
+        "F_NOR": 0,
+        "F_NAND": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 0
+      },
+      "outputs": {
+        "F_NOR": 0,
+        "F_NAND": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 1
+      },
+      "outputs": {
+        "F_NOR": 1,
+        "F_NAND": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 1,
+        "D": 0
+      },
+      "outputs": {
+        "F_NOR": 1,
+        "F_NAND": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 0,
+        "B": 1,
+        "C": 1,
+        "D": 1
+      },
+      "outputs": {
+        "F_NOR": 1,
+        "F_NAND": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "outputs": {
+        "F_NOR": 0,
+        "F_NAND": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 0,
+        "D": 1
+      },
+      "outputs": {
+        "F_NOR": 1,
+        "F_NAND": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "D": 0
+      },
+      "outputs": {
+        "F_NOR": 1,
+        "F_NAND": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "D": 1
+      },
+      "outputs": {
+        "F_NOR": 1,
+        "F_NAND": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "D": 0
+      },
+      "outputs": {
+        "F_NOR": 0,
+        "F_NAND": 0
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "D": 1
+      },
+      "outputs": {
+        "F_NOR": 1,
+        "F_NAND": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 1,
+        "D": 0
+      },
+      "outputs": {
+        "F_NOR": 1,
+        "F_NAND": 1
+      }
+    },
+    {
+      "inputs": {
+        "A": 1,
+        "B": 1,
+        "C": 1,
+        "D": 1
+      },
+      "outputs": {
+        "F_NOR": 1,
+        "F_NAND": 1
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7427": 1,
+    "7400": 2
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "A 3-input NOR gate can be used as a 2-input NOR gate by connecting the same signal to two of its inputs.",
+    "For the NOR implementation, generate (A + B)' and (C + D)' using two gates of the 7427.",
+    "Use the third NOR gate to combine the two complemented sum terms. One intermediate signal may be connected to two inputs of the final 3-input NOR gate.",
+    "For the NAND implementation, use De Morgan's theorem to construct the OR terms A + B and C + D using NAND gates.",
+    "Compare the total number of gates required by the two implementations."
+  ]
+}

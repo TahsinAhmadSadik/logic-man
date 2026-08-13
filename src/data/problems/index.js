@@ -7,6 +7,11 @@ import prob22 from './prob_22.json';
 import prob23 from './prob_23.json';
 import prob24 from './prob_24.json';
 import prob25 from './prob_25.json';
+import prob26 from './prob_26.json';
+import prob27 from './prob_27.json';
+import prob28 from './prob_28.json';
+import prob29 from './prob_29.json';
+import prob30 from './prob_30.json';
 import prob31 from './prob_31.json';
 import prob32 from './prob_32.json';
 import prob33 from './prob_33.json';
@@ -119,6 +124,51 @@ export const PROBLEMS_INDEX = [
     category: getCategory(prob25),
     tags: prob25.tags || [],
     description: prob25.description
+  },
+  {
+    id: prob26.id,
+    numId: prob26.numId,
+    title: prob26.title,
+    difficulty: prob26.difficulty,
+    category: getCategory(prob26),
+    tags: prob26.tags || [],
+    description: prob26.description
+  },
+  {
+    id: prob27.id,
+    numId: prob27.numId,
+    title: prob27.title,
+    difficulty: prob27.difficulty,
+    category: getCategory(prob27),
+    tags: prob27.tags || [],
+    description: prob27.description
+  },
+  {
+    id: prob28.id,
+    numId: prob28.numId,
+    title: prob28.title,
+    difficulty: prob28.difficulty,
+    category: getCategory(prob28),
+    tags: prob28.tags || [],
+    description: prob28.description
+  },
+  {
+    id: prob29.id,
+    numId: prob29.numId,
+    title: prob29.title,
+    difficulty: prob29.difficulty,
+    category: getCategory(prob29),
+    tags: prob29.tags || [],
+    description: prob29.description
+  },
+  {
+    id: prob30.id,
+    numId: prob30.numId,
+    title: prob30.title,
+    difficulty: prob30.difficulty,
+    category: getCategory(prob30),
+    tags: prob30.tags || [],
+    description: prob30.description
   },
   {
     id: prob31.id,
@@ -339,6 +389,11 @@ export const PROBLEMS_MAP = {
   prob_23: prob23,
   prob_24: prob24,
   prob_25: prob25,
+  prob_26: prob26,
+  prob_27: prob27,
+  prob_28: prob28,
+  prob_29: prob29,
+  prob_30: prob30,
   prob_31: prob31,
   prob_32: prob32,
   prob_33: prob33,
@@ -371,6 +426,11 @@ export const PROBLEMS_MAP = {
   '23': prob23,
   '24': prob24,
   '25': prob25,
+  '26': prob26,
+  '27': prob27,
+  '28': prob28,
+  '29': prob29,
+  '30': prob30,
   '31': prob31,
   '32': prob32,
   '33': prob33,
