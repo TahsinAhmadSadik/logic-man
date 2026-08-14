@@ -1,0 +1,112 @@
+{
+  "version": "1.0",
+  "problemId": "prob_29",
+  "exportedAt": "2026-08-15T00:30:00.000Z",
+  "debugChanges": {
+    "summary": "Re-routed Gate 2 input Pin 4 to receive input B to compute (A'B)', and connected Gate 4 input Pin 13 to Gate 3 output Pin 8 to properly combine (A'B)' and (BC)' into A'B + BC.",
+    "fixes": [
+      {
+        "type": "modified",
+        "wireId": "wire_1786593811666_gf22n",
+        "original": { "startHole": "BB_H18", "endHole": "BB_A21" },
+        "corrected": { "startHole": "BB_H18", "endHole": "BB_C20" },
+        "reason": "Connected Gate 2 input Pin 4 to input B (Pin 9) so Gate 2 produces the (A'B)' term."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786593017979_jred2",
+        "original": { "startHole": "BB_J20", "endHole": "BB_B16" },
+        "corrected": { "startHole": "BB_A21", "endHole": "BB_B16" },
+        "reason": "Connected Gate 4 input Pin 13 to Gate 3 output Pin 8 (BC)' instead of shorting it to Gate 2 output."
+      }
+    ]
+  },
+  "placedIcs": [
+    {
+      "id": "ic_placed_1786591447264_9e91c",
+      "icTypeId": "7400",
+      "blockId": "M1",
+      "startCol": 15
+    }
+  ],
+  "wires": [
+    {
+      "id": "wire_1786591853234_tbs74",
+      "startHole": "SWITCH_OUT_0",
+      "endHole": "BB_G15",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786591865133_ydet9",
+      "startHole": "BB_J15",
+      "endHole": "BB_G16",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786592078998_z6dw5",
+      "startHole": "BB_I20",
+      "endHole": "BB_B17",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786592120826_rr3b6",
+      "startHole": "LED_IN_0",
+      "endHole": "BB_A18",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "wire_1786592138235_222na",
+      "startHole": "PWR_VCC_1",
+      "endHole": "BUS_TOP_VCC_7",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786592147406_58wzl",
+      "startHole": "PWR_GND_1",
+      "endHole": "BUS_TOP_GND_42",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786592157731_fd594",
+      "startHole": "BB_H21",
+      "endHole": "BUS_TOP_GND_45",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786592163976_xp4u3",
+      "startHole": "BB_C15",
+      "endHole": "BUS_TOP_VCC_14",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786593017979_jred2",
+      "startHole": "BB_A21",
+      "endHole": "BB_B16",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786593659702_0zeqt",
+      "startHole": "SWITCH_OUT_1",
+      "endHole": "BB_B20",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786593665691_dwuan",
+      "startHole": "SWITCH_OUT_2",
+      "endHole": "BB_B19",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "wire_1786593696981_40s5d",
+      "startHole": "BB_H17",
+      "endHole": "BB_J19",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786593811666_gf22n",
+      "startHole": "BB_H18",
+      "endHole": "BB_C20",
+      "color": "#22c55e"
+    }
+  ]
+}

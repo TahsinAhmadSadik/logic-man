@@ -1,0 +1,152 @@
+{
+  "version": "1.0",
+  "problemId": "prob_9",
+  "exportedAt": "2026-08-15T01:00:00.000Z",
+  "debugChanges": {
+    "summary": "Added missing main VCC and 7408 GND connections, corrected the NOT gate output wire to take A' from Pin 2 (Col 11), and moved the LED output wire to the OR gate output Pin 3 (Col 32).",
+    "fixes": [
+      {
+        "type": "added",
+        "wireId": "wire_pwr_vcc",
+        "reason": "Connected PWR_VCC_2 to BUS_TOP_VCC_1 to power the VCC bus rail."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_ic2_gnd",
+        "reason": "Connected GND directly to Pin 7 of the 7408 AND IC (BB_G26)."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786601981375_usjxs",
+        "original": { "startHole": "BB_H12", "endHole": "BB_J23" },
+        "corrected": { "startHole": "BB_H11", "endHole": "BB_J23" },
+        "reason": "Re-routed inverter output from Pin 3 (Col 12) to Pin 2 (Col 11) to supply A' to the AND gate."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786601742897_2b43a",
+        "original": { "startHole": "BB_H31", "endHole": "LED_IN_0" },
+        "corrected": { "startHole": "BB_H32", "endHole": "LED_IN_0" },
+        "reason": "Moved output LED wire from Pin 2 (input 1B) to Pin 3 (OR output 1Y) on the 7432 IC."
+      }
+    ]
+  },
+  "placedIcs": [
+    {
+      "id": "ic_7404_not",
+      "icTypeId": "7404",
+      "blockId": "M1",
+      "startCol": 10
+    },
+    {
+      "id": "ic_7408_and",
+      "icTypeId": "7408",
+      "blockId": "M1",
+      "startCol": 20
+    },
+    {
+      "id": "ic_7432_or",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 30
+    }
+  ],
+  "wires": [
+    {
+      "id": "wire_pwr_vcc",
+      "startHole": "PWR_VCC_2",
+      "endHole": "BUS_TOP_VCC_1",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_pwr_gnd",
+      "startHole": "PWR_GND_2",
+      "endHole": "BUS_MID_0_GND_1",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_ic1_vcc",
+      "startHole": "BB_E10",
+      "endHole": "BUS_TOP_VCC_10",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic1_gnd",
+      "startHole": "BB_G16",
+      "endHole": "BUS_MID_0_GND_16",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_ic2_vcc",
+      "startHole": "BB_E20",
+      "endHole": "BUS_TOP_VCC_20",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic2_gnd",
+      "startHole": "BB_G26",
+      "endHole": "BUS_MID_0_GND_26",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_ic3_vcc",
+      "startHole": "BB_E30",
+      "endHole": "BUS_TOP_VCC_30",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic3_gnd",
+      "startHole": "BB_G36",
+      "endHole": "BUS_MID_0_GND_36",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_in_a",
+      "startHole": "SWITCH_OUT_0",
+      "endHole": "BB_J10",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "wire_in_b",
+      "startHole": "SWITCH_OUT_1",
+      "endHole": "BB_J21",
+      "color": "#60a5fa"
+    },
+    {
+      "id": "wire_in_c",
+      "startHole": "SWITCH_OUT_2",
+      "endHole": "BB_J24",
+      "color": "#93c5fd"
+    },
+    {
+      "id": "wire_a_to_and",
+      "startHole": "BB_I10",
+      "endHole": "BB_J20",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "wire_1786601981375_usjxs",
+      "startHole": "BB_H11",
+      "endHole": "BB_J23",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "wire_ab_to_or",
+      "startHole": "BB_H22",
+      "endHole": "BB_J30",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "wire_not_ac_to_or",
+      "startHole": "BB_H25",
+      "endHole": "BB_J31",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "wire_1786601742897_2b43a",
+      "startHole": "BB_H32",
+      "endHole": "LED_IN_0",
+      "color": "#22c55e"
+    }
+  ]
+}

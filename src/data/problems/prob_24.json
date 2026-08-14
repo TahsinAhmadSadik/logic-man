@@ -5,7 +5,7 @@
   "description": "Implement the 3-variable XOR function F(A, B, C) = A ⊕ B ⊕ C using a cascaded structure F = (A ⊕ B) ⊕ C. Construct the first stage  X = A ⊕ B using NAND logic (IC 7400) and complete the second stage using IC 7400 and IC 7427. Map inputs A, B, C to SW0, SW1, SW2 respectively, and output F to LED0.",
   "difficulty": "Medium",
   "category": "design",
-  "author": "Jarin Subah, Tabassum Binte Kamal",
+  "author": "Jarin, Tabassum",
   "tags": [
     "NAND Logic",
     "NOR Logic",

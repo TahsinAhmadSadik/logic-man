@@ -5,7 +5,7 @@
   "description": "Design and implement the Boolean function F = X(YB + C) + BC' using only NAND gates (7400 ICs). Connect switches SW0, SW1, SW2, SW3 to inputs X, Y, B, C respectively, and route the final output to LED0.",
   "difficulty": "Medium",
   "category": "design",
-  "author": "Jarin Subah, Tabassum Binte Kamal",
+  "author": "Jarin, Tabassum",
   "tags": [
     "NAND Gates",
     "Multilevel Logic",

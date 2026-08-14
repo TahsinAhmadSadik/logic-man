@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "problemId": "prob_63",
+  "exportedAt": "2026-08-14T20:20:00.000Z",
+  "placedIcs": [
+    {
+      "id": "ic_7404_1",
+      "icTypeId": "7404",
+      "blockId": "M1",
+      "startCol": 10
+    },
+    {
+      "id": "ic_7408_1",
+      "icTypeId": "7408",
+      "blockId": "M1",
+      "startCol": 25
+    },
+    {
+      "id": "ic_7432_1",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 40
+    }
+  ],
+  "wires": [
+    { "id": "w_vcc_04", "startHole": "PWR_VCC_1", "endHole": "BB_D10", "color": "#ef4444" },
+    { "id": "w_vcc_08", "startHole": "BB_C10", "endHole": "BB_D25", "color": "#ef4444" },
+    { "id": "w_vcc_32", "startHole": "BB_C25", "endHole": "BB_D40", "color": "#ef4444" },
+
+    { "id": "w_gnd_04", "startHole": "PWR_GND_1", "endHole": "BB_G16", "color": "#18181b" },
+    { "id": "w_gnd_08", "startHole": "BB_H16", "endHole": "BB_G31", "color": "#18181b" },
+    { "id": "w_gnd_32", "startHole": "BB_H31", "endHole": "BB_G46", "color": "#18181b" },
+
+    { "id": "w_in_i3bar", "startHole": "SWITCH_OUT_3", "endHole": "BB_G10", "color": "#3b82f6" },
+    { "id": "w_in_i2bar", "startHole": "SWITCH_OUT_2", "endHole": "BB_G12", "color": "#60a5fa" },
+    { "id": "w_in_i1bar", "startHole": "SWITCH_OUT_1", "endHole": "BB_G14", "color": "#93c5fd" },
+
+    { "id": "w_i2bar_to_and", "startHole": "BB_H12", "endHole": "BB_G25", "color": "#60a5fa" },
+    { "id": "w_i1_to_and", "startHole": "BB_G15", "endHole": "BB_G26", "color": "#06b6d4" },
+
+    { "id": "w_i3_to_or1", "startHole": "BB_G11", "endHole": "BB_G40", "color": "#3b82f6" },
+    { "id": "w_i2_to_or1", "startHole": "BB_G13", "endHole": "BB_G41", "color": "#60a5fa" },
+    { "id": "w_y1_out", "startHole": "BB_G42", "endHole": "LED_IN_1", "color": "#ef4444" },
+
+    { "id": "w_i3_to_or2", "startHole": "BB_H11", "endHole": "BB_G43", "color": "#3b82f6" },
+    { "id": "w_and_term_to_or2", "startHole": "BB_G27", "endHole": "BB_G44", "color": "#06b6d4" },
+    { "id": "w_y0_out", "startHole": "BB_G45", "endHole": "LED_IN_0", "color": "#ef4444" }
+  ]
+}

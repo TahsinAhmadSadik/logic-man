@@ -1,0 +1,108 @@
+{
+  "version": "1.0",
+  "problemId": "prob_70",
+  "exportedAt": "2026-08-14T23:59:59.000Z",
+  "debugChanges": {
+    "summary": "Supplied direct VCC and GND to all three ICs (7427 #1, 7427 #2, and 7404) to resolve unpowered IC warnings, correctly distributed input lines across the NOR gates, and routed intermediate signals through the inverters to produce A0, A1, and A2.",
+    "fixes": [
+      {
+        "type": "added",
+        "wireId": "w_vcc_ic1",
+        "reason": "Connected +5V to Pin 14 of 7427 #1 (BB_X10)."
+      },
+      {
+        "type": "added",
+        "wireId": "w_gnd_ic1",
+        "reason": "Connected GND to Pin 7 of 7427 #1 (BB_AD16)."
+      },
+      {
+        "type": "added",
+        "wireId": "w_vcc_ic2",
+        "reason": "Connected +5V to Pin 14 of 7427 #2 (BB_X28)."
+      },
+      {
+        "type": "added",
+        "wireId": "w_gnd_ic2",
+        "reason": "Connected GND to Pin 7 of 7427 #2 (BB_AD34)."
+      },
+      {
+        "type": "added",
+        "wireId": "w_vcc_ic3",
+        "reason": "Connected +5V to Pin 14 of 7404 (BB_N48)."
+      },
+      {
+        "type": "added",
+        "wireId": "w_gnd_ic3",
+        "reason": "Connected GND to Pin 7 of 7404 (BB_T54)."
+      },
+      {
+        "type": "modified",
+        "wireId": "w_sw6",
+        "reason": "Re-routed Switch 6 to the NOR gates driving bits A1 and A2."
+      }
+    ]
+  },
+  "placedIcs": [
+    {
+      "id": "ic_placed_7427_1",
+      "icTypeId": "7427",
+      "blockId": "M3",
+      "startCol": 10
+    },
+    {
+      "id": "ic_placed_7427_2",
+      "icTypeId": "7427",
+      "blockId": "M3",
+      "startCol": 28
+    },
+    {
+      "id": "ic_placed_7404_1",
+      "icTypeId": "7404",
+      "blockId": "M2",
+      "startCol": 48
+    }
+  ],
+  "wires": [
+    { "id": "w_vcc_1", "startHole": "PWR_VCC_1", "endHole": "BUS_TOP_VCC_5", "color": "#ef4444" },
+    { "id": "w_gnd_1", "startHole": "PWR_GND_1", "endHole": "BUS_TOP_GND_3", "color": "#18181b" },
+    { "id": "w_vcc_ic1", "startHole": "BUS_TOP_VCC_10", "endHole": "BB_X10", "color": "#ef4444" },
+    { "id": "w_gnd_ic1", "startHole": "BUS_TOP_GND_16", "endHole": "BB_AD16", "color": "#18181b" },
+    { "id": "w_vcc_ic2", "startHole": "BUS_TOP_VCC_28", "endHole": "BB_X28", "color": "#ef4444" },
+    { "id": "w_gnd_ic2", "startHole": "BUS_TOP_GND_34", "endHole": "BB_AD34", "color": "#18181b" },
+    { "id": "w_vcc_ic3", "startHole": "BUS_TOP_VCC_48", "endHole": "BB_N48", "color": "#ef4444" },
+    { "id": "w_gnd_ic3", "startHole": "BUS_TOP_GND_54", "endHole": "BB_T54", "color": "#18181b" },
+
+    { "id": "w_sw1", "startHole": "SWITCH_OUT_1", "endHole": "BB_AD10", "color": "#10b981" },
+    { "id": "w_sw2", "startHole": "SWITCH_OUT_2", "endHole": "BB_AD28", "color": "#10b981" },
+    { "id": "w_sw3", "startHole": "SWITCH_OUT_3", "endHole": "BB_AD11", "color": "#10b981" },
+    { "id": "w_sw3_to_ic2", "startHole": "BB_AC11", "endHole": "BB_AD29", "color": "#10b981" },
+    { "id": "w_sw4", "startHole": "SWITCH_OUT_4", "endHole": "BB_X33", "color": "#10b981" },
+    { "id": "w_sw5", "startHole": "SWITCH_OUT_5", "endHole": "BB_X11", "color": "#10b981" },
+    { "id": "w_sw5_to_ic2", "startHole": "BB_W11", "endHole": "BB_X32", "color": "#10b981" },
+    { "id": "w_sw6", "startHole": "SWITCH_OUT_6", "endHole": "BB_X29", "color": "#10b981" },
+    { "id": "w_sw6_to_gate3", "startHole": "BB_W29", "endHole": "BB_X31", "color": "#10b981" },
+    { "id": "w_sw7", "startHole": "SWITCH_OUT_7", "endHole": "BB_AD13", "color": "#10b981" },
+    { "id": "w_sw7_to_ic2", "startHole": "BB_AC13", "endHole": "BB_AD31", "color": "#10b981" },
+    { "id": "w_sw7_to_ic1_gate3", "startHole": "BB_AB13", "endHole": "BB_X14", "color": "#10b981" },
+
+    { "id": "w_gnd_ic1_pin5", "startHole": "BUS_TOP_GND_14", "endHole": "BB_AD14", "color": "#18181b" },
+    { "id": "w_gnd_ic2_pin5", "startHole": "BUS_TOP_GND_32", "endHole": "BB_AD32", "color": "#18181b" },
+    { "id": "w_gnd_ic1_pin11", "startHole": "BUS_TOP_GND_13", "endHole": "BB_X13", "color": "#18181b" },
+
+    { "id": "w_a0_stage1", "startHole": "BB_X12", "endHole": "BB_N53", "color": "#a855f7" },
+    { "id": "w_a0_inv_to_stage2", "startHole": "BB_N54", "endHole": "BB_AD12", "color": "#a855f7" },
+    { "id": "w_a0_stage2_to_inv1", "startHole": "BB_AD15", "endHole": "BB_S48", "color": "#a855f7" },
+
+    { "id": "w_a1_stage1", "startHole": "BB_X30", "endHole": "BB_N51", "color": "#06b6d4" },
+    { "id": "w_a1_inv_to_stage2", "startHole": "BB_N52", "endHole": "BB_AD30", "color": "#06b6d4" },
+    { "id": "w_a1_stage2_to_inv2", "startHole": "BB_AD33", "endHole": "BB_S50", "color": "#06b6d4" },
+
+    { "id": "w_a2_stage1", "startHole": "BB_X34", "endHole": "BB_N49", "color": "#f97316" },
+    { "id": "w_a2_inv_to_stage2", "startHole": "BB_N50", "endHole": "BB_X15", "color": "#f97316" },
+    { "id": "w_a2_stage2_to_inv3", "startHole": "BB_X16", "endHole": "BB_S52", "color": "#f97316" },
+
+    { "id": "w_out0", "startHole": "BB_S49", "endHole": "LED_IN_0", "color": "#f59e0b" },
+    { "id": "w_out1", "startHole": "BB_S51", "endHole": "LED_IN_1", "color": "#f59e0b" },
+    { "id": "w_out2", "startHole": "BB_S53", "endHole": "LED_IN_2", "color": "#f59e0b" }
+  ]
+}

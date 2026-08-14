@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "problemId": "prob_66",
+  "exportedAt": "2026-08-14T20:35:00.000Z",
+  "placedIcs": [
+    {
+      "id": "ic_7404_1",
+      "icTypeId": "7404",
+      "blockId": "M1",
+      "startCol": 10
+    },
+    {
+      "id": "ic_7400_1",
+      "icTypeId": "7400",
+      "blockId": "M1",
+      "startCol": 25
+    }
+  ],
+  "wires": [
+    { "id": "w_vcc_04", "startHole": "PWR_VCC_1", "endHole": "BB_D10", "color": "#ef4444" },
+    { "id": "w_vcc_00", "startHole": "BB_C10", "endHole": "BB_D25", "color": "#ef4444" },
+
+    { "id": "w_gnd_04", "startHole": "PWR_GND_1", "endHole": "BB_G16", "color": "#18181b" },
+    { "id": "w_gnd_00", "startHole": "BB_H16", "endHole": "BB_G31", "color": "#18181b" },
+
+    { "id": "w_in_i3", "startHole": "SWITCH_OUT_3", "endHole": "BB_G10", "color": "#3b82f6" },
+    { "id": "w_in_i2", "startHole": "SWITCH_OUT_2", "endHole": "BB_G12", "color": "#60a5fa" },
+    { "id": "w_in_i1", "startHole": "SWITCH_OUT_1", "endHole": "BB_G29", "color": "#93c5fd" },
+
+    { "id": "w_i3bar_to_nand1", "startHole": "BB_G11", "endHole": "BB_G25", "color": "#3b82f6" },
+    { "id": "w_i3bar_to_nand3", "startHole": "BB_H11", "endHole": "BB_D29", "color": "#3b82f6" },
+
+    { "id": "w_i2bar_to_nand1", "startHole": "BB_G13", "endHole": "BB_G26", "color": "#60a5fa" },
+    { "id": "w_i2bar_to_nand2", "startHole": "BB_H13", "endHole": "BB_G28", "color": "#60a5fa" },
+
+    { "id": "w_nand1_to_inv3", "startHole": "BB_G27", "endHole": "BB_G14", "color": "#06b6d4" },
+    { "id": "w_y1bar_out", "startHole": "BB_G15", "endHole": "LED_IN_1", "color": "#ef4444" },
+
+    { "id": "w_nand2_to_nand3", "startHole": "BB_G30", "endHole": "BB_D30", "color": "#a855f7" },
+    { "id": "w_nand3_to_inv4", "startHole": "BB_D31", "endHole": "BB_D15", "color": "#ec4899" },
+    { "id": "w_y0bar_out", "startHole": "BB_D16", "endHole": "LED_IN_0", "color": "#ef4444" }
+  ]
+}

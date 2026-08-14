@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "problemId": "prob_27",
+  "exportedAt": "2026-08-14T14:00:00.000Z",
+  "placedIcs": [
+    {
+      "id": "ic_7400_1",
+      "icTypeId": "7400",
+      "blockId": "M1",
+      "startCol": 10
+    },
+    {
+      "id": "ic_7400_2",
+      "icTypeId": "7400",
+      "blockId": "M1",
+      "startCol": 25
+    }
+  ],
+  "wires": [
+    { "id": "w_vcc_1", "startHole": "PWR_VCC_1", "endHole": "BB_D10", "color": "#ef4444" },
+    { "id": "w_vcc_2", "startHole": "BB_C10", "endHole": "BB_D25", "color": "#ef4444" },
+    { "id": "w_gnd_1", "startHole": "PWR_GND_1", "endHole": "BB_G16", "color": "#18181b" },
+    { "id": "w_gnd_2", "startHole": "BB_H16", "endHole": "BB_G31", "color": "#18181b" },
+
+    { "id": "w_in_a", "startHole": "SWITCH_OUT_0", "endHole": "BB_G10", "color": "#3b82f6" },
+    { "id": "w_in_b", "startHole": "SWITCH_OUT_1", "endHole": "BB_G11", "color": "#10b981" },
+    { "id": "w_in_c", "startHole": "SWITCH_OUT_2", "endHole": "BB_G14", "color": "#f59e0b" },
+
+    { "id": "w_a_to_g2", "startHole": "BB_H10", "endHole": "BB_G13", "color": "#3b82f6" },
+    { "id": "w_b_to_g3", "startHole": "BB_H11", "endHole": "BB_D15", "color": "#10b981" },
+    { "id": "w_c_to_g3", "startHole": "BB_H14", "endHole": "BB_D14", "color": "#f59e0b" },
+
+    { "id": "w_n1_to_ic2_g1a", "startHole": "BB_G12", "endHole": "BB_G25", "color": "#06b6d4" },
+    { "id": "w_n2_to_ic2_g1b", "startHole": "BB_G15", "endHole": "BB_G26", "color": "#06b6d4" },
+
+    { "id": "w_n4_to_inv_a", "startHole": "BB_G27", "endHole": "BB_G28", "color": "#ec4899" },
+    { "id": "w_n4_to_inv_b", "startHole": "BB_H27", "endHole": "BB_G29", "color": "#ec4899" },
+
+    { "id": "w_n5_to_ic2_g3a", "startHole": "BB_G30", "endHole": "BB_D30", "color": "#8b5cf6" },
+    { "id": "w_n3_to_ic2_g3b", "startHole": "BB_D16", "endHole": "BB_D29", "color": "#06b6d4" },
+
+    { "id": "w_out_f", "startHole": "BB_D31", "endHole": "LED_IN_0", "color": "#ef4444" }
+  ]
+}

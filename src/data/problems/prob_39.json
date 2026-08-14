@@ -6,7 +6,7 @@
   "difficulty": "Medium",
   "category": "debug",
   "tags": ["Debugging", "7404", "7486", "7408", "7432", "Arithmetic"],
-  "author": "Siratul Mustakim Arman, Tanzimul Hasan Tahsin",
+  "author": "Arman, Tanzim",
   "ioMapping": {
     "inputs": [
       { "name": "x", "switchIndex": 0 },

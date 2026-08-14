@@ -1,0 +1,283 @@
+{
+  "version": "1.0",
+  "problemId": "prob_89",
+  "exportedAt": "2026-08-14T23:30:00.000Z",
+  "debugChanges": {
+    "summary": "Fixed missing main ground, grounded floating IC pins, corrected bus routing for Switch 2, and fixed misaligned select/power pin connections.",
+    "fixes": [
+      {
+        "type": "added",
+        "wireId": "wire_fix_pwr_gnd",
+        "reason": "Connected PWR_GND_2 to BUS_TOP_GND_1 to provide the missing main ground rail."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_fix_7432_gnd",
+        "reason": "Grounded Pin 7 (GND) on the 7432 OR gate IC (BB_Q35)."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_fix_74153_1g_gnd",
+        "reason": "Grounded Pin 1 (1G enable strobe) on the 74153 MUX IC (BB_Q9) to enable output."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_fix_74153_1c2_vcc",
+        "reason": "Connected 74153 MUX data input Pin 4 (1C2 / BB_Q12) to VCC (Logic 1) for select condition AB = 10."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786634705406_r8yiq",
+        "original": { "startHole": "SWITCH_OUT_1", "endHole": "BB_N13" },
+        "corrected": { "startHole": "SWITCH_OUT_1", "endHole": "BB_N11" },
+        "reason": "Moved Switch 1 (Select S0) from Pin 12 (BB_N13) to the correct select pin Pin 14 (BB_N11) on 74153."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786634562882_o1k73",
+        "original": { "startHole": "SWITCH_OUT_2", "endHole": "BUS_BOT_VCC_22" },
+        "corrected": { "startHole": "SWITCH_OUT_2", "endHole": "BUS_BOT_GND_22" },
+        "reason": "Moved Switch 2 (C) from BUS_BOT_VCC to BUS_BOT_GND to resolve the signal contention/short with Switch 3 (D)."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786634645063_3cn2m",
+        "original": { "startHole": "BB_K44", "endHole": "BUS_TOP_VCC_42" },
+        "corrected": { "startHole": "BB_N43", "endHole": "BUS_TOP_VCC_42" },
+        "reason": "Moved 7408 power wire from Pin 13 (BB_K44) to Pin 14 (VCC / BB_N43)."
+      }
+    ]
+  },
+  "placedIcs": [
+    {
+      "id": "ic_placed_1786629490288_h2wrk",
+      "icTypeId": "7432",
+      "blockId": "M2",
+      "startCol": 29
+    },
+    {
+      "id": "ic_placed_1786629500347_ivsam",
+      "icTypeId": "7408",
+      "blockId": "M2",
+      "startCol": 43
+    },
+    {
+      "id": "ic_placed_1786629521778_aj3fk",
+      "icTypeId": "7404",
+      "blockId": "M3",
+      "startCol": 36
+    },
+    {
+      "id": "ic_placed_1786629645342_pm6g4",
+      "icTypeId": "74153",
+      "blockId": "M2",
+      "startCol": 9
+    }
+  ],
+  "wires": [
+    {
+      "id": "wire_1786629416879_m7ekp",
+      "startHole": "PWR_VCC_2",
+      "endHole": "BUS_TOP_VCC_1",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_fix_pwr_gnd",
+      "startHole": "PWR_GND_2",
+      "endHole": "BUS_TOP_GND_1",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786629667829_prto6",
+      "startHole": "BUS_TOP_VCC_27",
+      "endHole": "BB_N29",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786629677056_ny7vd",
+      "startHole": "BUS_TOP_VCC_36",
+      "endHole": "BB_X36",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786629690458_mek8f",
+      "startHole": "BUS_TOP_GND_15",
+      "endHole": "BB_Q16",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786629700526_rgy70",
+      "startHole": "BUS_TOP_GND_49",
+      "endHole": "BB_Q49",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786629708578_r47ss",
+      "startHole": "BUS_TOP_GND_41",
+      "endHole": "BB_AA42",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_fix_7432_gnd",
+      "startHole": "BUS_TOP_GND_35",
+      "endHole": "BB_Q35",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786629746195_r43uj",
+      "startHole": "BUS_TOP_VCC_8",
+      "endHole": "BB_N9",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_fix_74153_1g_gnd",
+      "startHole": "BUS_TOP_GND_9",
+      "endHole": "BB_Q9",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786629777357_6c866",
+      "startHole": "SWITCH_OUT_0",
+      "endHole": "BB_Q10",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "wire_1786634705406_r8yiq",
+      "startHole": "SWITCH_OUT_1",
+      "endHole": "BB_N11",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786634562882_o1k73",
+      "startHole": "SWITCH_OUT_2",
+      "endHole": "BUS_BOT_GND_22",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786629822050_0t5rj",
+      "startHole": "SWITCH_OUT_3",
+      "endHole": "BUS_BOT_VCC_27",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786629867647_dov8p",
+      "startHole": "BUS_BOT_VCC_12",
+      "endHole": "BB_T11",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_fix_74153_1c2_vcc",
+      "startHole": "BUS_TOP_VCC_12",
+      "endHole": "BB_Q12",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786629916378_j5yrp",
+      "startHole": "BUS_BOT_GND_36",
+      "endHole": "BB_AA36",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786629943119_itv4h",
+      "startHole": "BB_AA37",
+      "endHole": "BB_Q43",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786629950700_3wpeb",
+      "startHole": "BUS_BOT_VCC_37",
+      "endHole": "BB_AA38",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786629955066_o0cnk",
+      "startHole": "BB_AA39",
+      "endHole": "BB_Q44",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786629971394_iaesu",
+      "startHole": "BB_Q45",
+      "endHole": "BB_T29",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786630009955_nq934",
+      "startHole": "BUS_BOT_GND_46",
+      "endHole": "BB_Q46",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786630016416_6qfhb",
+      "startHole": "BUS_BOT_VCC_47",
+      "endHole": "BB_Q47",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786630025716_w8kt1",
+      "startHole": "BB_Q48",
+      "endHole": "BB_S30",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786630045659_foj0f",
+      "startHole": "BB_Q31",
+      "endHole": "BB_Q13",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786630230957_ft2s1",
+      "startHole": "BB_AC37",
+      "endHole": "BB_N47",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786630238026_9uhm0",
+      "startHole": "BUS_BOT_VCC_50",
+      "endHole": "BB_N48",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786630275953_odbve",
+      "startHole": "BB_N49",
+      "endHole": "BB_T32",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "wire_1786630287485_z0ygg",
+      "startHole": "BUS_BOT_GND_43",
+      "endHole": "BB_N44",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786630295714_fk3sk",
+      "startHole": "BB_AD39",
+      "endHole": "BB_N45",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786630306660_9k1xv",
+      "startHole": "BB_L46",
+      "endHole": "BB_T33",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "wire_1786630321286_4kx1b",
+      "startHole": "BB_T34",
+      "endHole": "BB_R14",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786630340039_uufx6",
+      "startHole": "BB_T15",
+      "endHole": "LED_IN_0",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786634645063_3cn2m",
+      "startHole": "BB_N43",
+      "endHole": "BUS_TOP_VCC_42",
+      "color": "#ef4444"
+    }
+  ]
+}

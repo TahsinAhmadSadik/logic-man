@@ -1,0 +1,199 @@
+{
+  "version": "1.0",
+  "problemId": "prob_69",
+  "exportedAt": "2026-08-14T23:59:50.000Z",
+  "debugChanges": {
+    "summary": "Supplied direct VCC/GND to both ICs, properly wired I1 through the NOT gate (7404) and OR gates (7432) to compute Y0 = I3 + (I1 * ~I2), and wired Y1 = I3 + I2.",
+    "fixes": [
+      {
+        "type": "modified",
+        "wireId": "w_vcc_1",
+        "original": { "startHole": "PWR_VCC_1", "endHole": "BUS_TOP_VCC_10" },
+        "corrected": { "startHole": "PWR_VCC_1", "endHole": "BB_D10" },
+        "reason": "Connected +5V directly to Pin 14 of the 7432 IC."
+      },
+      {
+        "type": "modified",
+        "wireId": "w_gnd_1",
+        "original": { "startHole": "PWR_GND_1", "endHole": "BUS_MID_0_GND_16" },
+        "corrected": { "startHole": "PWR_GND_1", "endHole": "BB_G16" },
+        "reason": "Connected GND directly to Pin 7 of the 7432 IC."
+      },
+      {
+        "type": "modified",
+        "wireId": "w_vcc_2",
+        "original": { "startHole": "PWR_VCC_2", "endHole": "BUS_TOP_VCC_20" },
+        "corrected": { "startHole": "BB_C10", "endHole": "BB_D20" },
+        "reason": "Chained +5V to Pin 14 of the 7404 IC."
+      },
+      {
+        "type": "modified",
+        "wireId": "w_gnd_2",
+        "original": { "startHole": "PWR_GND_2", "endHole": "BUS_MID_0_GND_26" },
+        "corrected": { "startHole": "BB_H16", "endHole": "BB_G26" },
+        "reason": "Chained GND to Pin 7 of the 7404 IC."
+      },
+      {
+        "type": "modified",
+        "wireId": "w_sw2_fault",
+        "original": { "startHole": "SWITCH_OUT_2", "endHole": "BB_J13" },
+        "corrected": { "startHole": "SWITCH_OUT_2", "endHole": "BB_G11" },
+        "reason": "Connected I2 to Pin 2 of OR Gate 1 for Y1 = I3 + I2."
+      },
+      {
+        "type": "modified",
+        "wireId": "w_sw3_y1",
+        "original": { "startHole": "SWITCH_OUT_3", "endHole": "BB_J10" },
+        "corrected": { "startHole": "SWITCH_OUT_3", "endHole": "BB_G10" },
+        "reason": "Connected I3 to Pin 1 of OR Gate 1 for Y1 = I3 + I2."
+      },
+      {
+        "type": "modified",
+        "wireId": "w_sw3_y0",
+        "original": { "startHole": "SWITCH_OUT_3", "endHole": "BB_J11" },
+        "corrected": { "startHole": "SWITCH_OUT_3", "endHole": "BB_G13" },
+        "reason": "Connected I3 to Pin 4 of OR Gate 2 for Y0."
+      },
+      {
+        "type": "added",
+        "wireId": "w_sw1_to_inv",
+        "startHole": "SWITCH_OUT_1",
+        "endHole": "BB_G20",
+        "color": "#38bdf8",
+        "reason": "Fed I1 into Inverter 1 (7404 Pin 1) to produce ~I1."
+      },
+      {
+        "type": "added",
+        "wireId": "w_not_i1_to_or3",
+        "startHole": "BB_G21",
+        "endHole": "BB_D15",
+        "color": "#38bdf8",
+        "reason": "Connected ~I1 (7404 Pin 2) to 7432 Pin 9."
+      },
+      {
+        "type": "added",
+        "wireId": "w_i2_to_or3",
+        "startHole": "BB_H11",
+        "endHole": "BB_D14",
+        "color": "#f59e0b",
+        "reason": "Connected I2 to 7432 Pin 10 to compute (~I1 + I2)."
+      },
+      {
+        "type": "added",
+        "wireId": "w_or3_to_inv2",
+        "startHole": "BB_D16",
+        "endHole": "BB_G22",
+        "color": "#a855f7",
+        "reason": "Fed (~I1 + I2) into 7404 Pin 3 to invert into (I1 * ~I2)."
+      },
+      {
+        "type": "added",
+        "wireId": "w_term_to_or2",
+        "startHole": "BB_G23",
+        "endHole": "BB_G14",
+        "color": "#a855f7",
+        "reason": "Fed (I1 * ~I2) from 7404 Pin 4 into 7432 Pin 5 for Y0."
+      }
+    ]
+  },
+  "placedIcs": [
+    {
+      "id": "ic_placed_7432_1",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 10
+    },
+    {
+      "id": "ic_placed_7404_1",
+      "icTypeId": "7404",
+      "blockId": "M1",
+      "startCol": 20
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_vcc_1",
+      "startHole": "PWR_VCC_1",
+      "endHole": "BB_D10",
+      "color": "#ef4444"
+    },
+    {
+      "id": "w_gnd_1",
+      "startHole": "PWR_GND_1",
+      "endHole": "BB_G16",
+      "color": "#18181b"
+    },
+    {
+      "id": "w_vcc_2",
+      "startHole": "BB_C10",
+      "endHole": "BB_D20",
+      "color": "#ef4444"
+    },
+    {
+      "id": "w_gnd_2",
+      "startHole": "BB_H16",
+      "endHole": "BB_G26",
+      "color": "#18181b"
+    },
+    {
+      "id": "w_sw3_y1",
+      "startHole": "SWITCH_OUT_3",
+      "endHole": "BB_G10",
+      "color": "#ef4444"
+    },
+    {
+      "id": "w_sw2_fault",
+      "startHole": "SWITCH_OUT_2",
+      "endHole": "BB_G11",
+      "color": "#ef4444"
+    },
+    {
+      "id": "w_sw3_y0",
+      "startHole": "SWITCH_OUT_3",
+      "endHole": "BB_G13",
+      "color": "#ef4444"
+    },
+    {
+      "id": "w_out_y1",
+      "startHole": "BB_G12",
+      "endHole": "LED_IN_1",
+      "color": "#22c55e"
+    },
+    {
+      "id": "w_out_y0",
+      "startHole": "BB_G15",
+      "endHole": "LED_IN_0",
+      "color": "#22c55e"
+    },
+    {
+      "id": "w_sw1_to_inv",
+      "startHole": "SWITCH_OUT_1",
+      "endHole": "BB_G20",
+      "color": "#38bdf8"
+    },
+    {
+      "id": "w_not_i1_to_or3",
+      "startHole": "BB_G21",
+      "endHole": "BB_D15",
+      "color": "#38bdf8"
+    },
+    {
+      "id": "w_i2_to_or3",
+      "startHole": "BB_H11",
+      "endHole": "BB_D14",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "w_or3_to_inv2",
+      "startHole": "BB_D16",
+      "endHole": "BB_G22",
+      "color": "#a855f7"
+    },
+    {
+      "id": "w_term_to_or2",
+      "startHole": "BB_G23",
+      "endHole": "BB_G14",
+      "color": "#a855f7"
+    }
+  ]
+}

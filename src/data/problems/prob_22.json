@@ -5,7 +5,7 @@
   "description": "Implement the Boolean function F = (XY' + X'Y)(A + B') using only NAND gates. Map inputs X, Y, A, B to SW0-SW3 respectively, and output F to LED0.",
   "difficulty": "Medium",
   "category": "design",
-  "author": "Jarin Subah, Tabassum Binte Kamal",
+  "author": "Jarin, Tabassum",
   "tags": [
     "NAND Gates",
     "Multilevel Logic",

@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "problemId": "prob_2",
+  "exportedAt": "2026-08-14T09:15:00.000Z",
+  "placedIcs": [
+    {
+      "id": "ic_7404",
+      "icTypeId": "7404",
+      "blockId": "M1",
+      "startCol": 5
+    },
+    {
+      "id": "ic_7408",
+      "icTypeId": "7408",
+      "blockId": "M1",
+      "startCol": 20
+    },
+    {
+      "id": "ic_7432",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 35
+    }
+  ],
+  "wires": [
+    { "id": "w_vcc_04", "startHole": "PWR_VCC_1", "endHole": "BB_D5", "color": "#ef4444" },
+    { "id": "w_vcc_08", "startHole": "BB_C5", "endHole": "BB_D20", "color": "#ef4444" },
+    { "id": "w_vcc_32", "startHole": "BB_C20", "endHole": "BB_D35", "color": "#ef4444" },
+    { "id": "w_gnd_04", "startHole": "PWR_GND_1", "endHole": "BB_G11", "color": "#18181b" },
+    { "id": "w_gnd_08", "startHole": "BB_H11", "endHole": "BB_G26", "color": "#18181b" },
+    { "id": "w_gnd_32", "startHole": "BB_H26", "endHole": "BB_G41", "color": "#18181b" },
+
+    { "id": "w_sw3_to_inv_in", "startHole": "SWITCH_OUT_3", "endHole": "BB_G5", "color": "#a855f7" },
+
+    { "id": "w_sw0_to_and1a", "startHole": "SWITCH_OUT_0", "endHole": "BB_G20", "color": "#10b981" },
+    { "id": "w_sw1_to_and1b", "startHole": "SWITCH_OUT_1", "endHole": "BB_G21", "color": "#3b82f6" },
+
+    { "id": "w_sw1_to_and2a", "startHole": "BB_H21", "endHole": "BB_G23", "color": "#3b82f6" },
+    { "id": "w_sw2_to_and2b", "startHole": "SWITCH_OUT_2", "endHole": "BB_G24", "color": "#f59e0b" },
+
+    { "id": "w_sw0_to_and3a", "startHole": "BB_H20", "endHole": "BB_D25", "color": "#10b981" },
+    { "id": "w_sw2_to_and3b", "startHole": "BB_H24", "endHole": "BB_D24", "color": "#f59e0b" },
+
+    { "id": "w_ab_to_or1a", "startHole": "BB_G22", "endHole": "BB_G35", "color": "#06b6d4" },
+    { "id": "w_bc_to_or1b", "startHole": "BB_G25", "endHole": "BB_G36", "color": "#06b6d4" },
+
+    { "id": "w_or1_to_or2a", "startHole": "BB_G37", "endHole": "BB_G38", "color": "#06b6d4" },
+    { "id": "w_ac_to_or2b", "startHole": "BB_D26", "endHole": "BB_G39", "color": "#06b6d4" },
+
+    { "id": "w_maj_to_and4a", "startHole": "BB_G40", "endHole": "BB_D22", "color": "#06b6d4" },
+    { "id": "w_fbar_to_and4b", "startHole": "BB_G6", "endHole": "BB_D21", "color": "#a855f7" },
+
+    { "id": "w_fan_to_led0", "startHole": "BB_D23", "endHole": "LED_IN_0", "color": "#ef4444" }
+  ]
+}

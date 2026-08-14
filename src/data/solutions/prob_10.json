@@ -1,0 +1,230 @@
+{
+  "version": "1.0",
+  "problemId": "prob_10",
+  "exportedAt": "2026-08-15T02:00:00.000Z",
+  "debugChanges": {
+    "summary": "Fixed floating gate inputs by routing OR output Y1 from bottom-row Pin 3 (BB_G32) instead of top-row Pin 12, moved Y0 LED wire to full term output 7408 Pin 6 (BB_H25), connected ~D0 to 7408 Pin 1, and grounded the 7408 IC.",
+    "fixes": [
+      {
+        "type": "added",
+        "wireId": "wire_ic2_gnd",
+        "reason": "Connected Pin 7 (GND) of the 7408 AND IC (BB_G26) to the ground bus rail (BUS_MID_0_GND_26)."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_not_d0_out_to_and",
+        "reason": "Connected inverted D0 signal (~D0) from 7404 Pin 2 (BB_H11) to 7408 Pin 1 (BB_J20) for term ~D0 * D1."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_or_v_1",
+        "original": { "startHole": "BB_C32", "endHole": "BB_J40" },
+        "corrected": { "startHole": "BB_G32", "endHole": "BB_J40" },
+        "reason": "Re-routed feed for V from bottom-row Pin 3 output (BB_G32) instead of top-row Pin 12 input (BB_C32) to resolve both floating pin warnings."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786604674335_tqk1w",
+        "original": { "startHole": "BB_I22", "endHole": "LED_IN_1" },
+        "corrected": { "startHole": "BB_H25", "endHole": "LED_IN_1" },
+        "reason": "Connected LED1 (Y0) to Pin 6 (BB_H25) of 7408 which outputs D2'(D3 + D0'D1) instead of Pin 3 subterm."
+      }
+    ]
+  },
+  "placedIcs": [
+    {
+      "id": "ic_7404_not",
+      "icTypeId": "7404",
+      "blockId": "M1",
+      "startCol": 10
+    },
+    {
+      "id": "ic_7408_and",
+      "icTypeId": "7408",
+      "blockId": "M1",
+      "startCol": 20
+    },
+    {
+      "id": "ic_7432_or_1",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 30
+    },
+    {
+      "id": "ic_7432_or_2",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 40
+    }
+  ],
+  "wires": [
+    {
+      "id": "wire_pwr_vcc",
+      "startHole": "PWR_VCC_1",
+      "endHole": "BUS_TOP_VCC_1",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_pwr_gnd",
+      "startHole": "PWR_GND_2",
+      "endHole": "BUS_MID_0_GND_1",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic1_vcc",
+      "startHole": "BB_E10",
+      "endHole": "BUS_TOP_VCC_10",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic1_gnd",
+      "startHole": "BB_G16",
+      "endHole": "BUS_MID_0_GND_16",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic2_vcc",
+      "startHole": "BB_E20",
+      "endHole": "BUS_TOP_VCC_20",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic2_gnd",
+      "startHole": "BB_G26",
+      "endHole": "BUS_MID_0_GND_26",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic3_vcc",
+      "startHole": "BB_E30",
+      "endHole": "BUS_TOP_VCC_30",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic3_gnd",
+      "startHole": "BB_G36",
+      "endHole": "BUS_MID_0_GND_36",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic4_vcc",
+      "startHole": "BB_E40",
+      "endHole": "BUS_TOP_VCC_40",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_ic4_gnd",
+      "startHole": "BB_G46",
+      "endHole": "BUS_MID_0_GND_46",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_in_d3",
+      "startHole": "SWITCH_OUT_0",
+      "endHole": "BB_J30",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_in_d2",
+      "startHole": "SWITCH_OUT_1",
+      "endHole": "BB_J31",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_in_d1",
+      "startHole": "SWITCH_OUT_2",
+      "endHole": "BB_J21",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_in_d0",
+      "startHole": "SWITCH_OUT_3",
+      "endHole": "BB_J10",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_not_d0_in",
+      "startHole": "BB_H10",
+      "endHole": "BB_I10",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_not_d0_out_to_and",
+      "startHole": "BB_H11",
+      "endHole": "BB_J20",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_not_d2_in",
+      "startHole": "BB_H12",
+      "endHole": "BB_H31",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_and_d0not_d1_out",
+      "startHole": "BB_H22",
+      "endHole": "BB_J33",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_or_d3_d0notd1_in",
+      "startHole": "BB_I30",
+      "endHole": "BB_J34",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_or_d3_d0notd1_out",
+      "startHole": "BB_H35",
+      "endHole": "BB_J24",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_and_d2not_rest_in",
+      "startHole": "BB_H13",
+      "endHole": "BB_J23",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_y1_out",
+      "startHole": "BB_H32",
+      "endHole": "LED_IN_0",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_or_v_1",
+      "startHole": "BB_G32",
+      "endHole": "BB_J40",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_or_v_2_in1",
+      "startHole": "BB_G21",
+      "endHole": "BB_J43",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_or_v_2_in2",
+      "startHole": "BB_G10",
+      "endHole": "BB_J44",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_or_v_2_out",
+      "startHole": "BB_H45",
+      "endHole": "BB_J41",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_v_out",
+      "startHole": "BB_H42",
+      "endHole": "LED_IN_2",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786604674335_tqk1w",
+      "startHole": "BB_H25",
+      "endHole": "LED_IN_1",
+      "color": "#ef4444"
+    }
+  ]
+}

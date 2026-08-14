@@ -6,7 +6,7 @@
   "difficulty": "Hard",
   "category": "design",
   "tags": ["Arithmetic", "Adder", "CLA", "7486", "7408", "7432"],
-  "author": "Siratul Mustakim Arman, Tanzimul Hasan Tahsin",
+  "author": "Arman, Tanzim",
   "ioMapping": {
     "inputs": [
       { "name": "A3", "switchIndex": 0 },

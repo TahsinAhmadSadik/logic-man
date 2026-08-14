@@ -1,0 +1,233 @@
+{
+  "version": "1.0",
+  "problemId": "prob_90",
+  "exportedAt": "2026-08-14T23:45:00.000Z",
+  "debugChanges": {
+    "summary": "Fixed misplaced MUX output wire, grounded 74153 enable strobe, connected 74153 1C3 input to VCC, supplied missing VCC to 7404, and corrected shorted/shifted power & ground connections on the 7408.",
+    "fixes": [
+      {
+        "type": "modified",
+        "wireId": "wire_1786634338098_oveua",
+        "original": { "startHole": "BB_G17", "endHole": "LED_IN_0" },
+        "corrected": { "startHole": "BB_G18", "endHole": "LED_IN_0" },
+        "reason": "Moved output LED wire from Pin 6 (data input 1C0) to Pin 7 (MUX output 1Y) on the 74153."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_fix_74153_1g_gnd",
+        "startHole": "BUS_TOP_GND_12",
+        "endHole": "BB_G12",
+        "color": "#18181b",
+        "reason": "Grounded Pin 1 (1G enable strobe) of 74153 to enable multiplexer output."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_fix_74153_1c3_vcc",
+        "startHole": "BUS_TOP_VCC_14",
+        "endHole": "BB_G14",
+        "color": "#ef4444",
+        "reason": "Connected Pin 3 (data input 1C3) of 74153 to VCC (Logic 1) for condition AB = 11."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786634216765_7d7gb",
+        "original": { "startHole": "BB_N43", "endHole": "BUS_TOP_GND_42" },
+        "corrected": { "startHole": "BB_N43", "endHole": "BUS_TOP_VCC_42" },
+        "reason": "Moved 7408 VCC wire (Pin 14) from GND bus to VCC bus."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786634200981_jnjjx",
+        "original": { "startHole": "BB_R48", "endHole": "BUS_TOP_GND_47" },
+        "corrected": { "startHole": "BB_R49", "endHole": "BUS_TOP_GND_47" },
+        "reason": "Moved 7408 ground wire from Pin 6 (BB_R48) to Pin 7 GND (BB_R49)."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_fix_7404_vcc",
+        "startHole": "BUS_TOP_VCC_35",
+        "endHole": "BB_X35",
+        "color": "#ef4444",
+        "reason": "Connected Pin 14 (VCC) of the 7404 Hex Inverter IC in block M3 to the VCC rail."
+      }
+    ]
+  },
+  "placedIcs": [
+    {
+      "id": "ic_placed_1786462114237_ulkys",
+      "icTypeId": "74153",
+      "blockId": "M1",
+      "startCol": 12
+    },
+    {
+      "id": "ic_placed_1786462303988_87zcw",
+      "icTypeId": "7432",
+      "blockId": "M2",
+      "startCol": 29
+    },
+    {
+      "id": "ic_placed_1786462337357_ueaoq",
+      "icTypeId": "7404",
+      "blockId": "M3",
+      "startCol": 35
+    },
+    {
+      "id": "ic_placed_1786464700802_3y52e",
+      "icTypeId": "7408",
+      "blockId": "M2",
+      "startCol": 43
+    }
+  ],
+  "wires": [
+    {
+      "id": "wire_1786462135699_6bz1v",
+      "startHole": "PWR_GND_2",
+      "endHole": "BUS_TOP_GND_1",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786462142832_nbalt",
+      "startHole": "PWR_VCC_2",
+      "endHole": "BUS_TOP_VCC_1",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786462227420_inyfu",
+      "startHole": "SWITCH_OUT_0",
+      "endHole": "BB_G13",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "wire_1786462266811_256yu",
+      "startHole": "BB_D14",
+      "endHole": "SWITCH_OUT_1",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786462647617_1w8l6",
+      "startHole": "SWITCH_OUT_3",
+      "endHole": "BUS_BOT_VCC_64",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786462661995_qrupi",
+      "startHole": "SWITCH_OUT_2",
+      "endHole": "BUS_BOT_GND_1",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786462685561_147kl",
+      "startHole": "BUS_BOT_VCC_18",
+      "endHole": "BB_J17",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786462705880_7phab",
+      "startHole": "BUS_BOT_GND_26",
+      "endHole": "BB_T29",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786462717020_3nqhc",
+      "startHole": "BUS_BOT_VCC_28",
+      "endHole": "BB_T30",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786462737164_fsjfq",
+      "startHole": "BB_T31",
+      "endHole": "BB_AA35",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786462781217_b4tua",
+      "startHole": "BUS_BOT_GND_45",
+      "endHole": "BB_Q43",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786462885517_nqqa4",
+      "startHole": "BB_AA36",
+      "endHole": "BB_J16",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786462896870_olmt1",
+      "startHole": "BUS_BOT_VCC_46",
+      "endHole": "BB_Q44",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786462906443_uk3te",
+      "startHole": "BB_Q45",
+      "endHole": "BB_H15",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786634200981_jnjjx",
+      "startHole": "BB_R49",
+      "endHole": "BUS_TOP_GND_47",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786634216765_7d7gb",
+      "startHole": "BB_N43",
+      "endHole": "BUS_TOP_VCC_42",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786634338098_oveua",
+      "startHole": "BB_G18",
+      "endHole": "LED_IN_0",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "wire_1786634406038_0hero",
+      "startHole": "BB_G19",
+      "endHole": "BUS_TOP_GND_19",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786634419863_2bbki",
+      "startHole": "BB_Q35",
+      "endHole": "BUS_TOP_GND_34",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786634434169_y3vzf",
+      "startHole": "BUS_TOP_GND_38",
+      "endHole": "BB_AA41",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_1786634446829_ft2zj",
+      "startHole": "BB_N29",
+      "endHole": "BUS_TOP_VCC_29",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786634455354_fqdjx",
+      "startHole": "BB_D12",
+      "endHole": "BUS_TOP_VCC_12",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_fix_74153_1g_gnd",
+      "startHole": "BUS_TOP_GND_12",
+      "endHole": "BB_G12",
+      "color": "#18181b"
+    },
+    {
+      "id": "wire_fix_74153_1c3_vcc",
+      "startHole": "BUS_TOP_VCC_14",
+      "endHole": "BB_G14",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_fix_7404_vcc",
+      "startHole": "BUS_TOP_VCC_35",
+      "endHole": "BB_X35",
+      "color": "#ef4444"
+    }
+  ]
+}

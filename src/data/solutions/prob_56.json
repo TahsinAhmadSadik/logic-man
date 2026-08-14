@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "problemId": "prob_56",
+  "exportedAt": "2026-08-14T17:15:00.000Z",
+  "placedIcs": [
+    {
+      "id": "ic_7408_1",
+      "icTypeId": "7408",
+      "blockId": "M1",
+      "startCol": 10
+    },
+    {
+      "id": "ic_7432_1",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 25
+    }
+  ],
+  "wires": [
+    { "id": "w_vcc_08", "startHole": "PWR_VCC_1", "endHole": "BB_D10", "color": "#ef4444" },
+    { "id": "w_vcc_32", "startHole": "BB_C10", "endHole": "BB_D25", "color": "#ef4444" },
+
+    { "id": "w_gnd_08", "startHole": "PWR_GND_1", "endHole": "BB_G16", "color": "#18181b" },
+    { "id": "w_gnd_32", "startHole": "BB_H16", "endHole": "BB_G31", "color": "#18181b" },
+
+    { "id": "w_in_d3", "startHole": "SWITCH_OUT_3", "endHole": "BB_G10", "color": "#bfdbfe" },
+    { "id": "w_d3_to_gate2", "startHole": "BB_H10", "endHole": "BB_G13", "color": "#bfdbfe" },
+
+    { "id": "w_in_d2", "startHole": "SWITCH_OUT_2", "endHole": "BB_G11", "color": "#93c5fd" },
+    { "id": "w_in_d1", "startHole": "SWITCH_OUT_1", "endHole": "BB_G14", "color": "#60a5fa" },
+
+    { "id": "w_t1_to_or", "startHole": "BB_G12", "endHole": "BB_G25", "color": "#06b6d4" },
+    { "id": "w_t2_to_or", "startHole": "BB_G15", "endHole": "BB_G26", "color": "#06b6d4" },
+
+    { "id": "w_out_y", "startHole": "BB_G27", "endHole": "LED_IN_0", "color": "#ef4444" }
+  ]
+}

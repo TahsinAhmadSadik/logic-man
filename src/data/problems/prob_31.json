@@ -6,7 +6,7 @@
   "difficulty": "Medium",
   "category": "design",
   "tags": ["Arithmetic", "Subtractor", "7486", "7404", "7408", "7432"],
-  "author": "Siratul Mustakim Arman, Tanzimul Hasan Tahsin",
+  "author": "Arman, Tanzim",
   "ioMapping": {
     "inputs": [
       { "name": "A", "switchIndex": 0 },

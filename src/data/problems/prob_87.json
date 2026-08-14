@@ -12,7 +12,7 @@
     "Logic Gates",
     "74153"
   ],
-  "author": "Ali Tahmid Chowdhury, Abdur Rahman Rounak",
+  "author": "Tahmid, Rounak",
   "ioMapping": {
     "inputs": [
       { "name": "D0", "switchIndex": 0 },

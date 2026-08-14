@@ -6,7 +6,7 @@
   "difficulty": "Hard",
   "category": "design",
   "tags": ["Arithmetic", "Multiplier", "7408", "7486"],
-  "author": "Siratul Mustakim Arman, Tanzimul Hasan Tahsin",
+  "author": "Arman, Tanzim",
   "ioMapping": {
     "inputs": [
       { "name": "X1", "switchIndex": 0 },

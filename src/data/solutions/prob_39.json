@@ -1,0 +1,108 @@
+{
+  "version": "1.0",
+  "problemId": "prob_39",
+  "exportedAt": "2026-08-15T00:15:00.000Z",
+  "debugChanges": {
+    "summary": "Corrected reversed VCC/GND polarity, established power chaining to all four ICs, and wired the 1-bit Full Subtractor equations for Difference D = x ⊕ y ⊕ z and Borrow B = (x ⊕ y)'z + x'y.",
+    "fixes": [
+      {
+        "type": "modified",
+        "wireId": "wire_1786552882536_gpmda",
+        "original": { "startHole": "BB_D11", "endHole": "PWR_GND_2" },
+        "corrected": { "startHole": "BB_D11", "endHole": "PWR_VCC_1" },
+        "reason": "Corrected Pin 14 of 7486 from GND to +5V (VCC)."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786552896961_5kc6a",
+        "original": { "startHole": "BB_H17", "endHole": "PWR_VCC_2" },
+        "corrected": { "startHole": "BB_G17", "endHole": "PWR_GND_1" },
+        "reason": "Corrected Pin 7 of 7486 from VCC to GND."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786552872648_2xkbr",
+        "original": { "startHole": "BB_R17", "endHole": "SWITCH_OUT_0" },
+        "corrected": { "startHole": "BB_G11", "endHole": "SWITCH_OUT_0" },
+        "reason": "Connected input x directly to Pin 1 of 7486 XOR gate."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786552920809_bswjc",
+        "original": { "startHole": "BB_R19", "endHole": "SWITCH_OUT_2" },
+        "corrected": { "startHole": "BB_G15", "endHole": "SWITCH_OUT_2" },
+        "reason": "Connected input z to Pin 5 of 7486 XOR gate instead of shorting an AND gate output."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786552907675_7h67d",
+        "original": { "startHole": "BB_H28", "endHole": "BB_R23" },
+        "corrected": { "startHole": "BB_H11", "endHole": "BB_G28" },
+        "reason": "Routed input x to 7404 Pin 1 to generate ~x."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786552925561_j21gk",
+        "original": { "startHole": "BB_R20", "endHole": "BB_H34" },
+        "corrected": { "startHole": "BB_G29", "endHole": "BB_R20" },
+        "reason": "Connected ~x from 7404 Pin 2 to 7408 Pin 4 for product term ~x*y."
+      }
+    ]
+  },
+  "placedIcs": [
+    {
+      "id": "ic_placed_1786552665754_tno5n",
+      "icTypeId": "7486",
+      "blockId": "M1",
+      "startCol": 11
+    },
+    {
+      "id": "ic_placed_1786552766239_fof5r",
+      "icTypeId": "7404",
+      "blockId": "M1",
+      "startCol": 28
+    },
+    {
+      "id": "ic_placed_1786552858859_orjk6",
+      "icTypeId": "7408",
+      "blockId": "M2",
+      "startCol": 17
+    },
+    {
+      "id": "ic_placed_1786552865249_w4rg0",
+      "icTypeId": "7432",
+      "blockId": "M2",
+      "startCol": 45
+    }
+  ],
+  "wires": [
+    { "id": "wire_1786552882536_gpmda", "startHole": "BB_D11", "endHole": "PWR_VCC_1", "color": "#ef4444" },
+    { "id": "wire_1786552896961_5kc6a", "startHole": "BB_G17", "endHole": "PWR_GND_1", "color": "#18181b" },
+    { "id": "w_vcc_04", "startHole": "BB_C11", "endHole": "BB_D28", "color": "#ef4444" },
+    { "id": "w_vcc_08", "startHole": "BB_C28", "endHole": "BB_N17", "color": "#ef4444" },
+    { "id": "w_vcc_32", "startHole": "BB_M17", "endHole": "BB_N45", "color": "#ef4444" },
+    { "id": "w_gnd_04", "startHole": "BB_H17", "endHole": "BB_G34", "color": "#18181b" },
+    { "id": "w_gnd_08", "startHole": "BB_H34", "endHole": "BB_S23", "color": "#18181b" },
+    { "id": "w_gnd_32", "startHole": "BB_T23", "endHole": "BB_S51", "color": "#18181b" },
+
+    { "id": "wire_1786552872648_2xkbr", "startHole": "BB_G11", "endHole": "SWITCH_OUT_0", "color": "#3b82f6" },
+    { "id": "w_in_y", "startHole": "SWITCH_OUT_1", "endHole": "BB_G12", "color": "#60a5fa" },
+    { "id": "wire_1786552920809_bswjc", "startHole": "BB_G15", "endHole": "SWITCH_OUT_2", "color": "#93c5fd" },
+
+    { "id": "w_xor1_out_to_xor2", "startHole": "BB_G13", "endHole": "BB_G14", "color": "#a855f7" },
+    { "id": "w_out_d", "startHole": "BB_G16", "endHole": "LED_IN_1", "color": "#22c55e" },
+
+    { "id": "wire_1786552907675_7h67d", "startHole": "BB_H11", "endHole": "BB_G28", "color": "#3b82f6" },
+    { "id": "w_xor1_to_inv2", "startHole": "BB_H13", "endHole": "BB_G30", "color": "#a855f7" },
+
+    { "id": "w_x_xor_y_bar_to_and1", "startHole": "BB_G31", "endHole": "BB_R17", "color": "#06b6d4" },
+    { "id": "w_z_to_and1", "startHole": "BB_H15", "endHole": "BB_R18", "color": "#93c5fd" },
+
+    { "id": "wire_1786552925561_j21gk", "startHole": "BB_G29", "endHole": "BB_R20", "color": "#06b6d4" },
+    { "id": "w_y_to_and2", "startHole": "BB_H12", "endHole": "BB_R21", "color": "#60a5fa" },
+
+    { "id": "w_and1_to_or1", "startHole": "BB_R19", "endHole": "BB_R45", "color": "#f59e0b" },
+    { "id": "w_and2_to_or1", "startHole": "BB_R22", "endHole": "BB_R46", "color": "#f59e0b" },
+    { "id": "w_out_b", "startHole": "BB_R47", "endHole": "LED_IN_0", "color": "#22c55e" }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "problemId": "prob_3",
+  "exportedAt": "2026-08-14T09:25:00.000Z",
+  "placedIcs": [
+    {
+      "id": "ic_7404_1",
+      "icTypeId": "7404",
+      "blockId": "M1",
+      "startCol": 5
+    },
+    {
+      "id": "ic_7408_1",
+      "icTypeId": "7408",
+      "blockId": "M1",
+      "startCol": 20
+    },
+    {
+      "id": "ic_7432_1",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 35
+    }
+  ],
+  "wires": [
+    { "id": "w_vcc_04", "startHole": "PWR_VCC_1", "endHole": "BB_D5", "color": "#ef4444" },
+    { "id": "w_vcc_08", "startHole": "BB_C5", "endHole": "BB_D20", "color": "#ef4444" },
+    { "id": "w_vcc_32", "startHole": "BB_C20", "endHole": "BB_D35", "color": "#ef4444" },
+    { "id": "w_gnd_04", "startHole": "PWR_GND_1", "endHole": "BB_G11", "color": "#18181b" },
+    { "id": "w_gnd_08", "startHole": "BB_H11", "endHole": "BB_G26", "color": "#18181b" },
+    { "id": "w_gnd_32", "startHole": "BB_H26", "endHole": "BB_G41", "color": "#18181b" },
+
+    { "id": "w_sw0_to_inv1_in", "startHole": "SWITCH_OUT_0", "endHole": "BB_G5", "color": "#3b82f6" },
+    { "id": "w_sw1_to_inv2_in", "startHole": "SWITCH_OUT_1", "endHole": "BB_G7", "color": "#10b981" },
+
+    { "id": "w_x_to_and1a", "startHole": "BB_H5", "endHole": "BB_G20", "color": "#3b82f6" },
+    { "id": "w_ybar_to_and1b", "startHole": "BB_G8", "endHole": "BB_G21", "color": "#10b981" },
+
+    { "id": "w_xbar_to_and2a", "startHole": "BB_G6", "endHole": "BB_G23", "color": "#3b82f6" },
+    { "id": "w_y_to_and2b", "startHole": "BB_H7", "endHole": "BB_G24", "color": "#10b981" },
+
+    { "id": "w_x_to_and3a", "startHole": "BB_H20", "endHole": "BB_D25", "color": "#3b82f6" },
+    { "id": "w_y_to_and3b", "startHole": "BB_H24", "endHole": "BB_D24", "color": "#10b981" },
+
+    { "id": "w_xbar_to_and4a", "startHole": "BB_H23", "endHole": "BB_D22", "color": "#3b82f6" },
+    { "id": "w_ybar_to_and4b", "startHole": "BB_H21", "endHole": "BB_D21", "color": "#10b981" },
+
+    { "id": "w_xy_to_or1a", "startHole": "BB_D26", "endHole": "BB_G35", "color": "#8b5cf6" },
+    { "id": "w_xbarybar_to_or1b", "startHole": "BB_D23", "endHole": "BB_G36", "color": "#8b5cf6" },
+
+    { "id": "w_out_gt", "startHole": "BB_G22", "endHole": "LED_IN_0", "color": "#ef4444" },
+    { "id": "w_out_eq", "startHole": "BB_G37", "endHole": "LED_IN_1", "color": "#ef4444" },
+    { "id": "w_out_lt", "startHole": "BB_G25", "endHole": "LED_IN_2", "color": "#ef4444" }
+  ]
+}

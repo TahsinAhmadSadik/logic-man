@@ -1,0 +1,89 @@
+{
+  "version": "1.0",
+  "problemId": "prob_4",
+  "exportedAt": "2026-08-14T09:45:00.000Z",
+  "placedIcs": [
+    {
+      "id": "ic_7404_1",
+      "icTypeId": "7404",
+      "blockId": "M1",
+      "startCol": 5
+    },
+    {
+      "id": "ic_7408_1",
+      "icTypeId": "7408",
+      "blockId": "M1",
+      "startCol": 20
+    },
+    {
+      "id": "ic_7432_1",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 35
+    },
+    {
+      "id": "ic_7408_2",
+      "icTypeId": "7408",
+      "blockId": "M2",
+      "startCol": 20
+    },
+    {
+      "id": "ic_7432_2",
+      "icTypeId": "7432",
+      "blockId": "M2",
+      "startCol": 35
+    }
+  ],
+  "wires": [
+    { "id": "w_vcc_04_1", "startHole": "PWR_VCC_1", "endHole": "BB_D5", "color": "#ef4444" },
+    { "id": "w_vcc_08_1", "startHole": "BB_C5", "endHole": "BB_D20", "color": "#ef4444" },
+    { "id": "w_vcc_32_1", "startHole": "BB_C20", "endHole": "BB_D35", "color": "#ef4444" },
+    { "id": "w_vcc_08_2", "startHole": "BB_C35", "endHole": "BB_N20", "color": "#ef4444" },
+    { "id": "w_vcc_32_2", "startHole": "BB_M20", "endHole": "BB_N35", "color": "#ef4444" },
+
+    { "id": "w_gnd_04_1", "startHole": "PWR_GND_1", "endHole": "BB_G11", "color": "#18181b" },
+    { "id": "w_gnd_08_1", "startHole": "BB_H11", "endHole": "BB_G26", "color": "#18181b" },
+    { "id": "w_gnd_32_1", "startHole": "BB_H26", "endHole": "BB_G41", "color": "#18181b" },
+    { "id": "w_gnd_08_2", "startHole": "BB_H41", "endHole": "BB_Q26", "color": "#18181b" },
+    { "id": "w_gnd_32_2", "startHole": "BB_R26", "endHole": "BB_Q41", "color": "#18181b" },
+
+    { "id": "w_in_a", "startHole": "SWITCH_OUT_0", "endHole": "BB_G5", "color": "#3b82f6" },
+    { "id": "w_in_b", "startHole": "SWITCH_OUT_1", "endHole": "BB_G7", "color": "#10b981" },
+    { "id": "w_in_cin", "startHole": "SWITCH_OUT_2", "endHole": "BB_G9", "color": "#f59e0b" },
+
+    { "id": "w_a_to_and1a", "startHole": "BB_H5", "endHole": "BB_G20", "color": "#3b82f6" },
+    { "id": "w_bbar_to_and1b", "startHole": "BB_G8", "endHole": "BB_G21", "color": "#10b981" },
+
+    { "id": "w_abar_to_and2a", "startHole": "BB_G6", "endHole": "BB_G23", "color": "#3b82f6" },
+    { "id": "w_b_to_and2b", "startHole": "BB_H7", "endHole": "BB_G24", "color": "#10b981" },
+
+    { "id": "w_a_to_and3a", "startHole": "BB_H20", "endHole": "BB_D25", "color": "#3b82f6" },
+    { "id": "w_b_to_and3b", "startHole": "BB_H24", "endHole": "BB_D24", "color": "#10b981" },
+
+    { "id": "w_abar_to_and4a", "startHole": "BB_H23", "endHole": "BB_D22", "color": "#3b82f6" },
+    { "id": "w_bbar_to_and4b", "startHole": "BB_H21", "endHole": "BB_D21", "color": "#10b981" },
+
+    { "id": "w_abbar_to_or1a", "startHole": "BB_G22", "endHole": "BB_G35", "color": "#06b6d4" },
+    { "id": "w_abarb_to_or1b", "startHole": "BB_G25", "endHole": "BB_G36", "color": "#06b6d4" },
+
+    { "id": "w_ab_to_or2a", "startHole": "BB_D26", "endHole": "BB_G38", "color": "#8b5cf6" },
+    { "id": "w_abarbbar_to_or2b", "startHole": "BB_D23", "endHole": "BB_G39", "color": "#8b5cf6" },
+
+    { "id": "w_p_to_and5a", "startHole": "BB_G37", "endHole": "BB_Q20", "color": "#06b6d4" },
+    { "id": "w_cinbar_to_and5b", "startHole": "BB_G10", "endHole": "BB_Q21", "color": "#f59e0b" },
+
+    { "id": "w_pbar_to_and6a", "startHole": "BB_G40", "endHole": "BB_Q23", "color": "#8b5cf6" },
+    { "id": "w_cin_to_and6b", "startHole": "BB_H9", "endHole": "BB_Q24", "color": "#f59e0b" },
+
+    { "id": "w_p_to_and7a", "startHole": "BB_H37", "endHole": "BB_N25", "color": "#06b6d4" },
+    { "id": "w_cin_to_and7b", "startHole": "BB_I9", "endHole": "BB_N24", "color": "#f59e0b" },
+
+    { "id": "w_pcinbar_to_or3a", "startHole": "BB_Q22", "endHole": "BB_Q35", "color": "#a855f7" },
+    { "id": "w_pbarcin_to_or3b", "startHole": "BB_Q25", "endHole": "BB_Q36", "color": "#a855f7" },
+    { "id": "w_sum_to_led0", "startHole": "BB_Q37", "endHole": "LED_IN_0", "color": "#ef4444" },
+
+    { "id": "w_ab_to_or4a", "startHole": "BB_C26", "endHole": "BB_Q38", "color": "#ec4899" },
+    { "id": "w_pcin_to_or4b", "startHole": "BB_N26", "endHole": "BB_Q39", "color": "#ec4899" },
+    { "id": "w_cout_to_led1", "startHole": "BB_Q40", "endHole": "LED_IN_1", "color": "#ef4444" }
+  ]
+}

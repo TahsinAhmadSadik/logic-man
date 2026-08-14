@@ -5,7 +5,7 @@
   "description": "Construct an OAI (OR-AND-INVERT) circuit for F = ((X + Y)(Z + W)V)' using De Morgan's equivalent form F = (X + Y)' + (Z + W)' + V'. Use IC 7400 (Quad 2-Input NAND) and IC 7427 (Triple 3-Input NOR). Map inputs X, Y, Z, W, V to SW0-SW4 respectively, and output F to LED0.",
   "difficulty": "Medium",
   "category": "design",
-  "author": "Jarin Subah, Tabassum Binte Kamal",
+  "author": "Jarin, Tabassum",
   "tags": [
     "OAI",    
     "7400",
