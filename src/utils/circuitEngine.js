@@ -77,19 +77,26 @@ export const evaluateCircuit = ({
   }
 
   const nodeStates = {};
+  const nodeDrivers = {}; // Track which pin or source actively drives each node
+
   nodeStates[vccNode] = 1;
+  nodeDrivers[vccNode] = 'PWR_VCC';
+
   nodeStates[gndNode] = 0;
+  nodeDrivers[gndNode] = 'PWR_GND';
 
   // Assign Data Switch output states
   for (let i = 0; i < 8; i++) {
     const swNode = getNode(`SWITCH_OUT_${i}`);
     const swVal = switches[i] === 1 ? 1 : 0;
+    const swKey = `SWITCH_${i}`;
 
-    if (nodeStates[swNode] !== undefined && nodeStates[swNode] !== swVal) {
+    if (nodeDrivers[swNode] && nodeDrivers[swNode] !== swKey && nodeStates[swNode] !== swVal) {
       nodeStates[swNode] = 'X';
       logs.push(`[Contention]: Switch ${i} conflicts with another driver on the same node!`);
     } else {
       nodeStates[swNode] = swVal;
+      nodeDrivers[swNode] = swKey;
     }
   }
 
@@ -106,14 +113,14 @@ export const evaluateCircuit = ({
     const topRow = ic.blockId === 'M1' ? 'E' : ic.blockId === 'M2' ? 'O' : 'Y';
     const botRow = ic.blockId === 'M1' ? 'F' : ic.blockId === 'M2' ? 'P' : 'Z';
 
-    // Bottom Pins: Pin 1 (left) to Pin 7 (right)
+    // Bottom Pins: Pin 1 (left) to Pin N/2 (right)
     for (let i = 0; i < pinsPerSide; i++) {
       const pinNum = i + 1;
       const holeId = `BB_${botRow}${ic.startCol + i}`;
       icPinNodes[ic.id][pinNum] = getNode(holeId);
     }
 
-    // Top Pins: Pin 14 (left) to Pin 8 (right)
+    // Top Pins: Pin N (left) to Pin (N/2 + 1) (right)
     for (let i = 0; i < pinsPerSide; i++) {
       const pinNum = icType.pins - i;
       const holeId = `BB_${topRow}${ic.startCol + i}`;
@@ -128,7 +135,7 @@ export const evaluateCircuit = ({
   let changed = true;
   let pass = 0;
 
-  while (changed && pass < 5) {
+  while (changed && pass < 20) {
     changed = false;
     pass++;
 
@@ -157,7 +164,6 @@ export const evaluateCircuit = ({
         const val = nodeStates[n];
 
         if (val === undefined || val === 'Z') {
-          // Fix 1: Only log floating warning if the corresponding output pin is actually connected to a wire/node!
           const outNode = outputPinNum ? pinNodes[outputPinNum] : null;
           const isGateInUse = outNode && activeWiredNodes.has(outNode);
 
@@ -170,29 +176,35 @@ export const evaluateCircuit = ({
           }
           return 1; // TTL default HIGH
         }
+        if (val === 'X') return 0; // Gracefully recover if contention occurred upstream
         return val;
       };
 
       const setPinVal = (pinNum, val) => {
         const n = pinNodes[pinNum];
+        const driverKey = `${ic.id}_pin_${pinNum}`;
 
-        // Fix 2: Unpowered ICs produce dead/floating outputs (0) consistently instead of random jitter, preventing false clash logs
         if (!isPowerValid) {
           val = 0;
         }
 
-        if (nodeStates[n] !== val) {
-          if (nodeStates[n] !== undefined && nodeStates[n] !== val && nodeStates[n] !== 'Z') {
-            const clashMsg = `[Contention]: IC ${icType.name} Pin ${pinNum} caused signal clash on node!`;
-            if (!loggedWarnings.has(clashMsg)) {
-              loggedWarnings.add(clashMsg);
-              logs.push(clashMsg);
-            }
-            nodeStates[n] = 'X';
-          } else {
-            nodeStates[n] = val;
+        // True Contention Check: only trigger if a DIFFERENT driver is pushing a conflicting value
+        if (nodeDrivers[n] && nodeDrivers[n] !== driverKey && nodeStates[n] !== undefined && nodeStates[n] !== val && nodeStates[n] !== 'Z') {
+          const clashMsg = `[Contention]: IC ${icType.name} Pin ${pinNum} caused signal clash on node!`;
+          if (!loggedWarnings.has(clashMsg)) {
+            loggedWarnings.add(clashMsg);
+            logs.push(clashMsg);
           }
-          changed = true;
+          if (nodeStates[n] !== 'X') {
+            nodeStates[n] = 'X';
+            changed = true;
+          }
+        } else {
+          nodeDrivers[n] = driverKey;
+          if (nodeStates[n] !== val) {
+            nodeStates[n] = val;
+            changed = true;
+          }
         }
       };
 
