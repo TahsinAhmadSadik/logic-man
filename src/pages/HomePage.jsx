@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PROBLEMS_INDEX } from '../data/problems';
 import { useSimulatorStore } from '../store/useSimulatorStore';
+import { UserGuideModal } from '../components/UserGuideModal';
 import {
   Wrench,
   Cpu,
@@ -13,16 +14,31 @@ import {
   Users,
   Code2,
   Bug,
-  Play
+  Play,
+  HelpCircle
 } from 'lucide-react';
 
 export const HomePage = () => {
-  const [activeCategory, setActiveCategory] = useState('design'); // 'design' | 'debug'
+  const [activeCategory, setActiveCategory] = useState('design');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
   const [selectedIcTag, setSelectedIcTag] = useState('All');
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
 
   const { completedProblemIds } = useSimulatorStore();
+
+  // Show guide automatically only on the first visit
+  useEffect(() => {
+    const hasSeenGuide = localStorage.getItem('hasSeenLogicManGuide');
+    if (!hasSeenGuide) {
+      setIsGuideOpen(true);
+    }
+  }, []);
+
+  const handleCloseGuide = () => {
+    localStorage.setItem('hasSeenLogicManGuide', 'true');
+    setIsGuideOpen(false);
+  };
 
   const allIcTags = Array.from(
     new Set(PROBLEMS_INDEX.flatMap((p) => p.tags.filter((t) => t.startsWith('74'))))
@@ -56,7 +72,17 @@ export const HomePage = () => {
           <span className="font-bold text-lg tracking-wider text-white">LogicMan</span>
         </div>
 
-        <div className="flex items-center gap-4 text-xs font-medium">
+        <div className="flex items-center gap-3 text-xs font-medium">
+          {/* User Guide Button */}
+          <button
+            onClick={() => setIsGuideOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-800/80 hover:bg-zinc-800 text-zinc-300 hover:text-amber-400 transition-colors border border-zinc-700/60"
+            title="Open Platform Guide"
+          >
+            <HelpCircle size={15} />
+            <span>Guide</span>
+          </button>
+
           {/* Free Sandbox Quick Access */}
           <Link
             to="/problem/free"
@@ -85,6 +111,7 @@ export const HomePage = () => {
             target="_blank"
             rel="noreferrer"
             className="p-2 text-zinc-400 hover:text-white rounded-lg bg-zinc-800/60 hover:bg-zinc-800 transition-colors"
+            title="GitHub Repository"
           >
             <GitBranch size={16} />
           </a>
@@ -119,7 +146,7 @@ export const HomePage = () => {
           </div>
         )}
 
-        {/* Big Toggle Button Bar + Free Sandbox Banner */}
+        {/* Big Toggle Button Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <div className="inline-flex p-1.5 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl">
             <button
@@ -156,7 +183,7 @@ export const HomePage = () => {
         </div>
       </header>
 
-      {/* Main Content Area */}
+      {/* Main Problem Grid */}
       <main className="max-w-5xl mx-auto w-full px-6 pb-20 flex-1 space-y-6">
         {/* Search & Filter Controls */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-3 p-3 bg-zinc-900/60 border border-zinc-800/80 rounded-2xl backdrop-blur">
@@ -198,7 +225,7 @@ export const HomePage = () => {
           </div>
         </div>
 
-        {/* Problem Grid */}
+        {/* Problem Cards */}
         {filteredProblems.length === 0 ? (
           <div className="p-12 text-center border border-dashed border-zinc-800 rounded-2xl space-y-2">
             <p className="text-zinc-400 text-sm font-semibold">No problems found</p>
@@ -211,7 +238,6 @@ export const HomePage = () => {
                 completedProblemIds.includes(prob.id) ||
                 completedProblemIds.includes(String(prob.numId));
 
-              // Max tags to show before grouping extra tags into +N
               const maxVisibleTags = 2;
               const visibleTags = prob.tags.slice(0, maxVisibleTags);
               const hiddenTagCount = prob.tags.length - maxVisibleTags;
@@ -245,10 +271,8 @@ export const HomePage = () => {
                     </p>
                   </div>
 
-                  {/* Clean Single-Line Tag Footer with +N Badge */}
                   <div className="flex items-center justify-between pt-3 border-t border-zinc-800/60 text-[11px] gap-2">
                     <div className="flex items-center gap-1.5 overflow-hidden whitespace-nowrap">
-                      {/* Difficulty Badge */}
                       <span
                         className={`font-semibold px-2 py-0.5 rounded shrink-0 ${
                           prob.difficulty === 'Easy'
@@ -261,7 +285,6 @@ export const HomePage = () => {
                         {prob.difficulty}
                       </span>
 
-                      {/* First N Visible Tags */}
                       {visibleTags.map((tag) => (
                         <span
                           key={tag}
@@ -271,7 +294,6 @@ export const HomePage = () => {
                         </span>
                       ))}
 
-                      {/* +N Overflow Badge */}
                       {hiddenTagCount > 0 && (
                         <span
                           className="font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold shrink-0"
@@ -292,6 +314,12 @@ export const HomePage = () => {
           </div>
         )}
       </main>
+
+      {/* Onboarding Guide Modal */}
+      <UserGuideModal
+        isOpen={isGuideOpen}
+        onClose={handleCloseGuide}
+      />
     </div>
   );
 };

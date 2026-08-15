@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSimulatorStore } from '../store/useSimulatorStore';
 import { getSolutionById } from '../data/solutions';
 import { DebugEditorialModal } from './DebugEditorialModal';
+import { UserGuideModal } from './UserGuideModal';
 import {
   ArrowLeft,
   Award,
@@ -13,7 +14,7 @@ import {
   Download,
   Upload,
   BookOpen,
-  Sparkles
+  HelpCircle
 } from 'lucide-react';
 
 export const SimulatorNavbar = () => {
@@ -33,6 +34,7 @@ export const SimulatorNavbar = () => {
   } = useSimulatorStore();
 
   const [activeDebugEditorial, setActiveDebugEditorial] = useState(null);
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
 
   const isCompleted =
     currentProblem &&
@@ -61,13 +63,11 @@ export const SimulatorNavbar = () => {
     reader.readAsText(file);
   };
 
-  // Helper to check if current breadboard circuit is already the solution
   const isCircuitMatchingSolution = (solution) => {
     if (!solution) return false;
     if (wires.length !== solution.wires?.length) return false;
     if (placedIcs.length !== solution.placedIcs?.length) return false;
 
-    // Check wire count & IDs matching
     const currentWireIds = new Set(wires.map((w) => `${w.startHole}_${w.endHole}`));
     const solutionWireIds = new Set((solution.wires || []).map((w) => `${w.startHole}_${w.endHole}`));
     for (let id of solutionWireIds) {
@@ -76,7 +76,6 @@ export const SimulatorNavbar = () => {
     return true;
   };
 
-  // Handle Editorial Click
   const handleEditorialClick = () => {
     if (!currentProblem || currentProblem.id === 'free' || currentProblem.numId === 0) return;
 
@@ -87,27 +86,23 @@ export const SimulatorNavbar = () => {
       currentProblem.category?.toLowerCase().includes('debug') ||
       !!solution.debugChanges;
 
-    // If solution is ALREADY loaded and untouched, open Debug breakdown modal directly
     if (isCircuitMatchingSolution(solution) && isDebugProblem) {
       setActiveDebugEditorial(solution);
       return;
     }
 
-    // Otherwise, show spoiler confirmation modal before loading
     setPendingConfirmAction({
       type: 'loadEditorial',
       title: 'View Editorial Solution?',
       message:
         'Warning: Viewing the editorial will overwrite your current breadboard circuit with the complete reference solution. Are you sure you want to proceed?',
       onConfirm: () => {
-        // Load solution into circuit board
         useSimulatorStore.setState({
           placedIcs: solution.placedIcs || [],
           wires: solution.wires || []
         });
         useSimulatorStore.getState().reevaluate();
 
-        // If it is a debug problem, open the debug changes breakdown modal
         if (isDebugProblem && solution.debugChanges) {
           setActiveDebugEditorial(solution);
         }
@@ -193,8 +188,18 @@ export const SimulatorNavbar = () => {
           })}
         </div>
 
-        {/* Right Section: Editorial + Export/Import */}
+        {/* Right Section: Guide + Editorial + Export/Import */}
         <div className="flex items-center gap-2 text-xs font-medium shrink-0">
+          {/* Guide Button */}
+          <button
+            onClick={() => setIsGuideOpen(true)}
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-zinc-800/70 hover:bg-zinc-800 text-zinc-300 hover:text-amber-400 border border-zinc-700/50 transition-colors"
+            title="Open Platform Guide"
+          >
+            <HelpCircle size={14} />
+            <span className="hidden sm:inline">Guide</span>
+          </button>
+
           {/* Editorial / Solution Button */}
           {hasEditorialSolution && (
             <button
@@ -236,6 +241,12 @@ export const SimulatorNavbar = () => {
           onClose={() => setActiveDebugEditorial(null)}
         />
       )}
+
+      {/* Platform User Guide Modal */}
+      <UserGuideModal
+        isOpen={isGuideOpen}
+        onClose={() => setIsGuideOpen(false)}
+      />
     </>
   );
 };
