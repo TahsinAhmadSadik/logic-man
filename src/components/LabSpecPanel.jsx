@@ -264,17 +264,18 @@ export const LabSpecPanel = () => {
           </div>
         ) : (
           <div className="space-y-3">
-            <div className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950">
-              <table className="w-full text-center font-mono text-[11px]">
-                <thead className="bg-zinc-900 text-zinc-400 border-b border-zinc-800">
+            {/* Added max-h constraint and sticky header for great UX */}
+            <div className="overflow-auto max-h-[calc(75vh-200px)] rounded-xl border border-zinc-800 bg-zinc-950">
+              <table className="w-full min-w-max text-center font-mono text-[11px] border-collapse">
+                <thead className="bg-zinc-900 text-zinc-400 border-b border-zinc-800 sticky top-0 z-10 shadow-sm">
                   <tr>
                     {currentProblem.ioMapping.inputs.map((inp) => (
-                      <th key={inp.name} className="p-2 border-r border-zinc-800">{inp.name}</th>
+                      <th key={inp.name} className="p-2 border-r border-zinc-800 bg-zinc-900">{inp.name}</th>
                     ))}
                     {currentProblem.ioMapping.outputs.map((out) => (
-                      <th key={out.name} className="p-2 text-amber-400">{out.name}</th>
+                      <th key={out.name} className="p-2 text-amber-400 bg-zinc-900">{out.name}</th>
                     ))}
-                    <th className="p-2 text-zinc-400">Status</th>
+                    <th className="p-2 text-zinc-400 bg-zinc-900">Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800/50">
