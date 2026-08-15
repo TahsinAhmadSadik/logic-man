@@ -165,7 +165,7 @@ export const LabSpecPanel = () => {
       <div className="flex items-center justify-between p-3.5 border-b border-zinc-800 bg-zinc-950/50">
         <div className="flex items-center gap-2">
           <FileText size={18} className="text-amber-400" />
-          <h2 className="text-xs font-bold text-white uppercase tracking-wider truncate max-w-[200px]">
+          <h2 className="text-xs font-bold text-white uppercase tracking-wider truncate max-w-[200px]" title={currentProblem.title}>
             Problem #{currentProblem.numId}: {currentProblem.title}
           </h2>
           {isCompleted && (
