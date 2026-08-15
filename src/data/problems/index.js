@@ -23,6 +23,16 @@ import prob32 from './prob_32.json';
 import prob33 from './prob_33.json';
 import prob34 from './prob_34.json';
 import prob39 from './prob_39.json';
+import prob41 from './prob_41.json';
+import prob42 from './prob_42.json';
+import prob43 from './prob_43.json';
+import prob44 from './prob_44.json';
+import prob45 from './prob_45.json';
+import prob46 from './prob_46.json';
+import prob47 from './prob_47.json';
+import prob48 from './prob_48.json';
+// import prob49 from './prob_49.json';
+import prob50 from './prob_50.json';
 import prob51 from './prob_51.json';
 import prob52 from './prob_52.json';
 import prob53 from './prob_53.json';
@@ -46,7 +56,7 @@ import prob70 from './prob_70.json';
 import prob81 from './prob_81.json';
 import prob82 from './prob_82.json';
 import prob83 from './prob_83.json';
-import prob84 from './prob_84.json';
+// import prob84 from './prob_84.json';
 import prob85 from './prob_85.json';
 import prob86 from './prob_86.json';
 import prob87 from './prob_87.json';
@@ -288,6 +298,96 @@ export const PROBLEMS_INDEX = [
     description: prob39.description
   },
   {
+    id: prob41.id,
+    numId: prob41.numId,
+    title: prob41.title,
+    difficulty: prob41.difficulty,
+    category: getCategory(prob41),
+    tags: prob41.tags || [],
+    description: prob41.description
+  },
+  {
+    id: prob42.id,
+    numId: prob42.numId,
+    title: prob42.title,
+    difficulty: prob42.difficulty,
+    category: getCategory(prob42),
+    tags: prob42.tags || [],
+    description: prob42.description
+  },
+  {
+    id: prob43.id,
+    numId: prob43.numId,
+    title: prob43.title,
+    difficulty: prob43.difficulty,
+    category: getCategory(prob43),
+    tags: prob43.tags || [],
+    description: prob43.description
+  },
+  {
+    id: prob44.id,
+    numId: prob44.numId,
+    title: prob44.title,
+    difficulty: prob44.difficulty,
+    category: getCategory(prob44),
+    tags: prob44.tags || [],
+    description: prob44.description
+  },
+  {
+    id: prob45.id,
+    numId: prob45.numId,
+    title: prob45.title,
+    difficulty: prob45.difficulty,
+    category: getCategory(prob45),
+    tags: prob45.tags || [],
+    description: prob45.description
+  },
+  {
+    id: prob46.id,
+    numId: prob46.numId,
+    title: prob46.title,
+    difficulty: prob46.difficulty,
+    category: getCategory(prob46),
+    tags: prob46.tags || [],
+    description: prob46.description
+  },
+  {
+    id: prob47.id,
+    numId: prob47.numId,
+    title: prob47.title,
+    difficulty: prob47.difficulty,
+    category: getCategory(prob47),
+    tags: prob47.tags || [],
+    description: prob47.description
+  },
+  {
+    id: prob48.id,
+    numId: prob48.numId,
+    title: prob48.title,
+    difficulty: prob48.difficulty,
+    category: getCategory(prob48),
+    tags: prob48.tags || [],
+    description: prob48.description
+  },
+  // {
+  //   id: prob49.id,
+  //   numId: prob49.numId,
+  //   title: prob49.title,
+  //   difficulty: prob49.difficulty,
+  //   category: getCategory(prob49),
+  //   tags: prob49.tags || [],
+  //   description: prob49.description
+  // },
+  {
+    id: prob50.id,
+    numId: prob50.numId,
+    title: prob50.title,
+    difficulty: prob50.difficulty,
+    category: getCategory(prob50),
+    tags: prob50.tags || [],
+    description: prob50.description
+  },
+  {
     id: prob51.id,
     numId: prob51.numId,
     title: prob51.title,
@@ -494,15 +594,15 @@ export const PROBLEMS_INDEX = [
     tags: prob83.tags || [],
     description: prob83.description
   },
-  {
-    id: prob84.id,
-    numId: prob84.numId,
-    title: prob84.title,
-    difficulty: prob84.difficulty,
-    category: getCategory(prob84),
-    tags: prob84.tags || [],
-    description: prob84.description
-  },
+  // {
+  //   id: prob84.id,
+  //   numId: prob84.numId,
+  //   title: prob84.title,
+  //   difficulty: prob84.difficulty,
+  //   category: getCategory(prob84),
+  //   tags: prob84.tags || [],
+  //   description: prob84.description
+  // },
   {
     id: prob85.id,
     numId: prob85.numId,
@@ -585,6 +685,16 @@ export const PROBLEMS_MAP = {
   prob_33: prob33,
   prob_34: prob34,
   prob_39: prob39,
+  prob_41: prob41,
+  prob_42: prob42,
+  prob_43: prob43,
+  prob_44: prob44,
+  prob_45: prob45,
+  prob_46: prob46,
+  prob_47: prob47,
+  prob_48: prob48,
+  // prob_49: prob49,
+  prob_50: prob50,
   prob_51: prob51,
   prob_52: prob52,
   prob_53: prob53,
@@ -608,7 +718,7 @@ export const PROBLEMS_MAP = {
   prob_81: prob81,
   prob_82: prob82,
   prob_83: prob83,
-  prob_84: prob84,
+  // prob_84: prob84,
   prob_85: prob85,
   prob_86: prob86,
   prob_87: prob87,
@@ -640,6 +750,16 @@ export const PROBLEMS_MAP = {
   '33': prob33,
   '34': prob34,
   '39': prob39,
+  '41': prob41,
+  '42': prob42,
+  '43': prob43,
+  '44': prob44,
+  '45': prob45,
+  '46': prob46,
+  '47': prob47,
+  '48': prob48,
+  // '49': prob49,
+  '50': prob50,
   '51': prob51,
   '52': prob52,
   '53': prob53,
@@ -663,7 +783,7 @@ export const PROBLEMS_MAP = {
   '81': prob81,
   '82': prob82,
   '83': prob83,
-  '84': prob84,
+  // '84': prob84,
   '85': prob85,
   '86': prob86,
   '87': prob87,

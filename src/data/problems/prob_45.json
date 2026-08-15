@@ -1,0 +1,74 @@
+{
+  "id": "prob_45_subtractor",
+  "numId": 45,
+  "title": "4-bit Binary Subtractor Using 7483",
+  "description": "Design a 4-bit binary subtractor (A - B) using one 7483 4-bit Binary Full Adder and one 7404 Hex Inverter. Invert input B using the 7404 and tie C_0 to VCC to compute A + ~B + 1. C_out indicates the no-borrow flag (1 if A >= B, 0 if borrow occurs).",
+  "difficulty": "Medium",
+  "category": "design",
+  "tags": [
+    "Subtractor",
+    "7483",
+    "7404",
+    "Arithmetic"
+  ],
+  "author": "Raiyan, Jeneya",
+  "ioMapping": {
+    "inputs": [
+      { "name": "A_3", "switchIndex": 0 },
+      { "name": "A_2", "switchIndex": 1 },
+      { "name": "A_1", "switchIndex": 2 },
+      { "name": "A_0", "switchIndex": 3 },
+      { "name": "B_3", "switchIndex": 4 },
+      { "name": "B_2", "switchIndex": 5 },
+      { "name": "B_1", "switchIndex": 6 },
+      { "name": "B_0", "switchIndex": 7 }
+    ],
+    "outputs": [
+      { "name": "C_out", "ledIndex": 0 },
+      { "name": "S_3", "ledIndex": 1 },
+      { "name": "S_2", "ledIndex": 2 },
+      { "name": "S_1", "ledIndex": 3 },
+      { "name": "S_0", "ledIndex": 4 }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": { "A_3": 0, "A_2": 0, "A_1": 0, "A_0": 0, "B_3": 0, "B_2": 0, "B_1": 0, "B_0": 0 },
+      "outputs": { "C_out": 1, "S_3": 0, "S_2": 0, "S_1": 0, "S_0": 0 }
+    },
+    {
+      "inputs": { "A_3": 0, "A_2": 0, "A_1": 0, "A_0": 0, "B_3": 0, "B_2": 0, "B_1": 0, "B_0": 1 },
+      "outputs": { "C_out": 0, "S_3": 1, "S_2": 1, "S_1": 1, "S_0": 1 }
+    },
+    {
+      "inputs": { "A_3": 0, "A_2": 1, "A_1": 0, "A_0": 1, "B_3": 0, "B_2": 0, "B_1": 1, "B_0": 1 },
+      "outputs": { "C_out": 1, "S_3": 0, "S_2": 0, "S_1": 1, "S_0": 0 }
+    },
+    {
+      "inputs": { "A_3": 0, "A_2": 1, "A_1": 0, "A_0": 0, "B_3": 0, "B_2": 1, "B_1": 1, "B_0": 0 },
+      "outputs": { "C_out": 0, "S_3": 1, "S_2": 1, "S_1": 1, "S_0": 0 }
+    },
+    {
+      "inputs": { "A_3": 1, "A_2": 0, "A_1": 0, "A_0": 0, "B_3": 0, "B_2": 0, "B_1": 0, "B_0": 1 },
+      "outputs": { "C_out": 1, "S_3": 0, "S_2": 1, "S_1": 1, "S_0": 1 }
+    },
+    {
+      "inputs": { "A_3": 1, "A_2": 1, "A_1": 1, "A_0": 1, "B_3": 1, "B_2": 1, "B_1": 1, "B_0": 1 },
+      "outputs": { "C_out": 1, "S_3": 0, "S_2": 0, "S_1": 0, "S_0": 0 }
+    }
+  ],
+  "allowedICLimits": {
+    "7483": 1,
+    "7404": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "To perform subtraction (A - B) using 2's complement, calculate A + ~B + 1.",
+    "Pass B_0 through B_3 into the 7404 NOT gates to generate ~B.",
+    "Connect the inverted B outputs to the B inputs of the 7483 adder.",
+    "Connect the carry-in pin C_0 (Pin 7) of the 7483 directly to VCC (+5V) to add the '+1'."
+  ]
+}

@@ -1,0 +1,455 @@
+{
+  "version": "1.0",
+  "problemId": "prob_50",
+  "exportedAt": "2026-08-16T00:00:00.000Z",
+  "debugChanges": {
+    "summary": "Fixed erroneous direct connection of signed overflow output V to C_4. Added an overflow detector XOR gate computing V = C_3 XOR C_4 using an additional 7486 IC on block M1.",
+    "fixes": [
+      {
+        "type": "added",
+        "wireId": "wire_fix_vcc_7486",
+        "reason": "Connected Pin 14 (VCC) of the new 7486 XOR IC at M1-Col 12 to BUS_TOP_VCC_12."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_fix_gnd_7486",
+        "reason": "Connected Pin 7 (GND) of the new 7486 XOR IC at M1-Col 12 to BUS_BOT_GND_18."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_fix_c3_to_xor",
+        "reason": "Connected carry into sign bit C_3 (BB_D37) to XOR Gate 1 input Pin 1 (BB_G12)."
+      },
+      {
+        "type": "modified",
+        "wireId": "wire_1786644831573_rbmhi",
+        "original": {
+          "startHole": "BB_C34",
+          "endHole": "LED_IN_5"
+        },
+        "corrected": {
+          "startHole": "BB_D34",
+          "endHole": "BB_G13"
+        },
+        "reason": "Rerouted carry out C_4 from driving LED_IN_5 directly to XOR Gate 1 input Pin 2 (BB_G13)."
+      },
+      {
+        "type": "added",
+        "wireId": "wire_fix_xor_to_v",
+        "reason": "Connected XOR Gate 1 output Pin 3 (BB_G14 / V = C_3 XOR C_4) to LED_IN_5 (signed overflow indicator)."
+      }
+    ]
+  },
+  "placedIcs": [
+    {
+      "id": "ic_placed_1786600757757_44or9",
+      "icTypeId": "7408",
+      "blockId": "M2",
+      "startCol": 12
+    },
+    {
+      "id": "ic_placed_1786600766325_rwair",
+      "icTypeId": "7408",
+      "blockId": "M2",
+      "startCol": 51
+    },
+    {
+      "id": "ic_placed_1786600779581_81lak",
+      "icTypeId": "7432",
+      "blockId": "M1",
+      "startCol": 31
+    },
+    {
+      "id": "ic_placed_1786600787605_77gx9",
+      "icTypeId": "7486",
+      "blockId": "M3",
+      "startCol": 12
+    },
+    {
+      "id": "ic_placed_1786600793564_8vcob",
+      "icTypeId": "7486",
+      "blockId": "M3",
+      "startCol": 51
+    },
+    {
+      "id": "ic_placed_overflow_xor",
+      "icTypeId": "7486",
+      "blockId": "M1",
+      "startCol": 12
+    }
+  ],
+  "wires": [
+    {
+      "id": "wire_1786600901781_4lvhp",
+      "startHole": "SWITCH_OUT_3",
+      "endHole": "BB_AA12",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786600913228_lm80b",
+      "startHole": "SWITCH_OUT_2",
+      "endHole": "BB_AA15",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786600931516_ttd20",
+      "startHole": "SWITCH_OUT_1",
+      "endHole": "BB_X17",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786600936812_dstgu",
+      "startHole": "SWITCH_OUT_0",
+      "endHole": "BB_X14",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786600989860_cantf",
+      "startHole": "SWITCH_OUT_7",
+      "endHole": "BB_AA13",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786600993980_1cykr",
+      "startHole": "SWITCH_OUT_6",
+      "endHole": "BB_AA16",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786600998237_syfot",
+      "startHole": "SWITCH_OUT_5",
+      "endHole": "BB_X16",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786601001564_xc83g",
+      "startHole": "SWITCH_OUT_4",
+      "endHole": "BB_X13",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786601077229_hubxo",
+      "startHole": "BB_AA14",
+      "endHole": "BB_AA51",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786601095845_8ed13",
+      "startHole": "BB_AA17",
+      "endHole": "BB_AA54",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786601130101_jv9sg",
+      "startHole": "BB_X18",
+      "endHole": "BB_X56",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786601137268_mifuh",
+      "startHole": "BB_X15",
+      "endHole": "BB_X53",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786605311141_pzd8w",
+      "startHole": "BB_AA57",
+      "endHole": "BB_AA52",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786605429708_4stl3",
+      "startHole": "BB_G33",
+      "endHole": "BB_AA55",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786605517757_wzc5l",
+      "startHole": "BB_D37",
+      "endHole": "BB_X52",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786605866293_6hekx",
+      "startHole": "BB_AB12",
+      "endHole": "BB_Q12",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786605872188_k74vs",
+      "startHole": "BB_AB15",
+      "endHole": "BB_Q15",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786605877797_mix8m",
+      "startHole": "BB_W17",
+      "endHole": "BB_N17",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786605881884_oe5g2",
+      "startHole": "BB_W14",
+      "endHole": "BB_N14",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786605912125_d1ssy",
+      "startHole": "BB_AB13",
+      "endHole": "BB_Q13",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786605917525_vbjtq",
+      "startHole": "BB_AB16",
+      "endHole": "BB_Q16",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786605926421_qsvu6",
+      "startHole": "BB_W16",
+      "endHole": "BB_N16",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786605932149_084o2",
+      "startHole": "BB_W13",
+      "endHole": "BB_N13",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786606147589_k7mmz",
+      "startHole": "BB_AB51",
+      "endHole": "BB_Q51",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786606154829_04ajx",
+      "startHole": "BB_AB54",
+      "endHole": "BB_Q54",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786606161725_f00fe",
+      "startHole": "BB_W56",
+      "endHole": "BB_N56",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786606177373_qfi12",
+      "startHole": "BB_W53",
+      "endHole": "BB_N53",
+      "color": "#eab308"
+    },
+    {
+      "id": "wire_1786606228829_k4ge1",
+      "startHole": "BB_Q52",
+      "endHole": "BB_Q57",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786606264364_xqib3",
+      "startHole": "BB_AB55",
+      "endHole": "BB_Q55",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786606296565_zn58o",
+      "startHole": "BB_W55",
+      "endHole": "BB_N55",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786606331253_0ujrr",
+      "startHole": "BB_W52",
+      "endHole": "BB_N52",
+      "color": "#ef4444"
+    },
+    {
+      "id": "wire_1786606432005_moj00",
+      "startHole": "BB_Q14",
+      "endHole": "BB_G31",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "wire_1786606457909_rzcut",
+      "startHole": "BB_Q17",
+      "endHole": "BB_G34",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "wire_1786606475925_r1csw",
+      "startHole": "BB_N18",
+      "endHole": "BB_D36",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "wire_1786606484837_ukme5",
+      "startHole": "BB_N15",
+      "endHole": "BB_D33",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "wire_1786606563565_nuc68",
+      "startHole": "BB_Q53",
+      "endHole": "BB_G32",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786606587229_ee4ve",
+      "startHole": "BB_Q56",
+      "endHole": "BB_G35",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786606603493_jjkkt",
+      "startHole": "BB_N57",
+      "endHole": "BB_D35",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786606616957_czmbi",
+      "startHole": "BB_N54",
+      "endHole": "BB_D32",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786606679365_mc9d0",
+      "startHole": "BB_D34",
+      "endHole": "LED_IN_0",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_1786606709045_lc5v5",
+      "startHole": "PWR_VCC_1",
+      "endHole": "BUS_TOP_VCC_1",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606720133_yzzpw",
+      "startHole": "PWR_GND_2",
+      "endHole": "BUS_BOT_GND_1",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606726093_telll",
+      "startHole": "BUS_TOP_VCC_12",
+      "endHole": "BB_N12",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606731789_gncgr",
+      "startHole": "BUS_TOP_VCC_31",
+      "endHole": "BB_D31",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606739500_hu6oo",
+      "startHole": "BUS_TOP_VCC_51",
+      "endHole": "BB_N51",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606799429_miga3",
+      "startHole": "BUS_TOP_VCC_44",
+      "endHole": "BB_X51",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606803701_ofvp3",
+      "startHole": "BUS_TOP_VCC_7",
+      "endHole": "BB_X12",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606810061_aebxi",
+      "startHole": "BUS_BOT_GND_18",
+      "endHole": "BB_AA18",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606816685_x7j39",
+      "startHole": "BUS_BOT_GND_57",
+      "endHole": "BB_AB57",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606823156_w5m9q",
+      "startHole": "BUS_BOT_GND_62",
+      "endHole": "BB_R57",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606835990_cf1e6",
+      "startHole": "BUS_BOT_GND_37",
+      "endHole": "BB_G37",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786606839684_jdrrz",
+      "startHole": "BUS_BOT_GND_23",
+      "endHole": "BB_Q18",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_1786607054997_xjyzx",
+      "startHole": "BB_X54",
+      "endHole": "LED_IN_1",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786607075277_3vizj",
+      "startHole": "LED_IN_2",
+      "endHole": "BB_X57",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786607084645_5j4d4",
+      "startHole": "BB_AA56",
+      "endHole": "LED_IN_3",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786607089893_34wew",
+      "startHole": "BB_AA53",
+      "endHole": "LED_IN_4",
+      "color": "#a855f7"
+    },
+    {
+      "id": "wire_1786607327396_8zpid",
+      "startHole": "BB_G36",
+      "endHole": "BB_X55",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_1786644831573_rbmhi",
+      "startHole": "BB_D34",
+      "endHole": "BB_G13",
+      "color": "#22c55e"
+    },
+    {
+      "id": "wire_fix_vcc_7486",
+      "startHole": "BUS_TOP_VCC_12",
+      "endHole": "BB_D12",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_fix_gnd_7486",
+      "startHole": "BUS_BOT_GND_18",
+      "endHole": "BB_G18",
+      "color": "#78350f"
+    },
+    {
+      "id": "wire_fix_c3_to_xor",
+      "startHole": "BB_D37",
+      "endHole": "BB_G12",
+      "color": "#f97316"
+    },
+    {
+      "id": "wire_fix_xor_to_v",
+      "startHole": "BB_G14",
+      "endHole": "LED_IN_5",
+      "color": "#22c55e"
+    }
+  ]
+}
