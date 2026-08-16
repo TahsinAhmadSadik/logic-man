@@ -3,25 +3,29 @@ import { useSimulatorStore } from '../store/useSimulatorStore';
 import { IC_CATALOG } from '../data/icCatalog';
 import { LAYOUT_CONSTANTS } from '../utils/boardCoordinates';
 
-export const PlacedICOverlay = ({ holeCoords }) => {
+// Helper to find DIP channel Y coordinate
+const getDipChannelY = (blockId) => {
+  const idx = blockId === 'M1' ? 0 : blockId === 'M2' ? 1 : 2;
+  return LAYOUT_CONSTANTS.dipChannels[idx] || 0;
+};
+
+// ==========================================
+// 1. BASE IC LAYER (Placed below Wires)
+// ==========================================
+export const PlacedICOverlay = ({ holeCoords, onHoverPin, onHoverIc, hoveredIcId }) => {
   const {
     placedIcs,
     selectedIcId,
     setSelectedIcId,
     deleteIc,
     spawningIcTypeId,
-    hoveredHole
+    hoveredHole,
+    isDeleteMode,
+    powerOn
   } = useSimulatorStore();
-
-  const [hoveredPinInfo, setHoveredPinInfo] = useState(null);
 
   const spawningIc = IC_CATALOG.find((cat) => cat.id === spawningIcTypeId);
   const hoveredCoord = hoveredHole ? holeCoords[hoveredHole] : null;
-
-  const getDipChannelY = (blockId) => {
-    const idx = blockId === 'M1' ? 0 : blockId === 'M2' ? 1 : 2;
-    return LAYOUT_CONSTANTS.dipChannels[idx] || 0;
-  };
 
   return (
     <g id="pure-svg-ic-layer">
@@ -45,14 +49,21 @@ export const PlacedICOverlay = ({ holeCoords }) => {
         const y = dipY - height / 2;
 
         const isSelected = selectedIcId === ic.id;
+        const isHovered = hoveredIcId === ic.id;
 
         return (
           <g
             key={ic.id}
             className="cursor-pointer group"
+            onMouseEnter={() => onHoverIc?.(ic.id)}
+            onMouseLeave={() => onHoverIc?.(null)}
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedIcId(ic.id);
+              if (isDeleteMode && !powerOn) {
+                deleteIc(ic.id);
+              } else {
+                setSelectedIcId(ic.id);
+              }
             }}
             onContextMenu={(e) => {
               e.preventDefault();
@@ -76,7 +87,16 @@ export const PlacedICOverlay = ({ holeCoords }) => {
             )}
 
             {/* DIP Plastic Body */}
-            <rect x={x} y={y} width={width} height={height} rx="4" fill="#18181b" stroke="#3f3f46" strokeWidth="2" />
+            <rect
+              x={x}
+              y={y}
+              width={width}
+              height={height}
+              rx="4"
+              fill={isDeleteMode && isHovered ? '#4c0519' : '#18181b'}
+              stroke={isDeleteMode && isHovered ? '#f43f5e' : '#3f3f46'}
+              strokeWidth="2"
+            />
 
             {/* DIP Center Notch at Pin 1 side (Left) */}
             <path
@@ -85,10 +105,10 @@ export const PlacedICOverlay = ({ holeCoords }) => {
               stroke="#3f3f46"
             />
 
-            {/* Pin 1 Dot Marker (Bottom-Left next to Pin 1) */}
+            {/* Pin 1 Dot Marker */}
             <circle cx={x + 10} cy={y + height / 2 + 12} r="2.5" fill="#a1a1aa" />
 
-            {/* IC Model Name */}
+            {/* Base IC Model Label (Realistic substrate text) */}
             <text
               x={x + width / 2}
               y={y + height / 2 + 4}
@@ -97,19 +117,15 @@ export const PlacedICOverlay = ({ holeCoords }) => {
               fontWeight="bold"
               fontFamily="monospace"
               textAnchor="middle"
-              className="select-none pointer-events-none"
+              className="select-none pointer-events-none opacity-80"
             >
               {icType.name}
             </text>
 
-            {/* Silver Pins (Correct DIP Orientation: Bottom = 1..7 Left-to-Right, Top = 14..8 Right-to-Left) */}
+            {/* Silver Pins */}
             {Array.from({ length: pinsPerSide }).map((_, i) => {
               const px = pinStartX + i * colSpacing;
-
-              // Correct Standard DIP Pin Numbering:
-              // Bottom row: Pin 1 (bottom-left) to Pin 7 (bottom-right)
               const botPinNum = i + 1;
-              // Top row: Pin 14 (top-left) to Pin 8 (top-right)
               const topPinNum = pinCount - i;
 
               const topPinDef = icType.pinout.find((p) => p.pin === topPinNum);
@@ -120,13 +136,13 @@ export const PlacedICOverlay = ({ holeCoords }) => {
                   {/* Top Pin (14..8) */}
                   <g
                     onMouseEnter={() =>
-                      setHoveredPinInfo({
+                      onHoverPin?.({
                         x: px,
                         y: y - 10,
                         text: `Pin ${topPinNum}: ${topPinDef?.label || ''} (${topPinDef?.type || ''})`
                       })
                     }
-                    onMouseLeave={() => setHoveredPinInfo(null)}
+                    onMouseLeave={() => onHoverPin?.(null)}
                   >
                     <rect x={px - 2.5} y={y - 4} width="5" height="5" fill="#cbd5e1" stroke="#475569" strokeWidth="1" />
                   </g>
@@ -134,13 +150,13 @@ export const PlacedICOverlay = ({ holeCoords }) => {
                   {/* Bottom Pin (1..7) */}
                   <g
                     onMouseEnter={() =>
-                      setHoveredPinInfo({
+                      onHoverPin?.({
                         x: px,
                         y: y + height + 15,
                         text: `Pin ${botPinNum}: ${botPinDef?.label || ''} (${botPinDef?.type || ''})`
                       })
                     }
-                    onMouseLeave={() => setHoveredPinInfo(null)}
+                    onMouseLeave={() => onHoverPin?.(null)}
                   >
                     <rect x={px - 2.5} y={y + height - 1} width="5" height="5" fill="#cbd5e1" stroke="#475569" strokeWidth="1" />
                   </g>
@@ -150,33 +166,6 @@ export const PlacedICOverlay = ({ holeCoords }) => {
           </g>
         );
       })}
-
-      {/* Floating Hover Pin Tooltip */}
-      {hoveredPinInfo && (
-        <g className="pointer-events-none z-50">
-          <rect
-            x={hoveredPinInfo.x - 65}
-            y={hoveredPinInfo.y - 12}
-            width="130"
-            height="20"
-            rx="4"
-            fill="#09090b"
-            stroke="#fbbf24"
-            strokeWidth="1.5"
-          />
-          <text
-            x={hoveredPinInfo.x}
-            y={hoveredPinInfo.y + 2}
-            fill="#fbbf24"
-            fontSize="10"
-            fontWeight="bold"
-            fontFamily="monospace"
-            textAnchor="middle"
-          >
-            {hoveredPinInfo.text}
-          </text>
-        </g>
-      )}
 
       {/* Ghost Preview IC */}
       {spawningIc && hoveredCoord && (
@@ -228,6 +217,91 @@ export const PlacedICOverlay = ({ holeCoords }) => {
               </>
             );
           })()}
+        </g>
+      )}
+    </g>
+  );
+};
+
+// ==========================================
+// 2. TOP TOOLTIP & BADGE LAYER (Placed ABOVE Wires)
+// ==========================================
+export const ICTooltipOverlay = ({ hoveredPinInfo, hoveredIcId }) => {
+  const { placedIcs, selectedIcId } = useSimulatorStore();
+
+  return (
+    <g id="pure-svg-ic-top-overlay" className="pointer-events-none">
+      {/* Floating High-Contrast Chip ID Badges on Hover/Selection */}
+      {placedIcs.map((ic) => {
+        const isHovered = hoveredIcId === ic.id;
+        const isSelected = selectedIcId === ic.id;
+        if (!isHovered && !isSelected) return null;
+
+        const icType = IC_CATALOG.find((cat) => cat.id === ic.icTypeId);
+        if (!icType) return null;
+
+        const pinCount = icType.pins || 14;
+        const pinsPerSide = pinCount / 2;
+        const colSpacing = 16.8;
+        const pinStartX = 680 + (ic.startCol - 1) * colSpacing;
+        const width = (pinsPerSide - 1) * colSpacing + 20;
+        const x = pinStartX - 10;
+
+        const dipY = getDipChannelY(ic.blockId);
+        const height = 46;
+        const y = dipY - height / 2;
+
+        return (
+          <g key={`badge-${ic.id}`} className="transition-all duration-150">
+            <rect
+              x={x + width / 2 - 34}
+              y={y + height / 2 - 10}
+              width="68"
+              height="20"
+              rx="5"
+              fill="#09090b"
+              stroke="#fbbf24"
+              strokeWidth="1.5"
+            />
+            <text
+              x={x + width / 2}
+              y={y + height / 2 + 4}
+              fill="#fbbf24"
+              fontSize="11"
+              fontWeight="bold"
+              fontFamily="monospace"
+              textAnchor="middle"
+            >
+              {icType.name}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Floating Pin Info Tooltip */}
+      {hoveredPinInfo && (
+        <g>
+          <rect
+            x={hoveredPinInfo.x - 70}
+            y={hoveredPinInfo.y - 12}
+            width="140"
+            height="22"
+            rx="5"
+            fill="#09090b"
+            stroke="#fbbf24"
+            strokeWidth="1.5"
+          />
+          <text
+            x={hoveredPinInfo.x}
+            y={hoveredPinInfo.y + 3}
+            fill="#fbbf24"
+            fontSize="10"
+            fontWeight="bold"
+            fontFamily="monospace"
+            textAnchor="middle"
+          >
+            {hoveredPinInfo.text}
+          </text>
         </g>
       )}
     </g>

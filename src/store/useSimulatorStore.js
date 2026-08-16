@@ -7,6 +7,7 @@ const holeCoords = generateBoardCoordinates();
 export const useSimulatorStore = create((set, get) => ({
   powerOn: false,
   selectedColor: '#ef4444',
+  isDeleteMode: false,
   wireStartHole: null,
   hoveredHole: null,
   selectedWireId: null,
@@ -152,6 +153,8 @@ export const useSimulatorStore = create((set, get) => ({
   },
 
   setSelectedColor: (color) => set({ selectedColor: color }),
+  toggleDeleteMode: () => set((state) => ({ isDeleteMode: !state.isDeleteMode })),
+  setDeleteMode: (val) => set({ isDeleteMode: val }),
   setHoveredHole: (holeId) => set({ hoveredHole: holeId }),
   setSelectedWireId: (wireId) => set({ selectedWireId: wireId, selectedIcId: null }),
   setSelectedIcId: (icId) => set({ selectedIcId: icId, selectedWireId: null }),

@@ -3,7 +3,7 @@ import { useSimulatorStore } from '../store/useSimulatorStore';
 import { generateBoardCoordinates, BOARD_WIDTH, BOARD_HEIGHT } from '../utils/boardCoordinates';
 import { BoardVector } from './BoardVector';
 import { WireOverlay } from './WireOverlay';
-import { PlacedICOverlay } from './PlacedICOverlay';
+import { PlacedICOverlay, ICTooltipOverlay } from './PlacedICOverlay';
 import { ICLibraryPanel } from './ICLibraryPanel';
 import { ColorPickerToolbar } from './ColorPickerToolbar';
 import { SimulatorNavbar } from './SimulatorNavbar';
@@ -28,6 +28,10 @@ export const HoleCanvas = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
   const [startPan, setStartPan] = useState({ x: 0, y: 0 });
+
+  // Floating hover state for IC tooltips and badges
+  const [hoveredPinInfo, setHoveredPinInfo] = useState(null);
+  const [hoveredIcId, setHoveredIcId] = useState(null);
 
   const {
     wireStartHole,
@@ -156,6 +160,7 @@ export const HoleCanvas = () => {
       <ColorPickerToolbar />
       <SimulatorNavbar />
 
+      {/* Canvas Zoom & Reset Controls */}
       <div className="absolute bottom-6 right-6 z-40 flex items-center gap-1 bg-zinc-900/90 border border-zinc-800 p-1.5 rounded-lg shadow-xl text-zinc-300 backdrop-blur">
         <button onClick={() => setScale((s) => Math.min(s * 1.25, 8.0))} className="p-2 hover:bg-zinc-800 rounded-md">
           <ZoomIn size={18} />
@@ -171,6 +176,7 @@ export const HoleCanvas = () => {
         </span>
       </div>
 
+      {/* Interactive Trainer Board Canvas */}
       <div
         ref={boardRef}
         className="relative transition-transform duration-75 ease-out shadow-2xl rounded-lg overflow-hidden border border-zinc-800 h-[92vh]"
@@ -181,6 +187,7 @@ export const HoleCanvas = () => {
         }}
       >
         <svg viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`} className="w-full h-full">
+          {/* 1. Base Hardware Vectors (Power, Bus, Switches, LEDs) */}
           <BoardVector
             holeCoords={holeCoords}
             switches={switches}
@@ -190,10 +197,24 @@ export const HoleCanvas = () => {
             leds={leds}
           />
 
-          <PlacedICOverlay holeCoords={holeCoords} />
+          {/* 2. Placed IC Hardware Base (DIP Bodies & Pins below Wires) */}
+          <PlacedICOverlay
+            holeCoords={holeCoords}
+            onHoverPin={setHoveredPinInfo}
+            onHoverIc={setHoveredIcId}
+            hoveredIcId={hoveredIcId}
+          />
 
+          {/* 3. Wire Overlay */}
           <WireOverlay holeCoords={holeCoords} />
 
+          {/* 4. Top Overlay: Pin Tooltips & High-Visibility IC Badges (ABOVE WIRES) */}
+          <ICTooltipOverlay
+            hoveredPinInfo={hoveredPinInfo}
+            hoveredIcId={hoveredIcId}
+          />
+
+          {/* 5. Clickable Breadboard Holes */}
           {Object.entries(holeCoords).map(([holeId, coord]) => {
             if (hiddenHoles.has(holeId)) return null;
 

@@ -1,0 +1,213 @@
+{
+  "id": "prob_60",
+  "numId": 60,
+  "title": "Debug: 4-Bit Adder-Subtractor Not Subtracting",
+  "description": "The pre-wired circuit should work as a 4-bit adder-subtractor: R = P + Q when S = 0 and R = P - Q when S = 1. Addition works perfectly, but subtraction always gives a wrong answer that is exactly one less than expected, and the most significant bit is never complemented. The faults are: (1) the Q3 line is connected straight to the 7483 instead of passing through its XOR gate, (2) the Carry-In of the 7483 is tied to GND instead of the select line S, and (3) the GND pin of the 7486 IC is not connected. Find and repair all three faults.",
+  "difficulty": "Medium",
+  "category": "debug",
+  "tags": [
+    "Debugging",
+    "Adder-Subtractor",
+    "7483",
+    "7486",
+    "2's Complement"
+  ],
+  "author": "Zarif, Alif",
+  "ioMapping": {
+    "inputs": [
+      {
+        "name": "P0",
+        "switchIndex": 0
+      },
+      {
+        "name": "P1",
+        "switchIndex": 1
+      },
+      {
+        "name": "P2",
+        "switchIndex": 2
+      },
+      {
+        "name": "P3",
+        "switchIndex": 3
+      },
+      {
+        "name": "Q0",
+        "switchIndex": 4
+      },
+      {
+        "name": "Q1",
+        "switchIndex": 5
+      },
+      {
+        "name": "Q2",
+        "switchIndex": 6
+      },
+      {
+        "name": "Q3",
+        "switchIndex": 7
+      },
+      {
+        "name": "S",
+        "switchIndex": 8
+      }
+    ],
+    "outputs": [
+      {
+        "name": "R0",
+        "ledIndex": 0
+      },
+      {
+        "name": "R1",
+        "ledIndex": 1
+      },
+      {
+        "name": "R2",
+        "ledIndex": 2
+      },
+      {
+        "name": "R3",
+        "ledIndex": 3
+      },
+      {
+        "name": "C",
+        "ledIndex": 4
+      }
+    ]
+  },
+  "truthTable": [
+    {
+      "inputs": {
+        "P0": 1,
+        "P1": 0,
+        "P2": 1,
+        "P3": 0,
+        "Q0": 1,
+        "Q1": 1,
+        "Q2": 0,
+        "Q3": 0,
+        "S": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 0,
+        "R3": 1,
+        "C": 0
+      }
+    },
+    {
+      "inputs": {
+        "P0": 0,
+        "P1": 0,
+        "P2": 0,
+        "P3": 1,
+        "Q0": 0,
+        "Q1": 0,
+        "Q2": 0,
+        "Q3": 1,
+        "S": 0
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 0,
+        "R3": 0,
+        "C": 1
+      }
+    },
+    {
+      "inputs": {
+        "P0": 1,
+        "P1": 1,
+        "P2": 1,
+        "P3": 0,
+        "Q0": 1,
+        "Q1": 1,
+        "Q2": 0,
+        "Q3": 0,
+        "S": 1
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 1,
+        "R3": 0,
+        "C": 1
+      }
+    },
+    {
+      "inputs": {
+        "P0": 0,
+        "P1": 0,
+        "P2": 0,
+        "P3": 1,
+        "Q0": 1,
+        "Q1": 0,
+        "Q2": 1,
+        "Q3": 0,
+        "S": 1
+      },
+      "outputs": {
+        "R0": 1,
+        "R1": 1,
+        "R2": 0,
+        "R3": 0,
+        "C": 1
+      }
+    },
+    {
+      "inputs": {
+        "P0": 1,
+        "P1": 1,
+        "P2": 0,
+        "P3": 0,
+        "Q0": 1,
+        "Q1": 1,
+        "Q2": 1,
+        "Q3": 0,
+        "S": 1
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 1,
+        "R3": 1,
+        "C": 0
+      }
+    },
+    {
+      "inputs": {
+        "P0": 0,
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "Q0": 0,
+        "Q1": 0,
+        "Q2": 0,
+        "Q3": 0,
+        "S": 1
+      },
+      "outputs": {
+        "R0": 0,
+        "R1": 0,
+        "R2": 0,
+        "R3": 0,
+        "C": 1
+      }
+    }
+  ],
+  "allowedICLimits": {
+    "7483": 1,
+    "7486": 1
+  },
+  "initialCircuit": {
+    "placedIcs": [],
+    "wires": []
+  },
+  "hints": [
+    "In subtraction mode every bit of Q must be complemented - check each XOR gate one by one.",
+    "The 'off by one' symptom points directly at a missing +1, i.e. the Carry-In.",
+    "Pin 7 of the 7486 is GND and pin 14 is Vcc - a missing supply makes the whole IC misbehave."
+  ]
+}

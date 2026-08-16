@@ -9,7 +9,9 @@ export const WireOverlay = ({ holeCoords }) => {
     selectedColor,
     selectedWireId,
     setSelectedWireId,
-    deleteWire
+    deleteWire,
+    isDeleteMode,
+    powerOn
   } = useSimulatorStore();
 
   const startCoord = wireStartHole ? holeCoords[wireStartHole] : null;
@@ -38,10 +40,14 @@ export const WireOverlay = ({ holeCoords }) => {
         return (
           <g
             key={wire.id}
-            className="group cursor-pointer"
+            className={`group cursor-pointer ${isDeleteMode ? 'hover:opacity-60' : ''}`}
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedWireId(wire.id);
+              if (isDeleteMode && !powerOn) {
+                deleteWire(wire.id);
+              } else {
+                setSelectedWireId(wire.id);
+              }
             }}
             onContextMenu={(e) => {
               e.preventDefault();
@@ -49,8 +55,8 @@ export const WireOverlay = ({ holeCoords }) => {
               deleteWire(wire.id);
             }}
           >
-            {/* Invisible wide stroke for easy clicking */}
-            <path d={pathData} fill="none" stroke="transparent" strokeWidth="24" />
+            {/* Invisible wide stroke for easy clicking & touch taps */}
+            <path d={pathData} fill="none" stroke="transparent" strokeWidth="28" />
 
             {/* Selection Outline Glow */}
             {isSelected && (
@@ -69,7 +75,7 @@ export const WireOverlay = ({ holeCoords }) => {
             <path
               d={pathData}
               fill="none"
-              stroke={wire.color}
+              stroke={isDeleteMode ? '#f43f5e' : wire.color}
               strokeWidth="8"
               strokeLinecap="round"
               className="transition-all duration-150 group-hover:stroke-width-[10]"
