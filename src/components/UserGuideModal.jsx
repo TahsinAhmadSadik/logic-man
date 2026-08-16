@@ -18,7 +18,9 @@ import {
   FileCode,
   Download,
   Share2,
-  ExternalLink
+  ExternalLink,
+  Eraser,
+  MousePointer
 } from 'lucide-react';
 
 export const UserGuideModal = ({ isOpen, onClose }) => {
@@ -64,45 +66,59 @@ export const UserGuideModal = ({ isOpen, onClose }) => {
     // --- Slide 2 ---
     {
       title: 'Breadboard Controls & Shortcuts',
-      subtitle: 'Master navigation and rapid circuit assembly',
+      subtitle: 'Master navigation, wiring, deletion, and assembly',
       icon: Layers,
       content: (
         <div className="space-y-3 text-xs text-zinc-300">
           <div className="grid grid-cols-2 gap-2 text-[11px]">
             <div className="p-2.5 bg-zinc-900 border border-zinc-800 rounded-xl">
               <span className="text-zinc-400 block font-semibold mb-0.5">Navigation:</span>
-              <p className="text-zinc-300">Scroll wheel to <strong className="text-white">Zoom</strong>. Click and drag empty space to <strong className="text-white">Pan</strong>.</p>
+              <p className="text-zinc-300">Scroll wheel to <strong className="text-white">Zoom</strong>. Drag canvas to <strong className="text-white">Pan</strong>.</p>
             </div>
             <div className="p-2.5 bg-zinc-900 border border-zinc-800 rounded-xl">
               <span className="text-zinc-400 block font-semibold mb-0.5">Wire Colors:</span>
-              <p className="text-zinc-300">Pick vibrant colors to differentiate <strong className="text-rose-400">VCC</strong>, <strong className="text-zinc-400">GND</strong>, and data buses.</p>
+              <p className="text-zinc-300">Pick colors to organize <strong className="text-rose-400">VCC</strong>, <strong className="text-zinc-400">GND</strong>, and data paths.</p>
             </div>
           </div>
 
-          <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl space-y-2">
+          {/* Wire & IC Deletion Guide */}
+          <div className="p-2.5 bg-rose-500/10 border border-rose-500/20 rounded-xl space-y-1.5">
+            <h4 className="font-bold text-rose-400 uppercase tracking-wider text-[10px] flex items-center gap-1">
+              <Eraser size={13} /> How to Delete Wires & ICs (Power Must Be OFF)
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+              <div className="bg-zinc-950/80 p-2 rounded border border-zinc-800 flex items-start gap-1.5">
+                <MousePointer size={14} className="text-zinc-400 shrink-0 mt-0.5" />
+                <span><strong className="text-white">Desktop:</strong> Right-click on any wire/IC, or select it and press the <strong className="text-white">Delete</strong> key.</span>
+              </div>
+              <div className="bg-zinc-950/80 p-2 rounded border border-zinc-800 flex items-start gap-1.5">
+                <Eraser size={14} className="text-rose-400 shrink-0 mt-0.5" />
+                <span><strong className="text-white">Tablet/Touch:</strong> Click the <strong className="text-rose-400">Eraser icon</strong> in the bottom toolbar to tap-to-delete.</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-2.5 bg-zinc-900 border border-zinc-800 rounded-xl space-y-1.5">
             <h4 className="font-bold text-amber-400 uppercase tracking-wider text-[10px]">Essential Keyboard Shortcuts</h4>
-            <div className="grid grid-cols-2 gap-2 font-mono text-[11px]">
-              <div className="flex items-center justify-between bg-zinc-950 px-2.5 py-1 rounded border border-zinc-800/80">
+            <div className="grid grid-cols-2 gap-1.5 font-mono text-[10.5px]">
+              <div className="flex items-center justify-between bg-zinc-950 px-2 py-0.5 rounded border border-zinc-800/80">
                 <span>Undo / Redo</span>
                 <span className="text-amber-400 font-bold">Ctrl+Z / Ctrl+Y</span>
               </div>
-              <div className="flex items-center justify-between bg-zinc-950 px-2.5 py-1 rounded border border-zinc-800/80">
+              <div className="flex items-center justify-between bg-zinc-950 px-2 py-0.5 rounded border border-zinc-800/80">
                 <span>Clear All Wires</span>
                 <span className="text-amber-400 font-bold">Ctrl+W</span>
               </div>
-              <div className="flex items-center justify-between bg-zinc-950 px-2.5 py-1 rounded border border-zinc-800/80">
-                <span>Reset Problem</span>
+              <div className="flex items-center justify-between bg-zinc-950 px-2 py-0.5 rounded border border-zinc-800/80">
+                <span>Reset Circuit</span>
                 <span className="text-amber-400 font-bold">Ctrl+R</span>
               </div>
-              <div className="flex items-center justify-between bg-zinc-950 px-2.5 py-1 rounded border border-zinc-800/80">
+              <div className="flex items-center justify-between bg-zinc-950 px-2 py-0.5 rounded border border-zinc-800/80">
                 <span>Power Toggle</span>
                 <span className="text-amber-400 font-bold">Power Switch</span>
               </div>
             </div>
           </div>
-          <p className="text-[11px] text-zinc-400 italic">
-            * Note: When Power is ON (+5V active), wiring changes are locked. Toggle data switches on the board to observe real-time LED responses.
-          </p>
         </div>
       )
     },
