@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { PROBLEMS_INDEX } from '../data/problems';
 import { useSimulatorStore } from '../store/useSimulatorStore';
 import { UserGuideModal } from '../components/UserGuideModal';
+import logo from '../assets/favicon.png';
 import {
   Wrench,
   Cpu,
@@ -66,9 +67,10 @@ export const HomePage = () => {
       {/* Top Navbar */}
       <nav className="border-b border-zinc-800/80 bg-zinc-900/60 backdrop-blur-md sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-amber-500 flex items-center justify-center text-zinc-950 font-bold font-mono">
+          {/* <div className="w-8 h-8 rounded-xl bg-amber-500 flex items-center justify-center text-zinc-950 font-bold font-mono">
             LM
-          </div>
+          </div> */}
+          <img src={logo} alt="" />
           <span className="font-bold text-lg tracking-wider text-white">LogicMan</span>
         </div>
 

@@ -4,6 +4,7 @@ import { useSimulatorStore } from '../store/useSimulatorStore';
 import { getSolutionById } from '../data/solutions';
 import { DebugEditorialModal } from './DebugEditorialModal';
 import { UserGuideModal } from './UserGuideModal';
+import logo from '../assets/favicon2.png'
 import {
   ArrowLeft,
   Award,
@@ -136,9 +137,10 @@ export const SimulatorNavbar = () => {
             title="Back to Homepage"
           >
             <ArrowLeft size={15} className="text-zinc-400 group-hover:-translate-x-0.5 group-hover:text-amber-400 transition-all" />
-            <div className="w-5 h-5 rounded-lg bg-amber-500 flex items-center justify-center text-zinc-950 font-bold font-mono text-[11px]">
+            {/* <div className="w-5 h-5 rounded-lg bg-amber-500 flex items-center justify-center text-zinc-950 font-bold font-mono text-[11px]">
               LM
-            </div>
+            </div> */}
+            <img src={logo} alt="" />
             <span className="font-bold text-xs tracking-wider text-white group-hover:text-amber-400 transition-colors hidden sm:inline">
               LogicMan
             </span>
