@@ -2,11 +2,71 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="./public/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LogicMan</title>
+    
+    <!-- Primary Page Metadata -->
+    <title>LogicMan | Real-World Digital Logic Trainer Board Simulator</title>
+    <meta 
+      name="description" 
+      content="LogicMan is an open-source digital logic trainer board simulator for DLD laboratory courses. Practice wiring 7400-series TTL ICs, breadboards, auto-graded truth tables, and debugging challenges." 
+    />
+    <meta 
+      name="keywords" 
+      content="LogicMan, DLD simulator, digital logic design, TTL 7400 IC, breadboard simulator, logic gate trainer board, truth table tester, circuit simulator, computer science lab" 
+    />
+    <meta name="author" content="Tahsin Ahmad & LogicMan Contributors" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://logic-man.netlify.app/" />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#f59e0b" />
+
+    <!-- Open Graph (Facebook, LinkedIn, Discord, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logic-man.netlify.app/" />
+    <meta property="og:title" content="LogicMan | Digital Logic Trainer Board Simulator" />
+    <meta 
+      property="og:description" 
+      content="Master DLD circuits with a realistic trainer board simulator. Practice 7400-series IC wiring, automated truth table testing, and circuit debugging." 
+    />
+    <meta property="og:image" content="https://logic-man.netlify.app/og-image.png" />
+    <meta property="og:site_name" content="LogicMan" />
+
+    <!-- Twitter / X Card Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://logic-man.netlify.app/" />
+    <meta name="twitter:title" content="LogicMan | Digital Logic Trainer Board Simulator" />
+    <meta 
+      name="twitter:description" 
+      content="Interactive TTL digital logic simulator built for university DLD lab practice, design challenges, and debugging." 
+    />
+    <meta name="twitter:image" content="https://logic-man.netlify.app/og-image.png" />
+
+    <!-- Structured Data (JSON-LD for Google Rich Results) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "LogicMan",
+        "url": "https://logic-man.netlify.app/",
+        "description": "An interactive digital logic trainer board simulator featuring 7400-series TTL IC chips, breadboard wiring, and automated truth table testing.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Tahsin Ahmad",
+          "url": "https://github.com/TahsinAhmadSadik"
+        }
+      }
+    </script>
   </head>
-  <body>
+  <body class="bg-zinc-950 text-zinc-100 antialiased selection:bg-amber-500 selection:text-zinc-950">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
